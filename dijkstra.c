@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   dijkstra.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/02/25 15:58:09 by cjacques         ###   ########.fr       */
+/*   Created: 2016/02/25 11:35:48 by cjacques          #+#    #+#             */
+/*   Updated: 2016/02/25 17:06:54 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-int		main(int ac, char **av)
+int		ft_dijkstra(int **matrix)
 {
-	(void)ac;
-	(void)av;
-	t_node	*node;
-	int		graph[4][4] = {{0, 1, 0, 1}, {1, 0, 1, 0}, {0, 1, 0, 1}, {1, 0, 1, 0}};
-//	if (ac == 1)
-//		return (ft_error());
-//	ft_parse_file(av[1]);
-	ft_dijkstra(graph);
-	return (0);
+		t_list	*Openl;
+		t_list	*Closel;
+
+		(void)matrix;
+		Openl = NULL;
+		Closel = NULL;
+		return (0);
 }

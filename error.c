@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/02/25 15:58:09 by cjacques         ###   ########.fr       */
+/*   Created: 2016/02/24 15:14:31 by cjacques          #+#    #+#             */
+/*   Updated: 2016/02/24 15:15:43 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		main(int ac, char **av)
+int		ft_error(void)
 {
-	(void)ac;
-	(void)av;
-	t_node	*node;
-	int		graph[4][4] = {{0, 1, 0, 1}, {1, 0, 1, 0}, {0, 1, 0, 1}, {1, 0, 1, 0}};
-//	if (ac == 1)
-//		return (ft_error());
-//	ft_parse_file(av[1]);
-	ft_dijkstra(graph);
-	return (0);
+	ft_putstr("ERROR");
+	return (1);
 }

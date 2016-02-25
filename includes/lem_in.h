@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/02/25 15:58:09 by cjacques         ###   ########.fr       */
+/*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
+/*   Updated: 2016/02/25 17:06:53 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#ifndef LEM_IN_H
+# define LEM_IN_H
 
-int		main(int ac, char **av)
+# include <errno.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include "libft.h"
+# include "get_next_line.h"
+
+typedef struct	s_node
 {
-	(void)ac;
-	(void)av;
-	t_node	*node;
-	int		graph[4][4] = {{0, 1, 0, 1}, {1, 0, 1, 0}, {0, 1, 0, 1}, {1, 0, 1, 0}};
-//	if (ac == 1)
-//		return (ft_error());
-//	ft_parse_file(av[1]);
-	ft_dijkstra(graph);
-	return (0);
-}
+	int				id;
+	int				weight;
+	struct s_node	*back;
+	int				parse;
+}				t_node;
+
+int		ft_error(void);
+int		ft_parse_file(char *name);
+int		ft_dijkstra(int **matrix);
+
+#endif
