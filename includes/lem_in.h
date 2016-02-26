@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/02/26 15:55:21 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/02/26 17:46:40 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@
 
 typedef struct	s_node
 {
-	int				id;
+	char			*name;
 	int				weight;
 	struct s_node	*back;
 	int				parse;
 	int				x;
 	int				y;
 	t_list			*edge;
+	struct s_node	*next;
 }				t_node;
 
 typedef enum	e_command
@@ -49,5 +50,7 @@ int				ft_error(void);
 int				ft_parse_file(char *name, t_node **nodes, t_spec *spec);
 int				ft_dijkstra(int **matrix);
 int				ft_check_int(char *str);
+t_node			*ft_new_node(char **room);
+void			ft_add_node(t_node **begin, t_node *tmp);
 
 #endif
