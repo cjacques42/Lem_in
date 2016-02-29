@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/02/26 17:52:22 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/02/29 10:41:18 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,18 @@ int		main(int ac, char **av)
 	if (ft_parse_file(av[1], &nodes, &spec) == 1)
 		return (ft_error());
 //	ft_dijkstra(graph);
-	ft_putnbr(spec.ants);
+//	ft_putnbr(spec.ants);
 	while (nodes != NULL)
 	{
 		ft_putstr(nodes->name);
+		ft_putchar(' ');
+		ft_putnbr(nodes->x);
+		ft_putchar(' ');
+//		if (nodes->status == START)
+//			ft_putnbr(18);
+//		ft_putchar(' ');
+		ft_putnbr(nodes->x);
+		ft_putchar('\n');
 		nodes = nodes->next;
 	}
 	return (0);

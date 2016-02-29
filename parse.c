@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/02/26 17:52:18 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/02/29 10:41:19 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ int		ft_line_ant(int fd, char **line, t_spec *spec)
 
 int		ft_line_room(int fd, char **line, t_node **nodes)
 {
-	char	**room;
-	int		index;
+	char		**room;
+	int			index;
+	t_node		*tmp;
+	t_command	status;
 
 	while (get_next_line(fd, line) > 0)
 	{
@@ -51,15 +53,15 @@ int		ft_line_room(int fd, char **line, t_node **nodes)
 			continue ;
 		index = 0;
 		room = ft_strsplit(*line, ' ');
-		ft_putstr("i");
 		while (room[index] != NULL)
-		{
-			ft_putnbr(index);
 			index++;
-		}
+		if (index == 1 && (status = ft_status(room)) != ROOM)
+				break ;
 		if (index != 3)
 			return (0);
-		ft_add_node(nodes, ft_new_node(room));
+		if ((tmp = ft_new_node(room, status)) == NULL)
+			return (0);
+		ft_add_node(nodes, tmp);
 		free(*line);
 	}
 	return (1);	
@@ -72,12 +74,12 @@ int		ft_line_room(int fd, char **line, t_node **nodes)
 int		ft_file(int fd, t_node **nodes, t_spec *spec)
 {
 	char	*line;
-	
+
 	if (ft_line_ant(fd, &line, spec) == 1)
 		return (1);
 	if (ft_line_room(fd, &line, nodes) == 1)
 		return (1);
-//	ft_line_tunnel(fd, &line, nodes, spec);
+	//	ft_line_tunnel(fd, &line, nodes, spec);
 	return (0);
 }
 
