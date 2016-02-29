@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:30:18 by cjacques          #+#    #+#             */
-/*   Updated: 2016/02/26 15:27:35 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/02/29 11:30:55 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,14 @@ int				ft_check_int(char *str)
 	if (str[i] != 0)
 		return (-1);
 	return (total);
+}
+
+int		ft_nbrstr(char **str)
+{
+	int		index;
+
+	index = 0;
+	while(str[index])
+		index++;
+	return (index);
 }

@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 17:10:32 by cjacques          #+#    #+#             */
-/*   Updated: 2016/02/29 10:41:16 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/02/29 10:52:28 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,17 @@ t_command		ft_status(char **room)
 	t_command		tmp;
 
 	if (ft_strcmp(room[0], "##start") == 0)
+	{
 		tmp = START;
+	}
 	else if (ft_strcmp(room[0], "##end") == 0)
+	{
 		tmp = END;
+	}
 	else
+	{
 		tmp = ROOM;
+	}
 	return (tmp);
 }
 

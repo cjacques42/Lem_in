@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/02/29 10:41:18 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/02/29 11:28:18 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,13 @@ int		main(int ac, char **av)
 		ft_putchar(' ');
 		ft_putnbr(nodes->x);
 		ft_putchar(' ');
-//		if (nodes->status == START)
-//			ft_putnbr(18);
-//		ft_putchar(' ');
+		if (nodes->status == START)
+			ft_putchar('S');
+		if (nodes->status == END)
+			ft_putchar('E');
+		if (nodes->status == ROOM)
+			ft_putchar('R');
+		ft_putchar(' ');
 		ft_putnbr(nodes->x);
 		ft_putchar('\n');
 		nodes = nodes->next;

@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/02/29 10:41:19 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/02/29 11:37:49 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,28 @@ int		ft_line_ant(int fd, char **line, t_spec *spec)
 int		ft_line_room(int fd, char **line, t_node **nodes)
 {
 	char		**room;
-	int			index;
 	t_node		*tmp;
 	t_command	status;
+	int			st;
+	int			end;
 
+	start = 0;
+	end = 0;
 	while (get_next_line(fd, line) > 0)
 	{
 		if (ft_comment(*line) == 1)
 			continue ;
-		index = 0;
 		room = ft_strsplit(*line, ' ');
-		while (room[index] != NULL)
-			index++;
-		if (index == 1 && (status = ft_status(room)) != ROOM)
-				break ;
-		if (index != 3)
+		if (ft_nbrstr(room) == 1 && (status = ft_status(room, st, end)) != ROOM)
+				continue ;
+		if (ft_nbrstr(room) != 3)
 			return (0);
 		if ((tmp = ft_new_node(room, status)) == NULL)
-			return (0);
+			return (1);
 		ft_add_node(nodes, tmp);
 		free(*line);
 	}
-	return (1);	
+	return (0);
 }
 
 //int		ft_line_tunnel(line)
