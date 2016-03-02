@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/02 14:49:06 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/02 17:52:07 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ int				ft_nbrstr(char **str);
 int				ft_search(char *str, t_node **nodes);
 void			ft_edgeadd(t_edge **begin, t_edge *new);
 t_edge			*ft_new_edge(char *line);
-
+void			ft_add_link(char **room, t_node **nodes, int r1, int r2);
 
 #endif

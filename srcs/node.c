@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 17:10:32 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/02 13:47:57 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/02 17:58:37 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ t_node		*ft_new_node(char **room, t_command status)
 	tmp->back = NULL;
 	tmp->weight = -1;
 	tmp->parse = 0;
-	tmp->edge = NULL;
+	tmp->edges = NULL;
 	return (tmp);
 }
