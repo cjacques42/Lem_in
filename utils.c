@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:30:18 by cjacques          #+#    #+#             */
-/*   Updated: 2016/02/29 11:30:55 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/02 10:45:31 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ static int		check_nbr(char c, int total)
 	if (c - '0' > INT_MAX - tmp)
 		return (0);
 	return (1);
+}
+
+int				ft_search(char *str, t_node **nodes)
+{
+	if ((*nodes)->next != NULL)
+		return (0);
+	if (ft_strcmp(str, (*nodes)->name) == 0)
+		return (1);
+	(*nodes) = (*nodes)->next;
+	return (ft_search(str, nodes));
 }
 
 int				ft_check_int(char *str)

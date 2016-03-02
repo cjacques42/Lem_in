@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/02/29 10:41:11 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/02 10:45:34 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ int				ft_check_int(char *str);
 t_node			*ft_new_node(char **room, t_command status);
 void			ft_add_node(t_node **begin, t_node *tmp);
 t_command		ft_status(char **room);
+int				ft_nbrstr(char **str);
+int				ft_search(char *str, t_node **nodes);
 
 #endif

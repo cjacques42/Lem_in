@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/02/29 11:37:49 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/02 10:45:33 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,13 @@ int		ft_line_room(int fd, char **line, t_node **nodes)
 	char		**room;
 	t_node		*tmp;
 	t_command	status;
-	int			st;
-	int			end;
 
-	start = 0;
-	end = 0;
 	while (get_next_line(fd, line) > 0)
 	{
 		if (ft_comment(*line) == 1)
 			continue ;
 		room = ft_strsplit(*line, ' ');
-		if (ft_nbrstr(room) == 1 && (status = ft_status(room, st, end)) != ROOM)
+		if (ft_nbrstr(room) == 1 && (status = ft_status(room)) != ROOM)
 				continue ;
 		if (ft_nbrstr(room) != 3)
 			return (0);
@@ -65,11 +61,40 @@ int		ft_line_room(int fd, char **line, t_node **nodes)
 		free(*line);
 	}
 	return (0);
+
 }
 
-//int		ft_line_tunnel(line)
-//{
-//}*/
+int		ft_check_tunnel(char **room, t_node **nodes, t_spec *spec)
+{
+	int		i;
+	(void)spec;
+	i = 0;
+	if (ft_search(room[0], nodes) == 0 && ft_search(room[1], nodes) == 0)
+		ft_putstr("->");
+	else
+		return (0);
+	return (0);
+}
+
+int		ft_line_tunnel(int fd, char **line, t_node **nodes, t_spec *spec)
+{
+	char	**room;
+	int		index;
+	(void)spec;
+	(void)nodes;
+	while (get_next_line(fd, line) > 0)
+	{
+		if (ft_comment(*line) == 1)
+			continue ;
+		room = ft_strsplit(*line, '-');
+		index = ft_nbrstr(room);
+		if (index == 2)
+			ft_check_tunnel(room, nodes, spec);
+		else
+			return (0);
+	}
+	return (0);
+}
 
 int		ft_file(int fd, t_node **nodes, t_spec *spec)
 {
@@ -79,7 +104,7 @@ int		ft_file(int fd, t_node **nodes, t_spec *spec)
 		return (1);
 	if (ft_line_room(fd, &line, nodes) == 1)
 		return (1);
-	//	ft_line_tunnel(fd, &line, nodes, spec);
+	ft_line_tunnel(fd, &line, nodes, spec);
 	return (0);
 }
 
