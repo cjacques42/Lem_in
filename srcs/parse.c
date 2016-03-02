@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/02 12:43:03 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/02 14:49:23 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int		ft_line_tunnel(int fd, char **line, t_node **nodes, t_spec *spec)
 {
 	char	**room;
 	int		index;
-	(void)spec;
 	(void)nodes;
 	while (get_next_line(fd, line) > 0)
 	{
@@ -89,16 +88,8 @@ int		ft_line_tunnel(int fd, char **line, t_node **nodes, t_spec *spec)
 			continue ;
 		room = ft_strsplit(*line, '-');
 		index = ft_nbrstr(room);
-		if (index == 2)
-		{
-			if (ft_check_tunnel(room, nodes, spec) == 1)
-			{
-				ft_lstadd(spec->&tunnels, ft_lstnew(*line ,sizeof(*line)));
-//				spec->tunnels = ft_lstnew(*line ,sizeof(*line));
-//				ft_putstr(ft_lstnew(*line ,sizeof(*line))->content);
-				ft_putstr(spec->tunnels->content);
-			}
-		}
+		if (index == 2 && ft_check_tunnel(room, nodes, spec) == 1)
+				ft_edgeadd(&(spec->tunnels), ft_new_edge(*line));
 		else
 			return (0);
 	}

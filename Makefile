@@ -6,7 +6,7 @@
 #    By: cjacques <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/27 10:02:34 by cjacques          #+#    #+#              #
-#    Updated: 2016/03/02 10:50:33 by cjacques         ###   ########.fr        #
+#    Updated: 2016/03/02 14:40:24 by cjacques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SHELL = /bin/bash
 
 SRC_NAME =	dijkstra.c			\
 			error.c				\
+			lst.c				\
 			main.c				\
 			node.c				\
 			parse.c				\

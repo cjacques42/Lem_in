@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/02 12:43:04 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/02 14:12:16 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ int		main(int ac, char **av)
 		ft_putchar('\n');
 		nodes = nodes->next;
 	}
-	while (spec.tunnels != NULL)
-	{
-		ft_putstr(spec.tunnels->content);
-		ft_putstr("\n");
-		spec.tunnels = (spec.tunnels)->next;
-	}
+//	while (spec.tunnels != NULL)
+//	{
+//		ft_putstr(spec.tunnels->content);
+//		ft_putstr("\n");
+//		spec.tunnels = (spec.tunnels)->next;
+//	}
 	return (0);
 }
