@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/02 10:45:33 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/02 12:43:03 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,11 @@ int		ft_check_tunnel(char **room, t_node **nodes, t_spec *spec)
 	(void)spec;
 	i = 0;
 	if (ft_search(room[0], nodes) == 0 && ft_search(room[1], nodes) == 0)
-		ft_putstr("->");
+	{
+		return (1);
+	}
 	else
 		return (0);
-	return (0);
 }
 
 int		ft_line_tunnel(int fd, char **line, t_node **nodes, t_spec *spec)
@@ -89,7 +90,15 @@ int		ft_line_tunnel(int fd, char **line, t_node **nodes, t_spec *spec)
 		room = ft_strsplit(*line, '-');
 		index = ft_nbrstr(room);
 		if (index == 2)
-			ft_check_tunnel(room, nodes, spec);
+		{
+			if (ft_check_tunnel(room, nodes, spec) == 1)
+			{
+				ft_lstadd(spec->&tunnels, ft_lstnew(*line ,sizeof(*line)));
+//				spec->tunnels = ft_lstnew(*line ,sizeof(*line));
+//				ft_putstr(ft_lstnew(*line ,sizeof(*line))->content);
+				ft_putstr(spec->tunnels->content);
+			}
+		}
 		else
 			return (0);
 	}
@@ -113,7 +122,11 @@ int		ft_parse_file(char *name, t_node **nodes, t_spec *spec)
 	int			fd;
 
 	fd = open(name, O_RDONLY);
-	ft_file(fd, nodes, spec);
+	if (ft_file(fd, nodes, spec) == 1)
+	{
+		close(fd);
+		return (1);
+	}
 	close(fd);
 	return (0);
 }

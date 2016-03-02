@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/02/29 11:28:18 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/02 12:43:04 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		main(int ac, char **av)
 	t_spec	spec;
 
 	nodes = NULL;
+	spec.tunnels = NULL;
 //	int		graph[4][4] = {{0, 1, 0, 1}, {1, 0, 1, 0}, {0, 1, 0, 1}, {1, 0, 1, 0}};
 	if (ac != 2)
 		return (ft_error());
@@ -41,6 +42,12 @@ int		main(int ac, char **av)
 		ft_putnbr(nodes->x);
 		ft_putchar('\n');
 		nodes = nodes->next;
+	}
+	while (spec.tunnels != NULL)
+	{
+		ft_putstr(spec.tunnels->content);
+		ft_putstr("\n");
+		spec.tunnels = (spec.tunnels)->next;
 	}
 	return (0);
 }
