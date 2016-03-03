@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/02 17:58:33 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/03 10:04:31 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		ft_comment(char *line)
 {
 	if (ft_strlen(line) > 2  && line[0] == '#' && line[1] != '#')
 	{
-		free(line);
+//		free(line);
 		return (1);
 	}
 	return (0);
@@ -40,7 +40,7 @@ int		ft_line_ant(int fd, char **line, t_spec *spec)
 	return (1);
 }
 
-int		ft_line_room(int fd, char **line, t_node **nodes)
+/*int		ft_line_room(int fd, char **line, t_node **nodes)
 {
 	char		**room;
 	t_node		*tmp;
@@ -52,7 +52,7 @@ int		ft_line_room(int fd, char **line, t_node **nodes)
 			continue ;
 		room = ft_strsplit(*line, ' ');
 		if (ft_nbrstr(room) == 1 && (status = ft_status(room)) != ROOM)
-				continue ;
+			continue ;
 		if (ft_nbrstr(room) != 3)
 			return (0);
 		if ((tmp = ft_new_node(room, status)) == NULL)
@@ -61,7 +61,50 @@ int		ft_line_room(int fd, char **line, t_node **nodes)
 		free(*line);
 	}
 	return (0);
+}*/
 
+int		ft_check_room(char **line, t_node **nodes, int *start, int *end)
+{
+	int			index;
+	char		**room;
+	t_command	status;
+	t_node		*tmp;
+	int			ret;
+
+	index = 0;
+	room = ft_strsplit(*line, ' ');
+	index = ft_nbrstr(room);
+	if (index == 1)
+	{
+		if ((ret = ft_status(room, &status, start, end)) == 0)
+			return (0);
+		else if (ret == 1)
+			return (1);
+	}
+	if (index != 3)
+		return (1);
+	if ((tmp = ft_new_node(room, status)) == NULL)
+		return (1);
+	ft_add_node(nodes, tmp);
+	return (0);
+}
+
+int		ft_line_room(int fd, char **line, t_node **nodes)
+{
+	int			start;
+	int			end;
+
+	start = 0;
+	end = 0;
+	while (get_next_line(fd, line) > 0)
+	{
+		if (ft_comment(*line) == 1)
+			continue ;
+		if (ft_check_room(line, nodes, &start, &end) == 1)
+			return (0);
+		free(*line);
+	}
+	return (1);
 }
 
 int		ft_check_tunnel(char **room, t_node **nodes, t_spec *spec)
@@ -90,8 +133,8 @@ int		ft_line_tunnel(int fd, char **line, t_node **nodes, t_spec *spec)
 		index = ft_nbrstr(room);
 		if (index == 2 && ft_check_tunnel(room, nodes, spec) == 1)
 		{
-				ft_edgeadd(&(spec->tunnels), ft_new_edge(*line));
-				ft_add_link(room, nodes, 1, 1);
+			ft_edgeadd(&(spec->tunnels), ft_new_edge(*line));
+			ft_add_link(room, nodes, 1, 1);
 		}
 		else
 			return (0);

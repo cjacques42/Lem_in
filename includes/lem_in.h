@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/02 17:52:07 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/03 10:01:06 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int				ft_dijkstra(int **matrix);
 int				ft_check_int(char *str);
 t_node			*ft_new_node(char **room, t_command status);
 void			ft_add_node(t_node **begin, t_node *tmp);
-t_command		ft_status(char **room);
+int				ft_status(char **room, t_command *status, int *start, int *end);
 int				ft_nbrstr(char **str);
 int				ft_search(char *str, t_node **nodes);
 void			ft_edgeadd(t_edge **begin, t_edge *new);
