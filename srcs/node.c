@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 17:10:32 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/03 10:04:33 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/03 12:16:09 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ int		ft_status(char **room, t_command *status, int *start, int *end)
 		(*end)++;
 		return (0);
 	}
-	else
-	{
-		*status = ROOM;
-		return (-1);
-	}
+	return (1);
 }
 
 void		ft_add_node(t_node **begin, t_node *tmp)
@@ -87,7 +83,10 @@ t_node		*ft_new_node(char **room, t_command status)
 	tmp->status = status;
 	tmp->next = NULL;
 	tmp->back = NULL;
-	tmp->weight = -1;
+	if (status == START)
+		tmp->weight = 0;
+	else
+		tmp->weight = -1;
 	tmp->parse = 0;
 	tmp->edges = NULL;
 	return (tmp);
