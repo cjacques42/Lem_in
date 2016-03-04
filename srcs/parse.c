@@ -6,20 +6,20 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/04 13:03:50 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/04 14:40:04 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		ft_comment(char *line)
+int				ft_comment(char *line)
 {
-	if (ft_strlen(line) > 2  && line[0] == '#' && line[1] != '#')
+	if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
 		return (1);
 	return (0);
 }
 
-int		ft_line_ant(char **line, t_spec *spec, int *val)
+int				ft_line_ant(char **line, t_spec *spec, int *val)
 {
 	int		nb_ants;
 
@@ -32,7 +32,7 @@ int		ft_line_ant(char **line, t_spec *spec, int *val)
 	return (0);
 }
 
-int		ft_line_room(char **line, t_spec *spec, int *val)
+int				ft_line_room(char **line, t_spec *spec, int *val)
 {
 	int		index;
 	char	*tmp;
@@ -40,11 +40,13 @@ int		ft_line_room(char **line, t_spec *spec, int *val)
 
 	index = 0;
 	ft_addback(&(spec->rooms), ft_new_data(*line));
+	if (ft_strcmp(*line, "##start") == 0 || ft_strcmp(*line, "##end") == 0)
+		return (0);
 	tmp = ft_strtok(*line, " ");
 	while (tmp != NULL)
 	{
 		if (index == 0 && tmp[0] != 'L')
-			;		
+			;
 		else if (index == 1 || index == 2)
 		{
 			j = 0;
@@ -54,19 +56,22 @@ int		ft_line_room(char **line, t_spec *spec, int *val)
 				return (1);
 		}
 		else
-			return (1);
+			break ;
 		tmp = ft_strtok(NULL, " ");
 		index++;
 	}
-	if (index == 1 && (ft_strcmp(*line, "##start") == 0
-				|| ft_strcmp(*line, "##end") == 0))
-//	{
-//		ft_addback(&(spec->rooms), ft_new_data(*line));
-//	}
-	return (0);
+	if (index == 1)
+	{
+		(*val)++;
+		return (0);
+	}
+	else if (index == 3)
+		return (0);
+	else
+		return (1);
 }
 
-int		ft_line_tunnel(char **line, t_spec *spec, int *val)
+int				ft_line_tunnel(char **line, t_spec *spec, int *val)
 {
 	(void)line;
 	(void)spec;
@@ -74,15 +79,14 @@ int		ft_line_tunnel(char **line, t_spec *spec, int *val)
 	return (0);
 }
 
-
-int		ft_parse_file(char *name, t_node **nodes, t_spec *spec)
+int				ft_parse_file(char *name, t_node **nodes, t_spec *spec)
 {
 	int			fd;
 	char		*line;
 	int			(*function[3]) (char**, t_spec*, int*);
 	int			val;
-	(void)		nodes;
 
+	(void)nodes;
 	val = 0;
 	fd = open(name, O_RDONLY);
 	function[0] = ft_line_ant;
@@ -92,7 +96,8 @@ int		ft_parse_file(char *name, t_node **nodes, t_spec *spec)
 	{
 		if (ft_comment(line) == 1)
 			continue ;
-		(*function[val])(&line, spec, &val);
+		if ((*function[val])(&line, spec, &val) == 1)
+			return (1);
 	}
 	close(fd);
 	return (0);
