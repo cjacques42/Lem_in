@@ -6,15 +6,15 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 14:05:48 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/02 14:43:18 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/04 12:39:12 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	ft_edgeadd(t_edge **begin, t_edge *new)
+void	ft_dataadd(t_data **begin, t_data *new)
 {
-	t_edge	*tmp;
+	t_data	*tmp;
 
 	tmp = NULL;
 	tmp = *begin;
@@ -22,14 +22,24 @@ void	ft_edgeadd(t_edge **begin, t_edge *new)
 	(*begin)->next = tmp;
 }
 
-t_edge	*ft_new_edge(char *line)
+void	ft_addback(t_data **begin, t_data *new)
 {
-	t_edge	*elem;
+	if ((*begin) == NULL)
+	{
+		(*begin) = new;
+		return ;
+	}
+	ft_addback(&(*begin)->next, new);
+}
 
-	elem = (t_edge*)malloc(sizeof(*elem));
+t_data	*ft_new_data(char *line)
+{
+	t_data	*elem;
+
+	elem = (t_data*)malloc(sizeof(*elem));
 	if (elem == NULL)
 		return (NULL);
-	elem->link = ft_strdup(line);
+	elem->str = ft_strdup(line);
 	elem->next = NULL;
 	return (elem);
 }

@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 14:59:39 by cjacques          #+#    #+#             */
-/*   Updated: 2016/01/25 12:21:10 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/04 10:48:46 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void			ft_putwstr(wchar_t *wstr);
 void			ft_putwstr_fd(wchar_t *wstr, int fd);
 size_t			ft_wstrlen(wchar_t *wstr);
 size_t			ft_wcharlen(wchar_t wchar);
+char			*ft_strtok(char *str, const char *sep);
 
 void			*ft_memalloc(size_t size);
 void			ft_memdel(void **ap);

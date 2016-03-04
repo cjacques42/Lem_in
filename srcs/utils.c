@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:30:18 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/03 14:38:30 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/04 12:21:58 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ void	ft_add_link(char **room, t_node **nodes, int r1, int r2)
 	{
 		r1 = ft_strcmp(room[0], (*nodes)->name);
 		if (r1 == 0)
-			ft_edgeadd(&((*nodes)->edges), ft_new_edge(room[1]));
+			ft_dataadd(&((*nodes)->edges), ft_new_data(room[1]));
 	}
 	else if (r2 != 0)
 	{
 		r2 = ft_strcmp(room[1], (*nodes)->name);
 		if (r2 == 0)
-			ft_edgeadd(&((*nodes)->edges), ft_new_edge(room[0]));
+			ft_dataadd(&((*nodes)->edges), ft_new_data(room[0]));
 	}
 	ft_add_link(room, &((*nodes)->next), r1, r2);
 }
