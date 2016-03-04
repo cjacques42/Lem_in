@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/04 14:27:54 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/04 16:23:42 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		main(int ac, char **av)
 	spec.tunnels = NULL;
 	if (ac != 2)
 		return (ft_error());
-	if (ft_parse_file(av[1], &nodes, &spec) == 1)
+	if (ft_parse_file(av[1], &spec) == 1)
 		return (ft_error());
 //	ft_dijkstra(graph);
 //	ft_putnbr(spec.ants);
@@ -54,6 +54,12 @@ int		main(int ac, char **av)
 		ft_putstr(spec.rooms->str);
 		ft_putstr("\n");
 		spec.rooms = spec.rooms->next;
+	}
+	while (spec.tunnels != NULL)
+	{
+		ft_putstr(spec.tunnels->str);
+		ft_putstr("\n");
+		spec.tunnels = spec.tunnels->next;
 	}
 	return (0);
 }

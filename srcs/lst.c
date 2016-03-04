@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 14:05:48 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/04 15:16:04 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/04 16:52:57 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,18 @@ void	ft_addback(t_data **begin, t_data *new)
 		return ;
 	}
 	ft_addback(&(*begin)->next, new);
+}
+
+void	ft_datadelone(t_data **begin)
+{
+	if ((*begin)->next == NULL)
+	{
+		free((*begin)->str);
+		free(*begin);
+		*begin = NULL;
+		return ;
+	}
+	ft_datadelone(&(*begin)->next);
 }
 
 t_data	*ft_new_data(char *line)

@@ -6,18 +6,11 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/04 14:40:04 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/04 16:53:21 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-int				ft_comment(char *line)
-{
-	if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
-		return (1);
-	return (0);
-}
 
 int				ft_line_ant(char **line, t_spec *spec, int *val)
 {
@@ -28,7 +21,6 @@ int				ft_line_ant(char **line, t_spec *spec, int *val)
 		return (1);
 	spec->ants = nb_ants;
 	(*val)++;
-	free(*line);
 	return (0);
 }
 
@@ -60,33 +52,42 @@ int				ft_line_room(char **line, t_spec *spec, int *val)
 		tmp = ft_strtok(NULL, " ");
 		index++;
 	}
-	if (index == 1)
-	{
-		(*val)++;
-		return (0);
-	}
-	else if (index == 3)
-		return (0);
+	if (index == 1 || index == 3)
+		(*val) += (index == 1) ? 1 : 0;
 	else
 		return (1);
+	return (0);
 }
 
 int				ft_line_tunnel(char **line, t_spec *spec, int *val)
 {
-	(void)line;
-	(void)spec;
-	(void)val;
+	char	*tmp;
+	int		index;
+
+	index = 0;
+	ft_addback(&(spec->tunnels), ft_new_data(*line));
+	tmp = ft_strtok(*line, "-");
+	while (tmp != NULL)
+	{
+		tmp = ft_strtok(NULL, "-");
+		index++;
+	}
+	if (index != 2)
+	{
+		ft_datadelone(&(spec->tunnels));
+		(*val)++;
+	}
 	return (0);
 }
 
-int				ft_parse_file(char *name, t_node **nodes, t_spec *spec)
+int				ft_parse_file(char *name, t_spec *spec)
 {
 	int			fd;
 	char		*line;
 	int			(*function[3]) (char**, t_spec*, int*);
 	int			val;
+	int			tmp;
 
-	(void)nodes;
 	val = 0;
 	fd = open(name, O_RDONLY);
 	function[0] = ft_line_ant;
@@ -94,10 +95,22 @@ int				ft_parse_file(char *name, t_node **nodes, t_spec *spec)
 	function[2] = ft_line_tunnel;
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (ft_comment(line) == 1)
-			continue ;
-		if ((*function[val])(&line, spec, &val) == 1)
+		tmp = val;
+		if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
+			;
+		else if ((*function[val])(&line, spec, &val) == 1)
+		{
+			free(line);
 			return (1);
+		}
+		if (val == 2 && val != tmp)
+		{
+			ft_datadelone(&(spec->rooms));
+			(*function[val])(&line, spec, &val);
+		}
+		free(line);
+		if (val == 3)
+			return (0);
 	}
 	close(fd);
 	return (0);
