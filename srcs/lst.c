@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 14:05:48 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/04 16:52:57 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/07 09:20:55 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ void	ft_datadelone(t_data **begin)
 		return ;
 	}
 	ft_datadelone(&(*begin)->next);
+}
+
+void	ft_datadel(t_data **begin)
+{
+	if ((*begin) == NULL)
+		return ;
+	ft_datadel(&(*begin)->next);
+	free((*begin)->str);
+	free(*begin);
+	(*begin) = NULL;
 }
 
 t_data	*ft_new_data(char *line)

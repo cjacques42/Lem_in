@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/04 17:11:14 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/07 09:37:06 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,7 @@ void			ft_addback(t_data **begin, t_data *new);
 t_data			*ft_new_data(char *line);
 void			ft_add_link(char **room, t_node **nodes, int r1, int r2);
 void			ft_datadelone(t_data **begin);
-void			ft_check(t_spec *spec);
+void			ft_datadel(t_data **begin);
+int				ft_checkdata(t_spec *spec);
+
 #endif

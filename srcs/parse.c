@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/04 17:06:03 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/07 10:26:40 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,11 @@ int				ft_parse_file(char *name, t_spec *spec)
 	int			tmp;
 
 	val = 0;
-	fd = open(name, O_RDONLY);
+	if ((fd = open(name, O_RDONLY)) == -1)
+	{
+		perror("Open");
+		return (-1);
+	}
 	function[0] = ft_line_ant;
 	function[1] = ft_line_room;
 	function[2] = ft_line_tunnel;
@@ -112,6 +116,10 @@ int				ft_parse_file(char *name, t_spec *spec)
 		if (val == 3)
 			return (0);
 	}
-	close(fd);
+	if (close(fd) == -1)
+	{
+		perror("Close");
+		return (-1);
+	}
 	return (0);
 }
