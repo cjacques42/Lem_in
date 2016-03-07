@@ -6,11 +6,23 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/07 16:30:25 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/07 17:13:00 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+int				ft_comment(char *line)
+{
+		if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
+			return (1);
+		else if (line[0] == '#' && line[1] == '#' && 
+				 ft_strcmp(line, "##end") != 0 &&
+				 ft_strcmp(line, "##start") != 0)
+			return (1);
+		else
+			return (0);
+}
 
 int				ft_line_ant(char **line, t_spec *spec, int *val)
 {
@@ -94,7 +106,7 @@ int				ft_parse_file(t_spec *spec)
 	while (get_next_line(0, &line) > 0)
 	{
 		tmp = val;
-		if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
+		if (ft_comment(line) == 1)
 			;
 		else if ((*function[val])(&line, spec, &val) == 1)
 		{

@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:14:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/04 17:12:21 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/07 17:25:52 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ void	ft_check(t_spec *spec)
 
 void	ft_error(void)
 {
-	ft_putstr("ERROR\n");
+	ft_putstr_fd("ERROR\n", 2);
 	exit (1);
 }

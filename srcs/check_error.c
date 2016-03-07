@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 08:57:48 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/07 16:30:30 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/07 18:16:38 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,39 @@ int		ft_checkstend(t_data *rooms)
 	return (0);
 }
 
-int		ft_checktunnels(t_data *rooms, t_data *tunnels)
+int		ft_checkstart(t_data *rooms, t_data *tunnels)
 {
 	(void)rooms;
 	(void)tunnels;
-	return (0);
+	return (1);
+}
+
+int		ft_checkend(t_data *rooms, t_data *tunnels)
+{
+	t_data	*tmp;
+	char	*str;
+	chat	*ptr;
+
+	tmp = rooms;
+	str = ft_strdup(tunnels->str);
+	ptr = ft_strtok(str, '-');
+	while (tmp != NULL)
+	{
+		if (ft_strcmp)
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+int		ft_checktunnels(t_data *rooms, t_data *tunnels)
+{
+	if (tunnels == NULL)
+		return (0);
+	if (ft_checkbegin(rooms, tunnels) == 1)
+		ft_error();
+	if (ft_checkend(rooms, tunnels) == 1)
+		ft_error();
+	ft_checktunnels(rooms, tunnels->next);
 }
 
 int		ft_checkdata(t_spec *rooms)
