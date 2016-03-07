@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/07 10:26:40 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/07 16:30:25 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,18 @@ int				ft_line_tunnel(char **line, t_spec *spec, int *val)
 	return (0);
 }
 
-int				ft_parse_file(char *name, t_spec *spec)
+int				ft_parse_file(t_spec *spec)
 {
-	int			fd;
 	char		*line;
 	int			(*function[3]) (char**, t_spec*, int*);
 	int			val;
 	int			tmp;
 
 	val = 0;
-	if ((fd = open(name, O_RDONLY)) == -1)
-	{
-		perror("Open");
-		return (-1);
-	}
 	function[0] = ft_line_ant;
 	function[1] = ft_line_room;
 	function[2] = ft_line_tunnel;
-	while (get_next_line(fd, &line) > 0)
+	while (get_next_line(0, &line) > 0)
 	{
 		tmp = val;
 		if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
@@ -115,11 +109,6 @@ int				ft_parse_file(char *name, t_spec *spec)
 		free(line);
 		if (val == 3)
 			return (0);
-	}
-	if (close(fd) == -1)
-	{
-		perror("Close");
-		return (-1);
 	}
 	return (0);
 }
