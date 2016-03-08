@@ -63,27 +63,59 @@ int		ft_checkstend(t_data *rooms)
 	return (0);
 }
 
-int		ft_checkstart(t_data *rooms, t_data *tunnels)
+int		ft_checkbegin(t_data *rooms, t_data *tunnels)
 {
-	(void)rooms;
-	(void)tunnels;
+	t_data	*tmp;
+	char	*str_r;
+	char	*str_t;
+	char	*ptr_r;
+	char	*ptr_t;
+
+	tmp = rooms;
+	str_t = ft_strdup(tunnels->str);
+	ptr_t = ft_strtok(str_t, "-");
+	while (tmp != NULL)
+	{
+		str_r = ft_strdup(tmp->str);
+		ptr_r = ft_strtok(str_r, " ");
+		if (ft_strcmp(ptr_t, ptr_r) == 0)
+		{
+			free(str_t);
+			return (0);
+		}
+		tmp = tmp->next;
+		free(str_r);
+	}
+	free(str_t);
 	return (1);
 }
 
 int		ft_checkend(t_data *rooms, t_data *tunnels)
 {
 	t_data	*tmp;
-	char	*str;
-	chat	*ptr;
+	char	*str_r;
+	char	*str_t;
+	char	*ptr_r;
+	char	*ptr_t;
 
 	tmp = rooms;
-	str = ft_strdup(tunnels->str);
-	ptr = ft_strtok(str, '-');
+	str_t = ft_strdup(tunnels->str);
+	ft_strtok(str_t, "-");
+	ptr_t = ft_strtok(NULL, "-");
 	while (tmp != NULL)
 	{
-		if (ft_strcmp)
+		str_r = ft_strdup(tmp->str);
+		ft_strtok(str_r, " ");
+		ptr_r = ft_strtok(str_r, " ");
+		if (ft_strcmp(ptr_t, ptr_r) == 0)
+		{
+			free(str_t);
+			return (0);
+		}
 		tmp = tmp->next;
+		free(str_r);
 	}
+	free(str_t);
 	return (1);
 }
 
@@ -96,6 +128,7 @@ int		ft_checktunnels(t_data *rooms, t_data *tunnels)
 	if (ft_checkend(rooms, tunnels) == 1)
 		ft_error();
 	ft_checktunnels(rooms, tunnels->next);
+	return (0);
 }
 
 int		ft_checkdata(t_spec *rooms)
