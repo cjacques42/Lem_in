@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:30:18 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/09 12:39:00 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/09 14:54:39 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,22 @@ int		ft_nbrstr(char **str)
 	return (index);
 }
 
-void			ft_add_link(char **room, t_node **nodes)
+void			ft_link(char **room, t_node **nodes)
 {
 	int			index;
-	t_nodes		*tmp;
-	t_nodes		*ptr;
+	t_node		*tmp;
+	t_node		*ptr;
 
 	tmp = *nodes;
-	while (tmp == NULL)
+	ptr = *nodes;
+	while (tmp != NULL)
 	{
 		if (ft_strcmp(room[0], tmp->name) == 0)
 		{
 			index = tmp->index;
-			while ()
+			while (ft_strcmp(room[1], ptr->name) == 0)
+				ptr = ptr->next;
+			ft_addlink(&ptr->edges, ft_newlink(index));
 			break ;
 		}
 		tmp = tmp->next;

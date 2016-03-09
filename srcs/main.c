@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/09 11:49:15 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/09 14:54:41 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ int		main(void)
 	}*/
 	while (nodes != NULL)
 	{
+		ft_putnbr(nodes->index);
+		ft_putchar(' ');
 		ft_putstr(nodes->name);
+//		ft_putchar(' ');
+//		ft_putnbr(nodes->edges->id);
 		ft_putchar('\n');
 		nodes = nodes->next;
 	}

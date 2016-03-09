@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/09 11:58:22 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/09 14:48:39 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct	s_node
 	char			*name;
 	int				x;
 	int				y;
-	struct s_data	*edges;
+	struct s_link	*edges;
 	struct s_node	*back;
 	struct s_node	*next;
 }				t_node;
@@ -47,6 +47,12 @@ typedef	struct	s_spec
 	struct s_data	*rooms;
 	struct s_data	*tunnels;
 }				t_spec;
+
+typedef struct	s_link
+{
+	int				*id;
+	struct s_link	*next;
+}				t_link;
 
 typedef struct	s_data
 {
@@ -67,10 +73,12 @@ int				ft_search(char *str, t_node **nodes);
 void			ft_dataadd(t_data **begin, t_data *new);
 void			ft_addback(t_data **begin, t_data *new);
 t_data			*ft_new_data(char *line);
-void			ft_add_link(char **room, t_node **nodes);
+void			ft_link(char **room, t_node **nodes);
 void			ft_datadelone(t_data **begin);
 void			ft_datadel(t_data **begin);
 int				ft_checkdata(t_spec *spec);
 int				ft_stock(t_spec *spec, t_node **nodes);
+void			ft_addlink(t_link **begin, t_link *new);
+t_link			*ft_newlink(int id);
 
 #endif
