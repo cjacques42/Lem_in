@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:59:30 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/09 12:39:02 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/09 15:29:24 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		ft_stock(t_spec *spec, t_node **nodes)
 	while (tmp != NULL)
 	{
 		ptr = ft_strsplit(tmp->str, '-');
-		ft_add_link(ptr, nodes);
+		ft_link(ptr, nodes);
 		tmp = tmp->next;
 	}
 	return (0);

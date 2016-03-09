@@ -6,11 +6,12 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/09 14:54:41 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/09 15:45:45 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include <stdio.h>
 
 int		main(void)
 {
@@ -44,11 +45,10 @@ int		main(void)
 	}*/
 	while (nodes != NULL)
 	{
-		ft_putnbr(nodes->index);
-		ft_putchar(' ');
-		ft_putstr(nodes->name);
-//		ft_putchar(' ');
-//		ft_putnbr(nodes->edges->id);
+		printf("id: %d name: %s edge: %d \n", nodes->index, nodes->name,
+				*nodes->edges->id);
+		if (nodes->edges->next != NULL)
+			ft_putnbr(*nodes->edges->next->id);
 		ft_putchar('\n');
 		nodes = nodes->next;
 	}
