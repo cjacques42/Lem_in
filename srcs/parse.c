@@ -6,168 +6,121 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/03 12:16:14 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/07 17:13:00 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		ft_comment(char *line)
+int				ft_comment(char *line)
 {
-	if (ft_strlen(line) > 2  && line[0] == '#' && line[1] != '#')
-	{
-		free(line);
-		return (1);
-	}
-	return (0);
+		if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
+			return (1);
+		else if (line[0] == '#' && line[1] == '#' && 
+				 ft_strcmp(line, "##end") != 0 &&
+				 ft_strcmp(line, "##start") != 0)
+			return (1);
+		else
+			return (0);
 }
 
-int		ft_line_ant(int fd, char **line, t_spec *spec)
+int				ft_line_ant(char **line, t_spec *spec, int *val)
 {
 	int		nb_ants;
 
 	spec->ants = 0;
-	while (get_next_line(fd, line) > 0)
-	{
-		if (ft_comment(*line) == 1)
-			continue ;
-		if ((nb_ants = ft_check_int(*line)) == -1)
-			return (1);
-		spec->ants = nb_ants;
-		free(*line);
-		return (0);
-	}
-	return (1);
+	if ((nb_ants = ft_check_int(*line)) == -1)
+		return (1);
+	spec->ants = nb_ants;
+	(*val)++;
+	return (0);
 }
 
-/*int		ft_line_room(int fd, char **line, t_node **nodes)
+int				ft_line_room(char **line, t_spec *spec, int *val)
 {
-	char		**room;
-	t_node		*tmp;
-	t_command	status;
-
-	while (get_next_line(fd, line) > 0)
-	{
-		if (ft_comment(*line) == 1)
-			continue ;
-		room = ft_strsplit(*line, ' ');
-		if (ft_nbrstr(room) == 1 && (status = ft_status(room)) != ROOM)
-			continue ;
-		if (ft_nbrstr(room) != 3)
-			return (0);
-		if ((tmp = ft_new_node(room, status)) == NULL)
-			return (1);
-		ft_add_node(nodes, tmp);
-		free(*line);
-	}
-	return (0);
-}*/
-
-int		ft_check_room(char **line, t_node **nodes, int *start, int *end
-		, t_command	*status)
-{
-	int			index;
-	char		**room;
-	t_node		*tmp;
-	int			ret;
+	int		index;
+	char	*tmp;
+	int		j;
 
 	index = 0;
-	room = ft_strsplit(*line, ' ');
-	index = ft_nbrstr(room);
-	if (index == 1)
-	{
-		if ((ret = ft_status(room, status, start, end)) == 0)
-			return (0);
-		else if (ret == 1)
-			return (1);
-	}
-	if (index != 3)
-		return (1);
-	if ((tmp = ft_new_node(room, *status)) == NULL)
-		return (1);
-	ft_add_node(nodes, tmp);
-	*status = ROOM;
-	return (0);
-}
-
-int		ft_line_room(int fd, char **line, t_node **nodes)
-{
-	int			start;
-	int			end;
-	t_command	status;
-
-	status = ROOM;
-	start = 0;
-	end = 0;
-	while (get_next_line(fd, line) > 0)
-	{
-		if (ft_comment(*line) == 1)
-			continue ;
-		if (ft_check_room(line, nodes, &start, &end, &status) == 1)
-			return (0);
-		free(*line);
-	}
-	return (1);
-}
-
-int		ft_check_tunnel(char **room, t_node **nodes, t_spec *spec)
-{
-	int		i;
-	(void)spec;
-	i = 0;
-	if (ft_search(room[0], nodes) == 0 && ft_search(room[1], nodes) == 0)
-	{
-		return (1);
-	}
-	else
+	ft_addback(&(spec->rooms), ft_new_data(*line));
+	if (ft_strcmp(*line, "##start") == 0 || ft_strcmp(*line, "##end") == 0)
 		return (0);
-}
-
-int		ft_line_tunnel(int fd, char **line, t_node **nodes, t_spec *spec)
-{
-	char	**room;
-	int		index;
-
-	while (get_next_line(fd, line) > 0)
+	tmp = ft_strtok(*line, " ");
+	while (tmp != NULL)
 	{
-		if (ft_comment(*line) == 1)
-			continue ;
-		room = ft_strsplit(*line, '-');
-		index = ft_nbrstr(room);
-		if (index == 2 && ft_check_tunnel(room, nodes, spec) == 1)
+		if (index == 0 && tmp[0] != 'L')
+			;
+		else if (index == 1 || index == 2)
 		{
-			ft_edgeadd(&(spec->tunnels), ft_new_edge(*line));
-			ft_add_link(room, nodes, 1, 1);
+			j = 0;
+			while (ft_isdigit(tmp[j]) == 1)
+				j++;
+			if (tmp[j] != 0)
+				return (1);
 		}
 		else
-			return (0);
-		free(*line);
+			break ;
+		tmp = ft_strtok(NULL, " ");
+		index++;
 	}
+	if (index == 1 || index == 3)
+		(*val) += (index == 1) ? 1 : 0;
+	else
+		return (1);
 	return (0);
 }
 
-int		ft_file(int fd, t_node **nodes, t_spec *spec)
+int				ft_line_tunnel(char **line, t_spec *spec, int *val)
 {
-	char	*line;
+	char	*tmp;
+	int		index;
 
-	if (ft_line_ant(fd, &line, spec) == 1)
-		return (1);
-	if (ft_line_room(fd, &line, nodes) == 1)
-		return (1);
-	ft_line_tunnel(fd, &line, nodes, spec);
-	return (0);
-}
-
-int		ft_parse_file(char *name, t_node **nodes, t_spec *spec)
-{
-	int			fd;
-
-	fd = open(name, O_RDONLY);
-	if (ft_file(fd, nodes, spec) == 1)
+	index = 0;
+	ft_addback(&(spec->tunnels), ft_new_data(*line));
+	tmp = ft_strtok(*line, "-");
+	while (tmp != NULL)
 	{
-		close(fd);
-		return (1);
+		tmp = ft_strtok(NULL, "-");
+		index++;
 	}
-	close(fd);
+	if (index != 2)
+	{
+		ft_datadelone(&(spec->tunnels));
+		(*val)++;
+	}
+	return (0);
+}
+
+int				ft_parse_file(t_spec *spec)
+{
+	char		*line;
+	int			(*function[3]) (char**, t_spec*, int*);
+	int			val;
+	int			tmp;
+
+	val = 0;
+	function[0] = ft_line_ant;
+	function[1] = ft_line_room;
+	function[2] = ft_line_tunnel;
+	while (get_next_line(0, &line) > 0)
+	{
+		tmp = val;
+		if (ft_comment(line) == 1)
+			;
+		else if ((*function[val])(&line, spec, &val) == 1)
+		{
+			free(line);
+			return (1);
+		}
+		if (val == 2 && val != tmp)
+		{
+			ft_datadelone(&(spec->rooms));
+			(*function[val])(&line, spec, &val);
+		}
+		free(line);
+		if (val == 3)
+			return (0);
+	}
 	return (0);
 }

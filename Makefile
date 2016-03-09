@@ -6,7 +6,7 @@
 #    By: cjacques <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/27 10:02:34 by cjacques          #+#    #+#              #
-#    Updated: 2016/03/02 14:40:24 by cjacques         ###   ########.fr        #
+#    Updated: 2016/03/09 14:48:19 by cjacques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,15 @@ OBJ_PATH = obj/
 SRC_PATH = srcs/
 SHELL = /bin/bash
 
-SRC_NAME =	dijkstra.c			\
+SRC_NAME =	check_error.c		\
+			link.c				\
+			dijkstra.c			\
 			error.c				\
 			lst.c				\
 			main.c				\
 			node.c				\
 			parse.c				\
+			stockage.c			\
 			utils.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
