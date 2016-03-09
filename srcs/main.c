@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/07 18:16:45 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/09 11:49:15 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ int		main(void)
 	int		val;
 
 	nodes = NULL;
+	spec.rooms = NULL;
 	spec.tunnels = NULL;
 	if ((val = ft_parse_file(&spec)) == 1)
 		ft_error();
 	else if (val == -1)
 		return (1);
 	ft_checkdata(&spec);
+	ft_stock(&spec, &nodes);
 //	ft_dijkstra(graph);
-	ft_putnbr(spec.ants);
+/*	ft_putnbr(spec.ants);
 	ft_putchar('\n');
 	while (spec.rooms != NULL)
 	{
@@ -39,6 +41,12 @@ int		main(void)
 		ft_putstr(spec.tunnels->str);
 		ft_putstr("\n");
 		spec.tunnels = spec.tunnels->next;
+	}*/
+	while (nodes != NULL)
+	{
+		ft_putstr(nodes->name);
+		ft_putchar('\n');
+		nodes = nodes->next;
 	}
 	ft_datadel(&spec.rooms);
 	ft_datadel(&spec.tunnels);

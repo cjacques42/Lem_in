@@ -6,7 +6,7 @@
 #    By: cjacques <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/27 10:02:34 by cjacques          #+#    #+#              #
-#    Updated: 2016/03/07 09:38:18 by cjacques         ###   ########.fr        #
+#    Updated: 2016/03/09 10:25:13 by cjacques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC_NAME =	check_error.c		\
 			main.c				\
 			node.c				\
 			parse.c				\
+			stockage.c				\
 			utils.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)

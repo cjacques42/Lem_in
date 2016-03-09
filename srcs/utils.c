@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 14:30:18 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/07 18:16:42 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/09 12:39:00 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,21 @@ int		ft_nbrstr(char **str)
 	return (index);
 }
 
-void			ft_add_link(char **room, t_node **nodes, int r1, int r2)
+void			ft_add_link(char **room, t_node **nodes)
 {
-	if ((r1 == 0 && r2 == 0) || *nodes == NULL)
-		return ;
-	if (r1 != 0)
+	int			index;
+	t_nodes		*tmp;
+	t_nodes		*ptr;
+
+	tmp = *nodes;
+	while (tmp == NULL)
 	{
-		r1 = ft_strcmp(room[0], (*nodes)->name);
-		if (r1 == 0)
-			ft_dataadd(&((*nodes)->edges), ft_new_data(room[1]));
+		if (ft_strcmp(room[0], tmp->name) == 0)
+		{
+			index = tmp->index;
+			while ()
+			break ;
+		}
+		tmp = tmp->next;
 	}
-	else if (r2 != 0)
-	{
-		r2 = ft_strcmp(room[1], (*nodes)->name);
-		if (r2 == 0)
-			ft_dataadd(&((*nodes)->edges), ft_new_data(room[0]));
-	}
-	ft_add_link(room, &((*nodes)->next), r1, r2);
 }

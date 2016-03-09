@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/07 15:07:54 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/09 11:58:22 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ typedef enum	e_command
 
 typedef struct	s_node
 {
-	char			*name;
+	int				index;
 	int				weight;
-	struct s_node	*back;
-	int				parse;
+	int				walkable;
+	char			*name;
 	int				x;
 	int				y;
 	struct s_data	*edges;
+	struct s_node	*back;
 	struct s_node	*next;
-	enum e_command	status;
 }				t_node;
 
 typedef	struct	s_spec
@@ -58,17 +58,19 @@ void			ft_error(void);
 int				ft_parse_file(t_spec *spec);
 int				ft_dijkstra(int **matrix);
 int				ft_check_int(char *str);
-t_node			*ft_new_node(char **room, t_command status);
-void			ft_add_node(t_node **begin, t_node *tmp);
+t_node			*ft_new_node(char **room, int index);
+void			ft_add_node(t_node **begin, t_node *new);
+void			ft_addback_node(t_node **begin, t_node *new);
 int				ft_status(char **room, t_command *status, int *start, int *end);
 int				ft_nbrstr(char **str);
 int				ft_search(char *str, t_node **nodes);
 void			ft_dataadd(t_data **begin, t_data *new);
 void			ft_addback(t_data **begin, t_data *new);
 t_data			*ft_new_data(char *line);
-void			ft_add_link(char **room, t_node **nodes, int r1, int r2);
+void			ft_add_link(char **room, t_node **nodes);
 void			ft_datadelone(t_data **begin);
 void			ft_datadel(t_data **begin);
 int				ft_checkdata(t_spec *spec);
+int				ft_stock(t_spec *spec, t_node **nodes);
 
 #endif
