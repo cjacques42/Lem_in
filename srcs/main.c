@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/09 15:45:45 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/09 17:13:21 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ int		main(void)
 		ft_putstr("\n");
 		spec.tunnels = spec.tunnels->next;
 	}*/
-	while (nodes != NULL)
+	/*while (nodes != NULL)
 	{
 		printf("id: %d name: %s edge: %d \n", nodes->index, nodes->name,
-				*nodes->edges->id);
+				nodes->edges->id);
 		if (nodes->edges->next != NULL)
-			ft_putnbr(*nodes->edges->next->id);
+			ft_putnbr(nodes->edges->next->id);
 		ft_putchar('\n');
 		nodes = nodes->next;
-	}
+	}*/
 	ft_datadel(&spec.rooms);
 	ft_datadel(&spec.tunnels);
 	return (0);

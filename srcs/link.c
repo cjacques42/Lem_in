@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:19:17 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/09 15:45:49 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/09 17:10:29 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ t_link	*ft_newlink(int id)
 	tmp = NULL;
 	if ((tmp = (t_link*)malloc(sizeof(*tmp))) == NULL)
 		ft_error();
-	if ((tmp->id = (int*)malloc(sizeof(*(tmp->id)))) == NULL)
-		ft_error();
-	*(tmp->id) = id;
+	tmp->id = id;
 	tmp->next = NULL;
 	return (tmp);
 }

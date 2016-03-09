@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/09 14:48:39 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/09 17:00:45 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef	struct	s_spec
 
 typedef struct	s_link
 {
-	int				*id;
+	int				id;
 	struct s_link	*next;
 }				t_link;
 
