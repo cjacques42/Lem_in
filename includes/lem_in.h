@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/09 17:00:45 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/10 10:48:52 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ typedef struct	s_data
 
 void			ft_error(void);
 int				ft_parse_file(t_spec *spec);
-int				ft_dijkstra(int **matrix);
+int				ft_dijkstra(t_node **nodes, t_spec *spec, t_node **start
+		, t_node **end);
 int				ft_check_int(char *str);
 t_node			*ft_new_node(char **room, int index);
 void			ft_add_node(t_node **begin, t_node *new);
