@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 10:57:39 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/11 12:57:52 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/11 15:13:01 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct	s_set
 t_set			*ft_setnew(void *data);
 void			ft_setadd(t_set **begin, t_set *new);
 void			ft_setaddback(t_set **begin, t_set *new);
-void			ft_setdestroy(t_set *set1, t_set **set2);
+void			ft_setdestroy(t_set **set);
 void			ft_setdestroyone(t_set **begin);
 
 #endif
