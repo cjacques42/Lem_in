@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/10 11:45:04 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/11 12:57:48 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		main(void)
 {
 	t_node	*nodes;
 	t_spec	spec;
+	t_set	*list;
 	int		val;
 
 	nodes = NULL;
@@ -42,7 +43,7 @@ int		main(void)
 		ft_putstr("\n");
 		spec.tunnels = spec.tunnels->next;
 	}*/
-	ft_dijkstra(&nodes, &spec, &nodes->next->next->next
+	/*ft_dijkstra(&nodes, &spec, &nodes->next->next->next
 			, &nodes->next);
 	while (nodes != NULL)
 	{
@@ -52,8 +53,12 @@ int		main(void)
 			ft_putnbr(nodes->edges->next->id);
 		ft_putchar('\n');
 		nodes = nodes->next;
-	}
+	}*/
 //	ft_error();
+	ft_setadd(&list, ft_setnew(ft_strdup("0\0")));
+	ft_setadd(&list, ft_setnew(ft_strdup("1\0")));
+	ft_setadd(&list, ft_setnew(ft_strdup("2\0")));
+	ft_setdestroy(&list);
 	ft_datadel(&spec.rooms);
 	ft_datadel(&spec.tunnels);
 	return (0);

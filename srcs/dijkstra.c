@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 11:35:48 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/10 18:18:46 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/11 12:14:07 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		ft_dijkstra(t_node **nodes, t_spec *spec, t_node **start, t_node ** end)
 {
-	t_list	*openl;
+/*	t_list	*openl;
 	t_list	*closel;
 	t_node	*tmp;
 	int		i;
@@ -36,6 +36,10 @@ int		ft_dijkstra(t_node **nodes, t_spec *spec, t_node **start, t_node ** end)
 			ft_addlink(&openl, ft_newlink(tmp->index));
 			(*start) = (*start)->next;
 		}
-	}
-	 return (0);
+	}*/
+	(void)nodes;
+	(void)spec;
+	(void)start;
+	(void)end;
+	return (0);
 }

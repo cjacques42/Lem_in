@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst.c                                              :+:      :+:    :+:   */
+/*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/02 14:05:48 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/11 12:04:41 by cjacques         ###   ########.fr       */
+/*   Created: 2016/03/11 10:57:01 by cjacques          #+#    #+#             */
+/*   Updated: 2016/03/11 12:57:50 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	ft_dataadd(t_data **begin, t_data *new)
+void	ft_setadd(t_set **begin, t_set *new)
 {
-	t_data	*tmp;
+	t_set  *tmp;
 
 	tmp = NULL;
 	tmp = *begin;
@@ -22,46 +22,46 @@ void	ft_dataadd(t_data **begin, t_data *new)
 	(*begin)->next = tmp;
 }
 
-void	ft_addback(t_data **begin, t_data *new)
+void    ft_setaddback(t_set **begin, t_set *new)
 {
 	if ((*begin) == NULL)
 	{
 		(*begin) = new;
 		return ;
 	}
-	ft_addback(&(*begin)->next, new);
+	ft_setaddback(&(*begin)->next, new);
 }
 
-void	ft_datadelone(t_data **begin)
+void    ft_setdestroyone(t_set **begin)
 {
 	if ((*begin)->next == NULL)
 	{
-		free((*begin)->str);
+		free((*begin)->data);
 		free(*begin);
 		*begin = NULL;
 		return ;
 	}
-	ft_datadelone(&(*begin)->next);
+	ft_setdestroyone(&(*begin)->next);
 }
 
-void	ft_datadel(t_data **begin)
+void    ft_setdestroy(t_set **begin)
 {
 	if ((*begin) == NULL)
 		return ;
-	ft_datadel(&(*begin)->next);
-	free((*begin)->str);
+	ft_setdestroy(&(*begin)->next);
+	free((*begin)->data);
 	free(*begin);
 	(*begin) = NULL;
 }
 
-t_data	*ft_new_data(char *line)
+t_set  *ft_setnew(void *data)
 {
-	t_data	*elem;
+	t_set  *elem;
 
-	elem = (t_data*)malloc(sizeof(*elem));
+	elem = (t_set*)malloc(sizeof(*elem));
 	if (elem == NULL)
 		return (NULL);
-	elem->str = ft_strdup(line);
+	elem->data = data;
 	elem->next = NULL;
 	return (elem);
 }
