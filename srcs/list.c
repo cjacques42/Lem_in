@@ -11,57 +11,79 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include "libft.h"
 
-void	ft_setadd(t_set **begin, t_set *new)
+void		ft_list_init(t_list *list, void (*ft_destroy)(void *data))
 {
-	t_set  *tmp;
-
-	tmp = NULL;
-	tmp = *begin;
-	*begin = new;
-	(*begin)->next = tmp;
+	list->head = NULL;
+	list->tail = NULL;
+	list->ft_destroy = ft_destroy;
+	list->size = 0;
 }
 
-void    ft_setaddback(t_set **begin, t_set *new)
+void			ft_list_destroy(t_list *list)
 {
-	if ((*begin) == NULL)
+	void	*data;
+
+	if (ft_list_size(list) == 0)
 	{
-		(*begin) = new;
+		ft_memset(list, '\0', sizeof(list));
 		return ;
 	}
-	ft_setaddback(&(*begin)->next, new);
+	if (ft_list_rem_next(list, NULL, &data) == 0 && list->ft_destroy != NULL)
+		list->ft_destroy(data);
+	ft_list_destroy(list);
 }
 
-void    ft_setdestroyone(t_set **begin)
+int				ft_list_ins_next(t_list *list, t_listelem *elem
+		, const void *data)
 {
-	if ((*begin)->next == NULL)
-	{
-		free((*begin)->data);
-		free(*begin);
-		*begin = NULL;
-		return ;
-	}
-	ft_setdestroyone(&(*begin)->next);
-}
+	t_listelem	*new_elem;
 
-void    ft_setdestroy(t_set **begin)
-{
-	if ((*begin) == NULL)
-		return ;
-	ft_setdestroy(&(*begin)->next);
-	free((*begin)->data);
-	free(*begin);
-	(*begin) = NULL;
-}
-
-t_set  *ft_setnew(void *data)
-{
-	t_set  *elem;
-
-	elem = (t_set*)malloc(sizeof(*elem));
+	if ((new_elem = (t_listelem*)malloc(sizeof(*new_elem))) == NULL)
+		return (-1);
+	new_elem->data = (void*)data;
 	if (elem == NULL)
-		return (NULL);
-	elem->data = data;
-	elem->next = NULL;
-	return (elem);
+	{
+		new_elem->next = list->head;
+		list->head = new_elem;
+		if (ft_list_size(list) == 0)
+			list->tail = new_elem;
+	}
+	else
+	{
+		if (elem->next == NULL)
+			list->tail = new_elem;
+		new_elem->next = elem->next;
+		elem->next = new_elem;
+	}
+	(list->size)++;
+	return (0);
+}
+
+int				ft_list_rem_next(t_list *list, t_listelem *elem, void **data)
+{
+	t_listelem		*tmp;
+
+	if (ft_list_size(list) == 0)
+		return (-1);
+	if (elem == NULL)
+	{
+		tmp = list->head;
+		*data = tmp->data;
+		list->head = ft_list_next(tmp);
+		if (ft_list_size(list) == 1)
+			list->tail = NULL;
+	}
+	else
+	{
+		tmp = ft_list_next(elem);
+		*data = tmp->data;
+		elem->next = ft_list_next(tmp);
+		if (elem->next == NULL)
+			list->tail = elem;
+	}
+	free(tmp);
+	(list->size)--;
+	return (0);
 }
