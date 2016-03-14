@@ -6,13 +6,13 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:59:30 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/09 15:29:24 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/14 14:34:32 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		ft_putinstruct(t_spec *spec, t_node **nodes)
+/*int		ft_putinstruct(t_spec *spec, t_node **nodes)
 {
 	char	**ptr;
 	t_data	*tmp;
@@ -47,4 +47,4 @@ int		ft_stock(t_spec *spec, t_node **nodes)
 		tmp = tmp->next;
 	}
 	return (0);
-}
+}*/

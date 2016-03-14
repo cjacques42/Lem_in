@@ -6,13 +6,13 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 17:10:32 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/09 13:36:55 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/14 14:31:54 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int			ft_status(char **room, t_command *status, int *start, int *end)
+/*int			ft_status(char **room, t_command *status, int *start, int *end)
 {
 	if (ft_strcmp(room[0], "##start") == 0)
 	{
@@ -31,7 +31,7 @@ int			ft_status(char **room, t_command *status, int *start, int *end)
 		return (0);
 	}
 	return (1);
-}
+}*/
 
 void		ft_add_node(t_node **begin, t_node *new)
 {

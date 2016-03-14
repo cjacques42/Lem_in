@@ -6,31 +6,31 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 08:57:48 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/10 18:18:49 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/14 11:35:49 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		ft_checkname(t_data *rooms)
+int		ft_checkname(t_listelem *rooms)
 {
-	t_data	*tmp;
+	t_listelem	*tmp;
 
-	if (rooms->next !=  NULL)
-		tmp = rooms->next;
+	if (rooms->head->next !=  NULL)
+		tmp = rooms->head->next;
 	else
 		return (0);
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->str, rooms->str) == 0)
+		if (ft_strcmp(tmp->data, rooms->head->data) == 0)
 			ft_error();
 		tmp = tmp->next;
 	}
-	ft_checkname(rooms->next);
+	ft_checkname(ft_list_next(rooms->head));
 	return (0);
 }
 
-int		ft_checkstend(t_data *rooms)
+int		ft_checkstend(t_list *rooms)
 {
 	int		start;
 	int		end;
@@ -63,7 +63,7 @@ int		ft_checkstend(t_data *rooms)
 	return (0);
 }
 
-int		ft_checkbegin(t_data *rooms, t_data *tunnels)
+int		ft_checkbegin(t_list *rooms, t_list *tunnels)
 {
 	t_data	*tmp;
 	char	*str_r;
@@ -90,7 +90,7 @@ int		ft_checkbegin(t_data *rooms, t_data *tunnels)
 	return (1);
 }
 
-int		ft_checkend(t_data *rooms, t_data *tunnels)
+int		ft_checkend(t_list *rooms, t_list *tunnels)
 {
 	t_data	*tmp;
 	char	*str_r;
@@ -119,7 +119,7 @@ int		ft_checkend(t_data *rooms, t_data *tunnels)
 	return (1);
 }
 
-int		ft_checktunnels(t_data *rooms, t_data *tunnels)
+int		ft_checktunnels(t_list *rooms, t_list *tunnels)
 {
 	if (tunnels == NULL)
 		return (0);
@@ -131,12 +131,12 @@ int		ft_checktunnels(t_data *rooms, t_data *tunnels)
 	return (0);
 }
 
-int		ft_checkdata(t_spec *rooms)
+int		ft_checkdata(t_spec *spec)
 {
-	if (rooms->rooms == NULL || rooms->tunnels == NULL)
+	if (ft_list_size(spec->tunnels) || ft_list_size(spec->rooms) == 0)
 		ft_error();
-	ft_checkname(rooms->rooms);
-	ft_checkstend(rooms->rooms);
-	ft_checktunnels(rooms->rooms, rooms->tunnels);
+	ft_checkname(spec->rooms->head);
+//	ft_checkstend(spec->rooms->head);
+//	ft_checktunnels(spec->rooms->head, spec->tunnels->head);
 	return (0);
 }

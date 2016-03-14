@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/10 09:07:19 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/14 18:41:23 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int				ft_line_ant(char **line, t_spec *spec, int *val)
 
 	spec->ants = 0;
 	if ((nb_ants = ft_check_int(*line)) == -1)
-		return (1);
+		ft_error();
 	spec->ants = nb_ants;
 	(*val)++;
 	return (0);
 }
 
-int				ft_line_room(char **line, t_spec *spec, int *val)
+/*int				ft_line_room(char **line, t_spec *spec, int *val)
 {
 	int		index;
 	char	*tmp;
@@ -77,7 +77,7 @@ int				ft_line_tunnel(char **line, t_spec *spec, int *val)
 	int		index;
 
 	index = 0;
-	ft_addback(&(spec->tunnels), ft_new_data(*line));
+	ft_list_ins_next(spec->tunnels,NULL , ft_new_data(*line));
 	tmp = ft_strtok(*line, "-");
 	while (tmp != NULL)
 	{
@@ -90,37 +90,50 @@ int				ft_line_tunnel(char **line, t_spec *spec, int *val)
 		(*val)++;
 	}
 	return (0);
-}
+}*/
 
-int				ft_parse_file(t_spec *spec)
+int				ft_file(int *val, t_spec *spec, char *line)
 {
-	char		*line;
 	int			(*function[3]) (char**, t_spec*, int*);
-	int			val;
 	int			tmp;
+	char		*ptr;
 
-	val = 0;
 	function[0] = ft_line_ant;
 	function[1] = ft_line_room;
 	function[2] = ft_line_tunnel;
+	tmp = *val;
+	if (ft_comment(line) == 1)
+		;
+	else if ((*function[*val])(&line, spec, val) == 1)
+	{
+		return (1);
+	}
+	if (*val == 2 && *val != tmp)
+	{
+		ft_list_rem_next(spec->rooms, spec->rooms->tail, (void**)&ptr);
+		free(ptr);
+		(*function[*val])(&line, spec, val);
+	}
+	if (*val == 3)
+		return (0);
+	return (0);
+}
+
+int				ft_parse_file(t_list *list, t_spec *spec)
+{
+	char		*line;
+	int			val;
+	char		*tmp;
+
+	(void)spec;
+	val = 0;
+	ft_list_init(list, free);
 	while (get_next_line(0, &line) > 0)
 	{
-		tmp = val;
-		if (ft_comment(line) == 1)
-			;
-		else if ((*function[val])(&line, spec, &val) == 1)
-		{
-			free(line);
-			return (1);
-		}
-		if (val == 2 && val != tmp)
-		{
-			ft_datadelone(&(spec->rooms));
-			(*function[val])(&line, spec, &val);
-		}
-		free(line);
-		if (val == 3)
-			return (0);
+		ft_list_ins_next(list, list->tail, line);
+		tmp = ft_strdup(line);
+		ft_file(&val, spec, tmp);
+		free(tmp);
 	}
 	return (0);
 }

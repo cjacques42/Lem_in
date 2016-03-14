@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 10:57:01 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/11 17:33:38 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/14 14:24:50 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void			ft_list_destroy(t_list *list)
 {
 	void	*data;
 
-	if (ft_list_size(list) == 0)
+	if (SIZE(list) == 0)
 	{
 		ft_memset(list, '\0', sizeof(list));
 		return ;
@@ -47,7 +47,7 @@ int				ft_list_ins_next(t_list *list, t_listelem *elem
 	{
 		new_elem->next = list->head;
 		list->head = new_elem;
-		if (ft_list_size(list) == 0)
+		if (SIZE(list) == 0)
 			list->tail = new_elem;
 	}
 	else
@@ -65,21 +65,21 @@ int				ft_list_rem_next(t_list *list, t_listelem *elem, void **data)
 {
 	t_listelem		*tmp;
 
-	if (ft_list_size(list) == 0)
+	if (SIZE(list) == 0)
 		return (-1);
 	if (elem == NULL)
 	{
 		tmp = list->head;
 		*data = tmp->data;
-		list->head = ft_list_next(tmp);
-		if (ft_list_size(list) == 1)
+		list->head = NEXT(tmp);
+		if (SIZE(list) == 1)
 			list->tail = NULL;
 	}
 	else
 	{
-		tmp = ft_list_next(elem);
+		tmp = NEXT(elem);
 		*data = tmp->data;
-		elem->next = ft_list_next(tmp);
+		elem->next = NEXT(tmp);
 		if (elem->next == NULL)
 			list->tail = elem;
 	}
