@@ -1,0 +1,102 @@
+#include "ft_graph.h"
+
+void		ft_graph_init(t_graph *graph, int (*ft_match)(void *k1, void *k2)
+		, void (*ft_destroy)(void *data))
+{
+	graph->ecount = 0;
+	graph->vcount = 0;
+	graph->ft_match = ft_match;
+	graph->ft_destroy = ft_destroy;
+	ft_list_init(&graph->adjlists, NULL);
+}
+
+int			ft_graph_ins_vertex(t_graph *graph, void *data)
+{
+	t_listelem		*tmp;
+	t_adjlist		*adjlist;
+
+	int val;
+	tmp = LIST_HEAD(&graph->adjlists);
+	while (tmp != NULL)
+	{
+		if (graph->ft_match(data, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 1)
+			return (1);
+		LIST_NEXT(tmp);
+	}
+	if ((adjlist = (t_adjlist*)malloc(sizeof(adjlist))) == NULL)
+		return (-1);
+	adjlist->vertex = data;
+	ft_set_init(&adjlist->adjacent, graph->ft_match, NULL);
+	if ((val = ft_list_ins_next(&graph->adjlists
+		, (&graph->adjlists)->tail, adjlist)) != 0)
+		return (val);
+	GRAPH_VCOUNT(graph)++;
+	return (0);
+}
+
+int			ft_graph_ins_edge(t_graph *graph, void *data1, void *data2)
+{
+	t_listelem		*tmp;
+	int				val;
+
+	tmp = LIST_HEAD(&graph->adjlists);
+	while (tmp != NULL)
+	{
+		if (graph->ft_match(data2, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 1)
+			break;
+		LIST_NEXT(tmp);
+	}
+	if (tmp == NULL)
+		return (-1);
+	tmp = LIST_HEAD(&graph->adjlists);
+	while (tmp != NULL)
+	{
+		if (graph->ft_match(data1, ((t_adjlist*)LIST_DATA(tmp))->vertex) ==  1)
+			break;
+		LIST_NEXT(tmp);
+	}
+	if (tmp == NULL)
+		return (-1);
+	if ((val = ft_set_insert(&((t_adjlist*)LIST_DATA(tmp))->adjacent, data2)) != 0)
+		return (val);
+	GRAPH_ECOUNT(graph)++;
+	return (0);
+}
+
+int			ft_graph_rem_vertex(t_graph *graph, void **data)
+{
+	t_listelem		*tmp;
+	t_listelem		*ptr;
+	t_listelem		*prec;
+	int				val;
+	t_adjlist		*adjlist;
+
+	val = 0;
+	tmp = LIST_HEAD(&graph->adjlists);
+	while (tmp != NULL)
+	{
+		if (ft_set_ismember(&((t_adjlist*)LIST_DATA(tmp))->adjacent, *data) == 1)
+			return (-1);
+		if (graph->ft_match(*data, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 1)
+		{
+			ptr = tmp;
+			val = 1;
+		}
+		if (val == 0)
+			prec = tmp;
+		LIST_NEXT(tmp);
+	}
+	if (val == 0 || LIST_SIZE(&((t_adjlist*)LIST_DATA(tmp))->adjacent) > 0)
+		return (-1);
+	if (ft_list_rem_next(&graph->adjlists, prec, (void**)&adjlist) != 0)
+		return (-1);
+	*data = adjlist->vertex;
+	free(adjlist);
+	GRAPH_VCOUNT(graph)--;
+	return (0);
+}
+
+int			ft_graph_rem_edge(t_graph *graph, void *data1, void **data2)
+{
+
+}

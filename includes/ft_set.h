@@ -17,6 +17,6 @@ int		ft_set_issubset(t_set *set1, t_set *set2);
 int		ft_set_isequal(t_set *set1, t_set *set2);
 
 # define SET_DESTROY ft_list_destroy
-# define SET_SIZE(set)		(set->size)
+# define SET_SIZE(set)		((set)->size)
 
 #endif

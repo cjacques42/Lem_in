@@ -17,7 +17,11 @@ OBJ_PATH = obj/
 SRC_PATH = srcs/
 SHELL = /bin/bash
 
-SRC_NAME =	error.c				\
+SRC_NAME =	basic_graph.c		\
+			basic_set.c			\
+			op_graph.c			\
+			op_set.c			\
+			error.c				\
 			main.c				\
 			parse.c				\
 			list.c
