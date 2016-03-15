@@ -24,7 +24,8 @@ SRC_NAME =	basic_graph.c		\
 			error.c				\
 			main.c				\
 			parse.c				\
-			list.c
+			list.c				\
+			utils.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))

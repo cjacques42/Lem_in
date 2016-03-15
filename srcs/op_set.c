@@ -13,7 +13,7 @@ int		ft_set_union(t_set *setu, t_set *set1, t_set *set2)
 			SET_DESTROY(setu);
 			return (-1);
 		}
-		LIST_NEXT(tmp);
+		tmp = LIST_NEXT(tmp);
 	}
 	tmp = LIST_HEAD(set2);
 	while (tmp != NULL)
@@ -24,7 +24,7 @@ int		ft_set_union(t_set *setu, t_set *set1, t_set *set2)
 				SET_DESTROY(setu);
 				return (-1);
 			}
-		LIST_NEXT(tmp);
+		tmp = LIST_NEXT(tmp);
 	}
 	return (0);
 }
@@ -43,7 +43,7 @@ int		ft_set_diff(t_set *setd, t_set *set1, t_set *set2)
 				SET_DESTROY(setd);
 				return (-1);
 			}
-		LIST_NEXT(tmp);
+		tmp = LIST_NEXT(tmp);
 	}
 	return (0);
 }
@@ -62,7 +62,7 @@ int		ft_set_inter(t_set *seti, t_set *set1, t_set *set2)
 				SET_DESTROY(seti);
 				return (-1);
 			}
-		LIST_NEXT(tmp);
+		tmp = LIST_NEXT(tmp);
 	}
 	return (0);
 }
@@ -78,7 +78,7 @@ int		ft_set_isequal(t_set *set1, t_set *set2)
 	{
 		if (ft_set_ismember(set2, LIST_DATA(tmp)) == 0)
 			return (0);
-		LIST_NEXT(tmp);
+		tmp = LIST_NEXT(tmp);
 	}
 	return (1);
 }

@@ -39,6 +39,7 @@ typedef	struct	s_spec
 }				t_spec;
 
 void			ft_error(void);
-int				ft_parse_file(t_list *list);
+int				ft_parse_file(t_list *list, t_graph *graph);
+int				ft_check_int(char *str);
 
 #endif

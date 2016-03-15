@@ -21,7 +21,7 @@ int			ft_graph_ins_vertex(t_graph *graph, void *data)
 	{
 		if (graph->ft_match(data, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 1)
 			return (1);
-		LIST_NEXT(tmp);
+		tmp = LIST_NEXT(tmp);
 	}
 	if ((adjlist = (t_adjlist*)malloc(sizeof(adjlist))) == NULL)
 		return (-1);
@@ -44,7 +44,7 @@ int			ft_graph_ins_edge(t_graph *graph, void *data1, void *data2)
 	{
 		if (graph->ft_match(data2, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 1)
 			break;
-		LIST_NEXT(tmp);
+		tmp = LIST_NEXT(tmp);
 	}
 	if (tmp == NULL)
 		return (-1);
@@ -53,7 +53,7 @@ int			ft_graph_ins_edge(t_graph *graph, void *data1, void *data2)
 	{
 		if (graph->ft_match(data1, ((t_adjlist*)LIST_DATA(tmp))->vertex) ==  1)
 			break;
-		LIST_NEXT(tmp);
+		tmp = LIST_NEXT(tmp);
 	}
 	if (tmp == NULL)
 		return (-1);
@@ -84,7 +84,7 @@ int			ft_graph_rem_vertex(t_graph *graph, void **data)
 		}
 		if (val == 0)
 			prec = tmp;
-		LIST_NEXT(tmp);
+		tmp = LIST_NEXT(tmp);
 	}
 	if (val == 0 || LIST_SIZE(&((t_adjlist*)LIST_DATA(tmp))->adjacent) > 0)
 		return (-1);
@@ -98,5 +98,8 @@ int			ft_graph_rem_vertex(t_graph *graph, void **data)
 
 int			ft_graph_rem_edge(t_graph *graph, void *data1, void **data2)
 {
-
+	(void)graph;
+	(void)data1;
+	(void)data2;
+	return (0);
 }

@@ -15,15 +15,21 @@
 
 int		main(void)
 {
-	t_list	list;
+	t_list			list;
+	t_listelem		*tmp;
+	int				nb_ants;
+	t_graph			graph;
 
-	ft_parse_file(&list);
-	while (list.head != NULL)
+	nb_ants = ft_parse_file(&list, &graph);
+	tmp = LIST_HEAD(&list);
+	while (tmp != NULL)
 	{
-		printf("%s\n", list.head->data);
-		list.head = LIST_NEXT(list.head);
+		printf("%s\n", LIST_DATA(tmp));
+		tmp = LIST_NEXT(tmp);
 	}
-//	ft_putnbr(list.size);
-//	ft_list_destroy(&list);
+	ft_putnbr(nb_ants);
+	ft_putchar('\n');
+	ft_putnbr(list.size);
+	ft_list_destroy(&list);
 	return (0);
 }

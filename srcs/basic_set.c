@@ -27,7 +27,7 @@ int		ft_set_remove(t_set *set, void **data)
 		if (set->ft_match(*data, LIST_DATA(tmp)) == 0)
 			break;
 		ptr = tmp;
-		LIST_NEXT(tmp);
+		tmp = LIST_NEXT(tmp);
 	}
 	if (tmp == NULL)
 		return (-1);
@@ -43,7 +43,7 @@ int		ft_set_ismember(t_set *set, void *data)
 	{
 		if (set->ft_match(data, LIST_DATA(tmp)))
 			return (1);
-		LIST_NEXT(tmp);
+		tmp = LIST_NEXT(tmp);
 	}
 	return (0);
 }
@@ -59,7 +59,7 @@ int		ft_set_issubnet(t_set *set1, t_set *set2)
 	{
 		if (ft_set_ismember(set2, LIST_DATA(tmp)) == 0)
 			return (0);
-		LIST_NEXT(tmp);
+		tmp = LIST_NEXT(tmp);
 	}
 	return (1);
 }

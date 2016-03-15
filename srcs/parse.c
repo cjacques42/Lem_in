@@ -14,126 +14,128 @@
 
 int				ft_comment(char *line)
 {
-		if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
+		if (ft_strcmp(line, "##end") == 0 ||
+				 ft_strcmp(line, "##start") == 0)
+			return (-1);
+		else if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
 			return (1);
-		else if (line[0] == '#' && line[1] == '#' && 
-				 ft_strcmp(line, "##end") != 0 &&
-				 ft_strcmp(line, "##start") != 0)
+		else if (line[0] == '#')
 			return (1);
 		else
 			return (0);
 }
 
-int				ft_line_ant(char **line, t_spec *spec, int *val)
+int		ft_line_ant(t_list *list, t_listelem **elem)
 {
+	char	*line;
+	int		val;
 	int		nb_ants;
 
-	spec->ants = 0;
-	if ((nb_ants = ft_check_int(*line)) == -1)
-		ft_error();
-	spec->ants = nb_ants;
-	(*val)++;
-	return (0);
-}
-
-/*int				ft_line_room(char **line, t_spec *spec, int *val)
-{
-	int		index;
-	char	*tmp;
-	int		j;
-
-	index = 0;
-	ft_addback(&(spec->rooms), ft_new_data(*line));
-	if (ft_strcmp(*line, "##start") == 0 || ft_strcmp(*line, "##end") == 0)
-		return (0);
-	tmp = ft_strtok(*line, " ");
-	while (tmp != NULL)
+	nb_ants = 0;
+	while (*elem != NULL)
 	{
-		if (index == 0 && tmp[0] != 'L')
+		line = (*elem)->data;
+		if ((val = ft_comment(line)) == 1)
 			;
-		else if (index == 1 || index == 2)
+		else if (val  == -1)
 		{
-			j = 0;
-			while (ft_isdigit(tmp[j]) == 1)
-				j++;
-			if (tmp[j] != 0)
-				return (1);
+			ft_list_destroy(list);
+			ft_error();
 		}
+		else if ((nb_ants = ft_check_int(line)) == -1)
+			ft_error();
 		else
-			break ;
-		tmp = ft_strtok(NULL, " ");
-		index++;
+		{
+			*elem = LIST_NEXT(*elem);
+			return (nb_ants);
+		}
+		*elem = LIST_NEXT(*elem);
 	}
-	if (index == 1 || index == 3)
-		(*val) += (index == 1) ? 1 : 0;
-	else
-		return (1);
-	return (0);
+	return (nb_ants);
 }
 
-int				ft_line_tunnel(char **line, t_spec *spec, int *val)
-{
-	char	*tmp;
-	int		index;
+/*
+   int				ft_line_room(t_listelem **list)
+   {
+   int		index;
+   char	*tmp;
+   int		j;
 
-	index = 0;
-	ft_list_ins_next(spec->tunnels,NULL , ft_new_data(*line));
-	tmp = ft_strtok(*line, "-");
-	while (tmp != NULL)
-	{
-		tmp = ft_strtok(NULL, "-");
-		index++;
-	}
-	if (index != 2)
-	{
-		ft_datadelone(&(spec->tunnels));
-		(*val)++;
-	}
-	return (0);
-}*/
 
-int				ft_file(int *val, t_spec *spec, char *line)
-{
-	int			(*function[3]) (char**, t_spec*, int*);
-	int			tmp;
-	char		*ptr;
+   return (0);
+   }
 
-	function[0] = ft_line_ant;
-	function[1] = ft_line_room;
-	function[2] = ft_line_tunnel;
-	tmp = *val;
-	if (ft_comment(line) == 1)
-		;
-	else if ((*function[*val])(&line, spec, val) == 1)
-	{
-		return (1);
-	}
-	if (*val == 2 && *val != tmp)
-	{
-		ft_list_rem_next(spec->rooms, spec->rooms->tail, (void**)&ptr);
-		free(ptr);
-		(*function[*val])(&line, spec, val);
-	}
-	if (*val == 3)
-		return (0);
-	return (0);
-}
+   int				ft_line_tunnel(char **line, t_spec *spec, int *val)
+   {
+   char	*tmp;
+   int		index;
 
-int				ft_parse_file(t_list *list, t_spec *spec)
+   index = 0;
+   ft_list_ins_next(spec->tunnels,NULL , ft_new_data(*line));
+   tmp = ft_strtok(*line, "-");
+   while (tmp != NULL)
+   {
+   tmp = ft_strtok(NULL, "-");
+   index++;
+   }
+   if (index != 2)
+   {
+   ft_datadelone(&(spec->tunnels));
+   (*val)++;
+   }
+   return (0);
+   }*/
+/*
+   int				ft_file(t_list *list, int *nb, t_graph *graph)
+   {
+   t_listelem		*tmp;
+
+   (void)graph;
+   tmp = LIST_HEAD(list);
+   while (ft_line_ant(&tmp, nb) == 0)
+   {
+   tmp = LIST_NEXT(tmp);
+   if (tmp == NULL)
+   return (-1);
+   }
+   while (ft_line_room(LIST_DATA(tmp)))
+   {
+   tmp = LIST_NEXT(tmp);
+   if (tmp == NULL)
+   return (-1);
+   }
+   while (ft_line_tunnel(LIST_DATA(tmp)))
+   {
+   tmp = LIST_NEXT(tmp);
+   if (tmp == NULL)
+   return (0);
+   }
+   return (0);
+   }*/
+
+int				ft_parse_file(t_list *list, t_graph *graph)
 {
 	char		*line;
-	int			val;
-	char		*tmp;
+	int			ant;
+	t_listelem	*tmp;
 
-	(void)spec;
-	val = 0;
+	(void)graph;
 	ft_list_init(list, free);
 	while (get_next_line(0, &line) > 0)
-	{
 		ft_list_ins_next(list, list->tail, line);
-		tmp = ft_strdup(line);
-		ft_file(&val, spec, tmp);
-		free(tmp);
+	tmp = LIST_HEAD(list);
+	ant = ft_line_ant(list, &tmp);
+	if (tmp == NULL)
+	{
+		ft_list_destroy(list);
+		ft_error();
 	}
-	return (0);
+	if (tmp == NULL)
+	{
+		ft_list_destroy(list);
+		ft_error();
+	}
+	//	ft_line_rooms();
+	//	ft_line_tunnels();
+	return (ant);
 }

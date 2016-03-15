@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
+#include "ft_list.h"
 #include "libft.h"
 
 void		ft_list_init(t_list *list, void (*ft_destroy)(void *data))
@@ -35,8 +35,7 @@ void			ft_list_destroy(t_list *list)
 	ft_list_destroy(list);
 }
 
-int				ft_list_ins_next(t_list *list, t_listelem *elem
-		, const void *data)
+int				ft_list_ins_next(t_list *list, t_listelem *elem, void *data)
 {
 	t_listelem	*new_elem;
 
