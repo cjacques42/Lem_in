@@ -10,23 +10,17 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = lem_in
+NAME = lem-in
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 OBJ_PATH = obj/
 SRC_PATH = srcs/
 SHELL = /bin/bash
 
-SRC_NAME =	dijkstra.c			\
-			error.c				\
+SRC_NAME =	error.c				\
 			main.c				\
-			node.c				\
 			parse.c				\
-			stockage.c			\
-			list.c				\
-			utils.c
-#			check_error.c
-#			link.c
+			list.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))

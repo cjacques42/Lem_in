@@ -24,19 +24,6 @@
 
 # define INT_MAX		0x7FFFFFFF
 
-typedef struct	s_node
-{
-	int				index;
-	int				weight;
-	int				walkable;
-	char			*name;
-	int				x;
-	int				y;
-	struct s_link	*edges;
-	struct s_node	*back;
-	struct s_node	*next;
-}				t_node;
-
 typedef struct	s_path
 {
 	void			*data;
@@ -52,17 +39,6 @@ typedef	struct	s_spec
 }				t_spec;
 
 void			ft_error(void);
-int				ft_parse_file(t_list *list, t_spec *spec);
-int				ft_dijkstra(t_node **nodes, t_spec *spec, t_node **start
-		, t_node **end);
-int				ft_check_int(char *str);
-t_node			*ft_new_node(char **room, int index);
-void			ft_add_node(t_node **begin, t_node *new);
-void			ft_addback_node(t_node **begin, t_node *new);
-int				ft_nbrstr(char **str);
-int				ft_search(char *str, t_node **nodes);
-void			ft_link(char **room, t_node **nodes);
-int				ft_checkdata(t_spec *spec);
-int				ft_stock(t_spec *spec, t_node **nodes);
+int				ft_parse_file(t_list *list);
 
 #endif

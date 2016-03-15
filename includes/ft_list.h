@@ -36,12 +36,12 @@ int				ft_list_ins_next(t_list *list, t_listelem *elem
 		, const void *data);
 int				ft_list_rem_next(t_list *list, t_listelem *elem, void **data);
 
-# define SIZE(list)				(list->size)
-# define HEAD(list)				(list->head)
-# define TAIL(list)				(list->tail)
-# define ISHEAD(list, elem)		((list->head == elem) ? 1 : 0)
-# define ISTAIL(list, elem)		((list->tail == elem) ? 1 : 0)
-# define DATA(elem)				(elem->data)
-# define NEXT(elem)				(elem->next)
+# define LIST_SIZE(list)				(list->size)
+# define LIST_HEAD(list)				(list->head)
+# define LIST_TAIL(list)				(list->tail)
+# define LIST_ISHEAD(list, elem)		((list->head == elem) ? 1 : 0)
+# define LIST_ISTAIL(list, elem)		((list->tail == elem) ? 1 : 0)
+# define LIST_DATA(elem)				(elem->data)
+# define LIST_NEXT(elem)				(elem->next)
 
 #endif

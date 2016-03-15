@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "list.h"
 #include "libft.h"
 
 void		ft_list_init(t_list *list, void (*ft_destroy)(void *data))
@@ -25,7 +25,7 @@ void			ft_list_destroy(t_list *list)
 {
 	void	*data;
 
-	if (SIZE(list) == 0)
+	if (LIST_SIZE(list) == 0)
 	{
 		ft_memset(list, '\0', sizeof(list));
 		return ;
@@ -47,7 +47,7 @@ int				ft_list_ins_next(t_list *list, t_listelem *elem
 	{
 		new_elem->next = list->head;
 		list->head = new_elem;
-		if (SIZE(list) == 0)
+		if (LIST_SIZE(list) == 0)
 			list->tail = new_elem;
 	}
 	else
@@ -65,21 +65,21 @@ int				ft_list_rem_next(t_list *list, t_listelem *elem, void **data)
 {
 	t_listelem		*tmp;
 
-	if (SIZE(list) == 0)
+	if (LIST_SIZE(list) == 0)
 		return (-1);
 	if (elem == NULL)
 	{
 		tmp = list->head;
 		*data = tmp->data;
-		list->head = NEXT(tmp);
-		if (SIZE(list) == 1)
+		list->head = LIST_NEXT(tmp);
+		if (LIST_SIZE(list) == 1)
 			list->tail = NULL;
 	}
 	else
 	{
-		tmp = NEXT(elem);
+		tmp = LIST_NEXT(elem);
 		*data = tmp->data;
-		elem->next = NEXT(tmp);
+		elem->next = LIST_NEXT(tmp);
 		if (elem->next == NULL)
 			list->tail = elem;
 	}
