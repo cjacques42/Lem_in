@@ -50,5 +50,16 @@ int		ft_set_ismember(t_set *set, void *data)
 
 int		ft_set_issubnet(t_set *set1, t_set *set2)
 {
-	
+	t_listelem		*tmp;
+
+	if (LIST_SIZE(set1) > LIST_SIZE(set2))
+		return (0);
+	tmp = LIST_HEAD(set1);
+	while (tmp != NULL)
+	{
+		if (ft_set_ismember(set2, LIST_DATA(tmp)) == 0)
+			return (0);
+		LIST_NEXT(tmp);
+	}
+	return (1);
 }

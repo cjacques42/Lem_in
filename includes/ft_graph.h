@@ -28,7 +28,7 @@ typedef struct		s_graph
 		int		vcount;
 		int		(*ft_match)(void *k1, void *k2);
 		void	(*ft_destroy)(void *data);
-		t_list	*adjlist;
+		t_list	adjlists;
 }					t_graph;
 
 #endif
