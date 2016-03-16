@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 10:31:46 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/16 10:58:07 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/16 14:56:29 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		ft_set_ismember(t_set *set, void *data)
 	tmp = LIST_HEAD(set);
 	while (tmp != NULL)
 	{
-		if (set->ft_match(data, LIST_DATA(tmp)))
+		if (set->ft_match(data, LIST_DATA(tmp)) == 0)
 			return (1);
 		tmp = LIST_NEXT(tmp);
 	}

@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/16 13:19:13 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/16 14:31:09 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,12 @@ int				ft_parse_file(t_list *list, t_graph *graph)
 	char		*line;
 	int			ant;
 	t_listelem	*tmp;
-
+	int		fd;
+	
+	fd = open("Test", O_RDONLY);
 	(void)graph;
 	ft_list_init(list, free);
-	while (get_next_line(0, &line) > 0)
+	while (get_next_line(fd, &line) > 0)
 		ft_list_ins_next(list, list->tail, line);
 	tmp = LIST_HEAD(list);
 	ant = ft_line_ant(list, &tmp);

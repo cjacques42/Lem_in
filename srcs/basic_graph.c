@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 10:31:42 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/16 13:00:26 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/16 14:53:02 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			ft_graph_ins_vertex(t_graph *graph, void *data)
 	tmp = LIST_HEAD(&graph->adjlists);
 	while (tmp != NULL)
 	{
-		if (graph->ft_match(data, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 1)
+		if (graph->ft_match(data, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 0)
 			return (1);
 		tmp = LIST_NEXT(tmp);
 	}
@@ -54,7 +54,7 @@ int			ft_graph_ins_edge(t_graph *graph, void *data1, void *data2)
 	tmp = LIST_HEAD(&graph->adjlists);
 	while (tmp != NULL)
 	{
-		if (graph->ft_match(data2, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 1)
+		if (graph->ft_match(data2, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 0)
 			break ;
 		tmp = LIST_NEXT(tmp);
 	}
@@ -63,7 +63,7 @@ int			ft_graph_ins_edge(t_graph *graph, void *data1, void *data2)
 	tmp = LIST_HEAD(&graph->adjlists);
 	while (tmp != NULL)
 	{
-		if (graph->ft_match(data1, ((t_adjlist*)LIST_DATA(tmp))->vertex) ==  1)
+		if (graph->ft_match(data1, ((t_adjlist*)LIST_DATA(tmp))->vertex) ==  0)
 			break ;
 		tmp = LIST_NEXT(tmp);
 	}
@@ -91,7 +91,7 @@ int			ft_graph_rem_vertex(t_graph *graph, void **data)
 		if (ft_set_ismember(&((t_adjlist*)LIST_DATA(tmp))->adjacent
 				, *data) == 1)
 			return (-1);
-		if (graph->ft_match(*data, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 1)
+		if (graph->ft_match(*data, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 0)
 		{
 			ptr = tmp;
 			val = 1;
