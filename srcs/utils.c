@@ -75,7 +75,6 @@ int				ft_check(t_listelem *start, t_listelem *end)
 		else if (ft_comment(LIST_DATA(start)) == 3
 				&& ft_count_char(LIST_DATA(start), ' ') == 2)
 			value = 0;
-		ft_putstr(LIST_DATA(start));
 		start = LIST_NEXT(start);
 	}
 	(nbs > 1 || nbe > 1 || value == 1 || nbe == 0 || nbs == 0) ? ft_error() : 0;

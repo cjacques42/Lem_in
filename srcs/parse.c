@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/16 11:14:28 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/16 13:19:13 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int			ft_line_rooms(t_list *list, t_listelem **elem, t_graph *graph)
 		if (ft_count_char(line, ' ') != 2 && ft_comment(line) == 3)
 		{
 			ft_check(start, *elem);
-			ft_check_and_add(start, *elem, graph);
+			ft_check_and_add(&start, elem, graph);
 			return (0);
 		}
 		*elem = LIST_NEXT(*elem);
@@ -139,6 +139,7 @@ int				ft_parse_file(t_list *list, t_graph *graph)
 		ft_error();
 	}
 	ft_line_rooms(list, &tmp, graph);
+	ft_putstr(LIST_DATA(tmp));
 	if (tmp == NULL)
 	{
 		ft_list_destroy(list);

@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/16 13:38:01 by cjacques         ###   ########.fr       */
+/*   Created: 2016/03/16 13:32:19 by cjacques          #+#    #+#             */
+/*   Updated: 2016/03/16 13:40:53 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <stdio.h>
 
-int		main(void)
+void	ft_free_dcharcom(char **data)
 {
-	t_list			list;
-	t_listelem		*tmp;
-	int				nb_ants;
-	t_graph			graph;
+	int		index;
 
-//	ft_graph_init(&graph, ft_strcmp, free);
-	nb_ants = ft_parse_file(&list, &graph);
-	tmp = LIST_HEAD(&list);
-	while (tmp != NULL)
-	{
-		printf("%s\n", LIST_DATA(tmp));
-		tmp = LIST_NEXT(tmp);
-	}
-	ft_putnbr(nb_ants);
-	ft_putchar('\n');
-	ft_putnbr(list.size);
-	ft_list_destroy(&list);
-	return (0);
+	index = 0;
+	while (data[index] != NULL)
+		free(data[index++]);
+	free(data[index]);
+	free(data);
 }
