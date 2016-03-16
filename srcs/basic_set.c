@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   basic_set.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/16 10:31:46 by cjacques          #+#    #+#             */
+/*   Updated: 2016/03/16 10:58:07 by cjacques         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_set.h"
 
 void	ft_set_init(t_set *set, int (*ft_match)(void *k1, void *k2)
@@ -25,7 +37,7 @@ int		ft_set_remove(t_set *set, void **data)
 	while (tmp != NULL)
 	{
 		if (set->ft_match(*data, LIST_DATA(tmp)) == 0)
-			break;
+			break ;
 		ptr = tmp;
 		tmp = LIST_NEXT(tmp);
 	}

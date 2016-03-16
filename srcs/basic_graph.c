@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   basic_graph.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/16 10:31:42 by cjacques          #+#    #+#             */
+/*   Updated: 2016/03/16 11:03:54 by cjacques         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_graph.h"
 
 void		ft_graph_init(t_graph *graph, int (*ft_match)(void *k1, void *k2)
-		, void (*ft_destroy)(void *data))
+			, void (*ft_destroy)(void *data))
 {
 	graph->ecount = 0;
 	graph->vcount = 0;
@@ -14,8 +26,8 @@ int			ft_graph_ins_vertex(t_graph *graph, void *data)
 {
 	t_listelem		*tmp;
 	t_adjlist		*adjlist;
-
 	int val;
+
 	tmp = LIST_HEAD(&graph->adjlists);
 	while (tmp != NULL)
 	{
@@ -28,7 +40,7 @@ int			ft_graph_ins_vertex(t_graph *graph, void *data)
 	adjlist->vertex = data;
 	ft_set_init(&adjlist->adjacent, graph->ft_match, NULL);
 	if ((val = ft_list_ins_next(&graph->adjlists
-		, (&graph->adjlists)->tail, adjlist)) != 0)
+					, (&graph->adjlists)->tail, adjlist)) != 0)
 		return (val);
 	GRAPH_VCOUNT(graph)++;
 	return (0);
@@ -43,7 +55,7 @@ int			ft_graph_ins_edge(t_graph *graph, void *data1, void *data2)
 	while (tmp != NULL)
 	{
 		if (graph->ft_match(data2, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 1)
-			break;
+			break ;
 		tmp = LIST_NEXT(tmp);
 	}
 	if (tmp == NULL)
@@ -52,12 +64,13 @@ int			ft_graph_ins_edge(t_graph *graph, void *data1, void *data2)
 	while (tmp != NULL)
 	{
 		if (graph->ft_match(data1, ((t_adjlist*)LIST_DATA(tmp))->vertex) ==  1)
-			break;
+			break ;
 		tmp = LIST_NEXT(tmp);
 	}
 	if (tmp == NULL)
 		return (-1);
-	if ((val = ft_set_insert(&((t_adjlist*)LIST_DATA(tmp))->adjacent, data2)) != 0)
+	if ((val = ft_set_insert(&((t_adjlist*)LIST_DATA(tmp))->adjacent
+			, data2)) != 0)
 		return (val);
 	GRAPH_ECOUNT(graph)++;
 	return (0);
@@ -75,7 +88,8 @@ int			ft_graph_rem_vertex(t_graph *graph, void **data)
 	tmp = LIST_HEAD(&graph->adjlists);
 	while (tmp != NULL)
 	{
-		if (ft_set_ismember(&((t_adjlist*)LIST_DATA(tmp))->adjacent, *data) == 1)
+		if (ft_set_ismember(&((t_adjlist*)LIST_DATA(tmp))->adjacent
+				, *data) == 1)
 			return (-1);
 		if (graph->ft_match(*data, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 1)
 		{

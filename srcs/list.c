@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 10:57:01 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/14 14:24:50 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/16 10:58:53 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		ft_list_init(t_list *list, void (*ft_destroy)(void *data))
 	list->size = 0;
 }
 
-void			ft_list_destroy(t_list *list)
+void		ft_list_destroy(t_list *list)
 {
 	void	*data;
 
@@ -35,7 +35,7 @@ void			ft_list_destroy(t_list *list)
 	ft_list_destroy(list);
 }
 
-int				ft_list_ins_next(t_list *list, t_listelem *elem, void *data)
+int			ft_list_ins_next(t_list *list, t_listelem *elem, void *data)
 {
 	t_listelem	*new_elem;
 
@@ -60,7 +60,7 @@ int				ft_list_ins_next(t_list *list, t_listelem *elem, void *data)
 	return (0);
 }
 
-int				ft_list_rem_next(t_list *list, t_listelem *elem, void **data)
+int			ft_list_rem_next(t_list *list, t_listelem *elem, void **data)
 {
 	t_listelem		*tmp;
 

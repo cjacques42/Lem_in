@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:03:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/14 17:51:45 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/16 11:04:14 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@
 
 typedef struct		s_adjlist
 {
-		void	*vertex;
-		t_set	adjacent;
+	void	*vertex;
+	t_set	adjacent;
 }					t_adjlist;
 
 typedef struct		s_graph
 {
-		int		ecount;
-		int		vcount;
-		int		(*ft_match)(void *k1, void *k2);
-		void	(*ft_destroy)(void *data);
-		t_list	adjlists;
+	int		ecount;
+	int		vcount;
+	int		(*ft_match)(void *k1, void *k2);
+	void	(*ft_destroy)(void *data);
+	t_list	adjlists;
 }					t_graph;
 
 void		ft_graph_init(t_graph *graph, int (*match)(void *k1, void *k2)

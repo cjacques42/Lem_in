@@ -6,20 +6,14 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:14:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/07 17:25:52 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/16 11:08:53 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	ft_check(t_spec *spec)
-{
-	if (spec->ants <= 0)
-		ft_error();
-}
-
 void	ft_error(void)
 {
 	ft_putstr_fd("ERROR\n", 2);
-	exit (1);
+	exit(1);
 }

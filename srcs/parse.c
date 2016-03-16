@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/14 18:41:23 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/16 11:14:28 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,33 @@
 
 int				ft_comment(char *line)
 {
-		if (ft_strcmp(line, "##end") == 0 ||
-				 ft_strcmp(line, "##start") == 0)
-			return (-1);
-		else if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
-			return (1);
-		else if (line[0] == '#')
-			return (1);
-		else
-			return (0);
+	if (ft_strcmp(line, "##end") == 0)
+		return (0);
+	else if (ft_strcmp(line, "##start") == 0)
+		return (1);
+	else if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
+		return (2);
+	else if (line[0] == '#')
+		return (2);
+	else
+		return (3);
 }
 
 int		ft_line_ant(t_list *list, t_listelem **elem)
 {
 	char	*line;
-	int		val;
 	int		nb_ants;
 
+	(void)list;
 	nb_ants = 0;
 	while (*elem != NULL)
 	{
 		line = (*elem)->data;
-		if ((val = ft_comment(line)) == 1)
-			;
-		else if (val  == -1)
+		if ((nb_ants = ft_check_int(line)) == -1 && ft_comment(line) != 2)
 		{
-			ft_list_destroy(list);
 			ft_error();
 		}
-		else if ((nb_ants = ft_check_int(line)) == -1)
-			ft_error();
-		else
+		else if (nb_ants != -1)
 		{
 			*elem = LIST_NEXT(*elem);
 			return (nb_ants);
@@ -54,17 +50,29 @@ int		ft_line_ant(t_list *list, t_listelem **elem)
 	return (nb_ants);
 }
 
+int			ft_line_rooms(t_list *list, t_listelem **elem, t_graph *graph)
+{
+	char		*line;
+	t_listelem	*start;
+
+	(void)list;
+	(void)graph;
+	start = *elem;
+	while (*elem != NULL)
+	{
+		line = LIST_DATA(*elem);
+		if (ft_count_char(line, ' ') != 2 && ft_comment(line) == 3)
+		{
+			ft_check(start, *elem);
+			ft_check_and_add(start, *elem, graph);
+			return (0);
+		}
+		*elem = LIST_NEXT(*elem);
+	}
+	return (0);
+}
+
 /*
-   int				ft_line_room(t_listelem **list)
-   {
-   int		index;
-   char	*tmp;
-   int		j;
-
-
-   return (0);
-   }
-
    int				ft_line_tunnel(char **line, t_spec *spec, int *val)
    {
    char	*tmp;
@@ -84,8 +92,8 @@ int		ft_line_ant(t_list *list, t_listelem **elem)
    (*val)++;
    }
    return (0);
-   }*/
-/*
+   }
+
    int				ft_file(t_list *list, int *nb, t_graph *graph)
    {
    t_listelem		*tmp;
@@ -130,12 +138,12 @@ int				ft_parse_file(t_list *list, t_graph *graph)
 		ft_list_destroy(list);
 		ft_error();
 	}
+	ft_line_rooms(list, &tmp, graph);
 	if (tmp == NULL)
 	{
 		ft_list_destroy(list);
 		ft_error();
 	}
-	//	ft_line_rooms();
 	//	ft_line_tunnels();
 	return (ant);
 }
