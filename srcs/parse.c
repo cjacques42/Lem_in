@@ -90,22 +90,21 @@ int				ft_line_tunnels(t_listelem **elem,t_graph *graph)
 			if (ft_strncmp(line, ((t_adjlist*)LIST_DATA(tmp))->vertex
 					, len) == 0)
 			{
-//				ft_putstr(line);
-				break ;
+				if (line[len] == '-')
+				{
+					data1 = ft_strsub(line, 0, len);
+					data2 = ft_strsub(line, len + 1, ft_strlen(line) - (len + 1));
+					if (ft_graph_ins_edge(graph, data1, data2) == 0
+							&& ft_graph_ins_edge(graph, data2, data1) == 0)
+					{
+						ft_putstr(line);
+						break;
+					}
+				}
 			}
 			tmp = LIST_NEXT(tmp);
 		}
 		if (tmp == NULL)
-		{
-			ft_putnbr(len);
-			return (0);
-		}
-		data1 = ft_strsub(line, 0, len);
-		if (line[len + 1] != '-')
-			return (0);
-		data2 = ft_strsub(line, len, ft_strlen(line));
-		if (ft_graph_ins_edge(graph, data1, data2) == -1
-				|| ft_graph_ins_edge(graph, data2, data1) == -1)
 			return (0);
 		*elem = LIST_NEXT(*elem);
 	}
