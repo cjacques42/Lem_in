@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 10:57:01 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/17 14:15:13 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/17 14:43:29 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			ft_list_ins_next(t_list *list, t_listelem *elem, void *data)
 	new_element = (t_listelem*)malloc(sizeof(t_listelem));
 	if (new_element == NULL)
 		return (-1);
-/*	new_element->data = (void *)data;
+	new_element->data = (void *)data;
 	if (elem == NULL)
 	{
 		if (LIST_SIZE(list) == 0) list->tail = new_element;
@@ -58,7 +58,7 @@ int			ft_list_ins_next(t_list *list, t_listelem *elem, void *data)
 			list->tail = new_element;
 		new_element->next = elem->next;
 		elem->next = new_element;
-	}*/
+	}
 	list->size++;
 	return (0);
 }

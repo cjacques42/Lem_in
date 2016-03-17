@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 10:31:42 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/17 13:04:36 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/17 15:17:18 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			ft_graph_ins_vertex(t_graph *graph, void *data)
 	}
 	if ((adjlist = (t_adjlist*)malloc(sizeof(adjlist))) == NULL)
 		return -1;
-	ft_set_init(&adjlist->adjacent, graph->ft_match, NULL);
+//	ft_set_init(&adjlist->adjacent, graph->ft_match, NULL);
 	adjlist->vertex = (void *)data;
 	if ((retval = ft_list_ins_next(&graph->adjlists
 			, LIST_TAIL(&graph->adjlists), adjlist)) != 0)

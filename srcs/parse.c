@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/17 14:15:15 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/17 15:50:12 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,17 @@ int				ft_line_tunnels(t_listelem **elem,t_graph *graph)
 			len = ft_strlen(((t_adjlist*)LIST_DATA(tmp))->vertex);
 			if (ft_strncmp(line, ((t_adjlist*)LIST_DATA(tmp))->vertex
 					, len) == 0)
+			{
+//				ft_putstr(line);
 				break ;
+			}
 			tmp = LIST_NEXT(tmp);
 		}
 		if (tmp == NULL)
+		{
+			ft_putnbr(len);
 			return (0);
+		}
 		data1 = ft_strsub(line, 0, len);
 		if (line[len + 1] != '-')
 			return (0);
@@ -116,7 +122,6 @@ int				ft_parse_file(t_list *list, t_graph *graph)
 	fd = open("Test", O_RDONLY);
 	(void)graph;
 	ft_list_init(list, free);
-	ft_putstr("!");
 	while (get_next_line(fd, &line) > 0)
 		ft_list_ins_next(list, list->tail, line);
 	tmp = LIST_HEAD(list);

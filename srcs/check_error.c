@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 08:57:48 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/17 06:26:15 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/17 15:50:18 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		ft_check_and_add(t_listelem **start, t_listelem **end, t_graph *graph)
 			}
 			if (ft_check_int(data[1]) == -1 || ft_check_int(data[2]) == -1)
 				ft_error();
-//			ft_graph_ins_vertex(graph, ft_strdup(data[0]));
+			ft_graph_ins_vertex(graph, ft_strdup(data[0]));
 			ft_free_dcharcom(data);
 		}
 		*start = LIST_NEXT(*start);
