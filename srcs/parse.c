@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/17 10:36:49 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/17 14:15:15 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int			ft_line_rooms(t_list *list, t_listelem **elem, t_graph *graph)
 	return (0);
 }
 
-int				ft_line_tunnels(t_list *list, t_listelem **elem,t_graph *graph)
+int				ft_line_tunnels(t_listelem **elem,t_graph *graph)
 {
 	char		*line;
 	t_listelem	*tmp;
@@ -83,6 +83,7 @@ int				ft_line_tunnels(t_list *list, t_listelem **elem,t_graph *graph)
 	while (*elem != NULL)
 	{
 		tmp = LIST_HEAD(&graph->adjlists);
+		line = LIST_DATA(*elem);
 		while (tmp != NULL)
 		{
 			len = ft_strlen(((t_adjlist*)LIST_DATA(tmp))->vertex);
@@ -115,6 +116,7 @@ int				ft_parse_file(t_list *list, t_graph *graph)
 	fd = open("Test", O_RDONLY);
 	(void)graph;
 	ft_list_init(list, free);
+	ft_putstr("!");
 	while (get_next_line(fd, &line) > 0)
 		ft_list_ins_next(list, list->tail, line);
 	tmp = LIST_HEAD(list);
@@ -124,6 +126,6 @@ int				ft_parse_file(t_list *list, t_graph *graph)
 	ft_line_rooms(list, &tmp, graph);
 	if (tmp == NULL)
 		ft_error();
-	ft_line_tunnels(list, &tmp, graph);
+	ft_line_tunnels(&tmp, graph);
 	return (ant);
 }

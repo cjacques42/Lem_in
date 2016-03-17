@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 10:31:42 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/17 10:36:50 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/17 13:04:36 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		ft_graph_init(t_graph *graph, int (*ft_match)(void *k1, void *k2)
 int			ft_graph_ins_vertex(t_graph *graph, void *data)
 {
 	t_adjlist		*adjlist;
-	t_listelem		*element; 
+	t_listelem		*element;
 	int				retval;
 
 	element = LIST_HEAD(&graph->adjlists);
