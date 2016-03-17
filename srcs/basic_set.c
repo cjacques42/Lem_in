@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 10:31:46 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/16 14:56:29 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/17 08:10:48 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	ft_set_init(t_set *set, int (*ft_match)(void *k1, void *k2)
 		, void (*ft_destroy)(void *data))
 {
-	ft_list_init(set, ft_destroy);
+	set->head = NULL;
+	set->tail = NULL;
+	set->ft_destroy = ft_destroy;
+	set->size = 0;
 	set->ft_match = ft_match;
 }
 

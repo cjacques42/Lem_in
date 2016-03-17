@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/16 15:01:47 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/17 10:36:51 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,19 @@ int		main(void)
 	}
 	ft_putnbr(nb_ants);
 	ft_putchar('\n');
-	ft_putnbr(list.size);
+//	ft_putnbr(list.size);
 	ft_putstr("\n!!");
-	ft_graph_ins_vertex(&graph, ft_strdup("lundi"));
-	ft_graph_ins_vertex(&graph, ft_strdup("mardi"));
+//	ft_graph_ins_vertex(&graph, ft_strdup("lundi"));
+//	ft_graph_ins_vertex(&graph, ft_strdup("mardi"));
 //	ft_graph_ins_vertex(&graph, ft_strdup("mercredi"));
 //	ft_graph_ins_vertex(&graph, ft_strdup("jeudi"));
 //	ft_graph_ins_vertex(&graph, ft_strdup("vendredi"));
 //	ft_graph_ins_vertex(&graph, ft_strdup("samedi"));
 //	ft_graph_ins_vertex(&graph, ft_strdup("dimanche"));
+	ft_putstr("!!");
 	ft_putnbr(GRAPH_VCOUNT(&graph));
 	ft_putstr("!!\n");
-	ft_putstr(((t_adjlist*)LIST_DATA(LIST_HEAD(&GRAPH_ADJLISTS(&graph))))->vertex);
+//	ft_putstr(((t_adjlist*)LIST_DATA(LIST_HEAD(&GRAPH_ADJLISTS(&graph))))->vertex);
 //	ft_list_destroy(&list);
 	return (0);
 }

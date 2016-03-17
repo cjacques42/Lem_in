@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/16 14:31:09 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/17 10:36:49 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,54 +72,38 @@ int			ft_line_rooms(t_list *list, t_listelem **elem, t_graph *graph)
 	return (0);
 }
 
-/*
-   int				ft_line_tunnel(char **line, t_spec *spec, int *val)
-   {
-   char	*tmp;
-   int		index;
+int				ft_line_tunnels(t_list *list, t_listelem **elem,t_graph *graph)
+{
+	char		*line;
+	t_listelem	*tmp;
+	char		*data1;
+	char		*data2;
+	int			len;
 
-   index = 0;
-   ft_list_ins_next(spec->tunnels,NULL , ft_new_data(*line));
-   tmp = ft_strtok(*line, "-");
-   while (tmp != NULL)
-   {
-   tmp = ft_strtok(NULL, "-");
-   index++;
-   }
-   if (index != 2)
-   {
-   ft_datadelone(&(spec->tunnels));
-   (*val)++;
-   }
-   return (0);
-   }
-
-   int				ft_file(t_list *list, int *nb, t_graph *graph)
-   {
-   t_listelem		*tmp;
-
-   (void)graph;
-   tmp = LIST_HEAD(list);
-   while (ft_line_ant(&tmp, nb) == 0)
-   {
-   tmp = LIST_NEXT(tmp);
-   if (tmp == NULL)
-   return (-1);
-   }
-   while (ft_line_room(LIST_DATA(tmp)))
-   {
-   tmp = LIST_NEXT(tmp);
-   if (tmp == NULL)
-   return (-1);
-   }
-   while (ft_line_tunnel(LIST_DATA(tmp)))
-   {
-   tmp = LIST_NEXT(tmp);
-   if (tmp == NULL)
-   return (0);
-   }
-   return (0);
-   }*/
+	while (*elem != NULL)
+	{
+		tmp = LIST_HEAD(&graph->adjlists);
+		while (tmp != NULL)
+		{
+			len = ft_strlen(((t_adjlist*)LIST_DATA(tmp))->vertex);
+			if (ft_strncmp(line, ((t_adjlist*)LIST_DATA(tmp))->vertex
+					, len) == 0)
+				break ;
+			tmp = LIST_NEXT(tmp);
+		}
+		if (tmp == NULL)
+			return (0);
+		data1 = ft_strsub(line, 0, len);
+		if (line[len + 1] != '-')
+			return (0);
+		data2 = ft_strsub(line, len, ft_strlen(line));
+		if (ft_graph_ins_edge(graph, data1, data2) == -1
+				|| ft_graph_ins_edge(graph, data2, data1) == -1)
+			return (0);
+		*elem = LIST_NEXT(*elem);
+	}
+	return (0);
+}
 
 int				ft_parse_file(t_list *list, t_graph *graph)
 {
@@ -127,7 +111,7 @@ int				ft_parse_file(t_list *list, t_graph *graph)
 	int			ant;
 	t_listelem	*tmp;
 	int		fd;
-	
+
 	fd = open("Test", O_RDONLY);
 	(void)graph;
 	ft_list_init(list, free);
@@ -136,17 +120,10 @@ int				ft_parse_file(t_list *list, t_graph *graph)
 	tmp = LIST_HEAD(list);
 	ant = ft_line_ant(list, &tmp);
 	if (tmp == NULL)
-	{
-		ft_list_destroy(list);
 		ft_error();
-	}
 	ft_line_rooms(list, &tmp, graph);
-	ft_putstr(LIST_DATA(tmp));
 	if (tmp == NULL)
-	{
-		ft_list_destroy(list);
 		ft_error();
-	}
-	//	ft_line_tunnels();
+	ft_line_tunnels(list, &tmp, graph);
 	return (ant);
 }
