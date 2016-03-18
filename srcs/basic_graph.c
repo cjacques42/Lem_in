@@ -13,16 +13,6 @@
 #include "ft_graph.h"
 #include "libft.h"
 
-void		ft_graph_init(t_graph *graph, int (*ft_match)(void *k1, void *k2)
-			, void (*ft_destroy)(void *data))
-{
-	graph->vcount = 0;
-	graph->ecount = 0;
-	graph->ft_match = ft_match;
-	graph->ft_destroy = ft_destroy;
-	ft_list_init(&graph->adjlists, NULL);
-}
-
 int			ft_graph_ins_vertex(t_graph *graph, void *data)
 {
 	t_adjlist		*adjlist;
@@ -91,16 +81,14 @@ int			ft_graph_rem_vertex(t_graph *graph, void **data)
 	tmp = LIST_HEAD(&graph->adjlists);
 	while (tmp != NULL)
 	{
-		if (ft_set_ismember(&((t_adjlist*)LIST_DATA(tmp))->adjacent
-					, *data) == 1)
+		if (ft_set_ismember(&((t_adjlist*)LIST_DATA(tmp))->adjacent, *data))
 			return (-1);
 		if (graph->ft_match(*data, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 0)
 		{
 			ptr = tmp;
 			val = 1;
 		}
-		if (val == 0)
-			prec = tmp;
+		prec = (val == 0) ? tmp : prec;
 		tmp = LIST_NEXT(tmp);
 	}
 	if (val == 0 || LIST_SIZE(&((t_adjlist*)LIST_DATA(tmp))->adjacent) > 0)
@@ -115,8 +103,21 @@ int			ft_graph_rem_vertex(t_graph *graph, void **data)
 
 int			ft_graph_rem_edge(t_graph *graph, void *data1, void **data2)
 {
-	(void)graph;
-	(void)data1;
-	(void)data2;
+	t_listelem		*tmp;
+	int				val;
+
+	tmp = LIST_HEAD(&graph->adjlists);
+	while (tmp != NULL)
+	{
+		if (graph->ft_match(data1, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 0)
+			break ;
+		tmp = LIST_NEXT(tmp);
+	}
+	if (tmp == NULL)
+		return (-1);
+	if ((val = ft_set_remove(&((t_adjlist*)LIST_DATA(tmp))->adjacent
+					,data2)) != 0)
+		return (val);
+	GRAPH_ECOUNT(graph)--;
 	return (0);
 }

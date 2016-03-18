@@ -24,15 +24,14 @@ void		ft_list_init(t_list *list, void (*ft_destroy)(void *data))
 void		ft_list_destroy(t_list *list)
 {
 	void	*data;
-
+	if (LIST_SIZE(list) == 0)
+	{
+		ft_memset(list, 0, sizeof(list));
+		return ;
+	}
 	if (ft_list_rem_next(list, NULL, &data) == 0 && list->ft_destroy != NULL)
-		list->ft_destroy(data);
+			list->ft_destroy(data);
 	ft_list_destroy(list);
-	while (LIST_SIZE(list) > 0)
-		if (ft_list_rem_next(list, NULL, &data) == 0
-			&& list->ft_destroy != NULL)
-		list->ft_destroy(data);
-	ft_memset(list, 0, sizeof(list));
 }
 
 int			ft_list_ins_next(t_list *list, t_listelem *elem, void *data)

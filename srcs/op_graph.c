@@ -12,6 +12,16 @@
 
 #include "ft_graph.h"
 
+void		ft_graph_init(t_graph *graph, int (*ft_match)(void *k1, void *k2)
+			, void (*ft_destroy)(void *data))
+{
+	graph->vcount = 0;
+	graph->ecount = 0;
+	graph->ft_match = ft_match;
+	graph->ft_destroy = ft_destroy;
+	ft_list_init(&graph->adjlists, NULL);
+}
+
 void		ft_graph_destroy(t_graph *graph)
 {
 	(void)graph;
