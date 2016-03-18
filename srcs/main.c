@@ -21,8 +21,6 @@ int		main(void)
 	t_graph			graph;
 
 	ft_graph_init(&graph, (int (*)(void*, void*))ft_strcmp, free);
-//	ft_graph_ins_vertex(&graph, ft_strdup("lundi"));
-//	ft_graph_ins_vertex(&graph, ft_strdup("mardi"));
 	nb_ants = ft_parse_file(&list, &graph);
 	tmp = LIST_HEAD(&list);
 /*	while (tmp != NULL)
@@ -41,8 +39,10 @@ int		main(void)
 //	ft_graph_ins_vertex(&graph, ft_strdup("dimanche"));
 	ft_putstr("!!");
 	ft_putnbr(GRAPH_VCOUNT(&graph));
+	ft_putstr("!!");
+	ft_putnbr(GRAPH_ECOUNT(&graph));
 	ft_putstr("!!\n");
-	ft_putstr(((t_adjlist*)LIST_DATA(LIST_HEAD(&GRAPH_ADJLISTS(&graph))))->vertex);
+//	ft_putstr(((t_adjlist*)LIST_DATA(LIST_HEAD(&GRAPH_ADJLISTS(&graph))))->vertex);
 //	ft_list_destroy(&list);
 	return (0);
 }

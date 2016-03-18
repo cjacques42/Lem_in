@@ -96,10 +96,7 @@ int				ft_line_tunnels(t_listelem **elem,t_graph *graph)
 					data2 = ft_strsub(line, len + 1, ft_strlen(line) - (len + 1));
 					if (ft_graph_ins_edge(graph, data1, data2) == 0
 							&& ft_graph_ins_edge(graph, data2, data1) == 0)
-					{
-						ft_putstr(line);
 						break;
-					}
 				}
 			}
 			tmp = LIST_NEXT(tmp);

@@ -15,20 +15,15 @@
 void	ft_set_init(t_set *set, int (*ft_match)(void *k1, void *k2)
 		, void (*ft_destroy)(void *data))
 {
-	set->head = NULL;
-	set->tail = NULL;
-	set->ft_destroy = ft_destroy;
-	set->size = 0;
+	ft_list_init(set, ft_destroy);
 	set->ft_match = ft_match;
 }
 
 int		ft_set_insert(t_set *set, void *data)
 {
-	if (ft_set_ismember(set, data) == 1)
-		return (1);
-	if (ft_list_ins_next(set, set->tail, data) == -1)
-		return (-1);
-	return (0);
+//	if (ft_set_ismember(set, data) == 1)
+//		return 1;
+	return ft_list_ins_next(set, LIST_TAIL(set), data);
 }
 
 int		ft_set_remove(t_set *set, void **data)
@@ -48,6 +43,7 @@ int		ft_set_remove(t_set *set, void **data)
 		return (-1);
 	return (ft_list_rem_next(set, ptr, data));
 }
+
 
 int		ft_set_ismember(t_set *set, void *data)
 {

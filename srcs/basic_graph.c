@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_graph.h"
+#include "libft.h"
 
 void		ft_graph_init(t_graph *graph, int (*ft_match)(void *k1, void *k2)
 			, void (*ft_destroy)(void *data))

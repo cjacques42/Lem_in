@@ -38,7 +38,8 @@ int		ft_check_and_add(t_listelem **start, t_listelem **end, t_graph *graph)
 			}
 			if (ft_check_int(data[1]) == -1 || ft_check_int(data[2]) == -1)
 				ft_error();
-			ft_graph_ins_vertex(graph, ft_strdup(data[0]));
+			if (ft_graph_ins_vertex(graph, ft_strdup(data[0])) != 0)
+				ft_error();
 			ft_free_dcharcom(data);
 		}
 		*start = LIST_NEXT(*start);

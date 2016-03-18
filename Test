@@ -2,19 +2,22 @@
 bonjour 13 23
 2 13 0
 ##start
-0 3 0
+0- 3 0
 1234 6 0
 4321 6 0
 321 6 0
 123 6 0
-lundi 8 2
+#lundi 8 2
 mardi 12 322
+##lol
+#troll du vendredi
+lundi 10 2
 ##end
 1 5 0
 lundi-mardi
-12137-123
-0--2
-bonjour-2
 123-321
+bonjour-2
 0--2
+12137-123
+lundi-mardi
 4321-0
