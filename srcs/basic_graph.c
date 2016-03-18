@@ -37,10 +37,10 @@ int			ft_graph_ins_vertex(t_graph *graph, void *data)
 			return 1;
 		element = LIST_NEXT(element);
 	}
-	if ((adjlist = (t_adjlist*)malloc(sizeof(adjlist))) == NULL)
+	if ((adjlist = (t_adjlist*)malloc(sizeof(*adjlist))) == NULL)
 		return -1;
-//	ft_set_init(&adjlist->adjacent, graph->ft_match, NULL);
-	adjlist->vertex = (void *)data;
+	adjlist->vertex = (void*)data;
+	ft_set_init(&adjlist->adjacent, graph->ft_match, NULL);
 	if ((retval = ft_list_ins_next(&graph->adjlists
 			, LIST_TAIL(&graph->adjlists), adjlist)) != 0)
 		return retval;

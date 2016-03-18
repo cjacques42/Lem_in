@@ -21,8 +21,8 @@ void	ft_set_init(t_set *set, int (*ft_match)(void *k1, void *k2)
 
 int		ft_set_insert(t_set *set, void *data)
 {
-//	if (ft_set_ismember(set, data) == 1)
-//		return 1;
+	if (ft_set_ismember(set, data) == 1)
+		return 1;
 	return ft_list_ins_next(set, LIST_TAIL(set), data);
 }
 

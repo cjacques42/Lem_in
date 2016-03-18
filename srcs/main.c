@@ -17,8 +17,8 @@ int		main(void)
 {
 	t_list			list;
 	t_listelem		*tmp;
-	int				nb_ants;
 	t_graph			graph;
+	int				nb_ants;
 
 	ft_graph_init(&graph, (int (*)(void*, void*))ft_strcmp, free);
 	nb_ants = ft_parse_file(&list, &graph);
@@ -31,7 +31,7 @@ int		main(void)
 	ft_putnbr(nb_ants);
 	ft_putchar('\n');
 	ft_putnbr(list.size);*/
-	ft_putstr("\n!!");
+//	ft_putstr("\n!!");
 //	ft_graph_ins_vertex(&graph, ft_strdup("mercredi"));
 //	ft_graph_ins_vertex(&graph, ft_strdup("jeudi"));
 //	ft_graph_ins_vertex(&graph, ft_strdup("vendredi"));
