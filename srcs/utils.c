@@ -49,7 +49,7 @@ int				ft_count_char(char *str, char c)
 	return (nbr);
 }
 
-int				ft_check(t_listelem *start, t_listelem *end)
+int				ft_check(t_list *list, t_listelem *start, t_listelem *end)
 {
 	int		nbs;
 	int		nbe;
@@ -62,13 +62,13 @@ int				ft_check(t_listelem *start, t_listelem *end)
 	{
 		if (ft_strcmp(LIST_DATA(start), "##start") == 0)
 		{
-			(value == 1) ? ft_error() : 1;
+			(value == 1) ? ft_error(NULL, list) : 1;
 			nbs++;
 			value = 1;
 		}
 		else if (ft_strcmp(LIST_DATA(start), "##end") == 0)
 		{
-			(value == 1) ? ft_error() : 1;
+			(value == 1) ? ft_error(NULL, list) : 1;
 			nbe++;
 			value = 1;
 		}
@@ -77,6 +77,30 @@ int				ft_check(t_listelem *start, t_listelem *end)
 			value = 0;
 		start = LIST_NEXT(start);
 	}
-	(nbs > 1 || nbe > 1 || value == 1 || nbe == 0 || nbs == 0) ? ft_error() : 0;
+	if (nbs > 1 || nbe > 1 || value == 1 || nbe == 0 || nbs == 0)
+		ft_error(NULL, list);
 	return (0);
+}
+
+char			*ft_search_start(t_list *list)
+{
+	t_listelem		*tmp;
+	char			*str;
+
+	tmp = LIST_HEAD(list);
+	while (tmp != NULL)
+	{
+		if (ft_strcmp("##start", LIST_DATA(tmp)) == 0)
+		{
+			while (tmp != NULL)
+			{
+				str = LIST_DATA(tmp);
+				if (str[0] != '#')
+					return (ft_strsub(str, 0, ft_strchr(str, ' ') - str));
+				tmp = LIST_NEXT(tmp);
+			}
+		}
+		tmp = LIST_NEXT(tmp);
+	}
+	return (NULL);
 }

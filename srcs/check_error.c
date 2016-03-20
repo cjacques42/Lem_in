@@ -12,7 +12,8 @@
 
 #include "lem_in.h"
 
-int		ft_check_and_add(t_listelem **start, t_listelem **end, t_graph *graph)
+int		ft_check_and_add(t_listelem **start, t_listelem **end, t_graph *graph
+		, t_list *list)
 {
 	char	*line;
 	char	**data;
@@ -27,7 +28,7 @@ int		ft_check_and_add(t_listelem **start, t_listelem **end, t_graph *graph)
 		{
 			data = ft_strsplit(line, ' ');
 			if (data[0][0] == 'L')
-				ft_error();
+				ft_error(graph, list);
 			while (data[i] != NULL)
 				i++;
 			if (i != 3)
@@ -37,9 +38,9 @@ int		ft_check_and_add(t_listelem **start, t_listelem **end, t_graph *graph)
 				return (0);
 			}
 			if (ft_check_int(data[1]) == -1 || ft_check_int(data[2]) == -1)
-				ft_error();
+				ft_error(graph, list);
 			if (ft_graph_ins_vertex(graph, ft_strdup(data[0])) != 0)
-				ft_error();
+				ft_error(graph, list);
 			ft_free_dcharcom(data);
 		}
 		*start = LIST_NEXT(*start);

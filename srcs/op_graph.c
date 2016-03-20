@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_graph.h"
+#include "libft.h"
 
 void		ft_graph_init(t_graph *graph, int (*ft_match)(void *k1, void *k2)
 			, void (*ft_destroy)(void *data))
@@ -37,6 +38,7 @@ void		ft_graph_destroy(t_graph *graph)
 		}
 	}
 	ft_list_destroy(&graph->adjlists);
+	ft_memset(graph, 0, sizeof(graph));
 }
 
 int			ft_graph_adjlist(t_graph *graph, void *data, t_adjlist **adjlist)

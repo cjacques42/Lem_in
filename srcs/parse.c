@@ -37,7 +37,7 @@ int		ft_line_ant(t_list *list, t_listelem **elem)
 	{
 		line = (*elem)->data;
 		if ((nb_ants = ft_check_int(line)) == -1 && ft_comment(line) != 2)
-			ft_error();
+			ft_error(NULL, list);
 		else if (nb_ants != -1)
 		{
 			*elem = LIST_NEXT(*elem);
@@ -53,7 +53,6 @@ int			ft_line_rooms(t_list *list, t_listelem **elem, t_graph *graph)
 	char		*line;
 	t_listelem	*start;
 
-	(void)list;
 	(void)graph;
 	start = *elem;
 	while (*elem != NULL)
@@ -61,8 +60,8 @@ int			ft_line_rooms(t_list *list, t_listelem **elem, t_graph *graph)
 		line = LIST_DATA(*elem);
 		if (ft_count_char(line, ' ') != 2 && ft_comment(line) == 3)
 		{
-			ft_check(start, *elem);
-			ft_check_and_add(&start, elem, graph);
+			ft_check(list, start, *elem);
+			ft_check_and_add(&start, elem, graph, list);
 			return (0);
 		}
 		*elem = LIST_NEXT(*elem);
@@ -95,8 +94,8 @@ int				ft_line_tunnels(t_listelem **elem,t_graph *graph)
 					if (ft_graph_ins_edge(graph, data1, data2) == 0
 							&& ft_graph_ins_edge(graph, data2, data1) == 0)
 					{
-						ft_putstr(line);
-						ft_putstr("\n");
+//						ft_putstr(line);
+//						ft_putstr("\n");
 						break;
 					}
 				}
@@ -125,10 +124,10 @@ int				ft_parse_file(t_list *list, t_graph *graph)
 	tmp = LIST_HEAD(list);
 	ant = ft_line_ant(list, &tmp);
 	if (tmp == NULL)
-		ft_error();
+		ft_error(NULL, list);
 	ft_line_rooms(list, &tmp, graph);
 	if (tmp == NULL)
-		ft_error();
+		ft_error(graph, list);
 	ft_line_tunnels(&tmp, graph);
 	return (ant);
 }
