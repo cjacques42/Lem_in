@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 10:31:42 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/17 15:17:18 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/21 09:17:31 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ int			ft_graph_ins_vertex(t_graph *graph, void *data)
 	while (element != NULL)
 	{
 		if (graph->ft_match(data
-				, ((t_adjlist*)LIST_DATA(element))->vertex) == 0)
-			return 1;
+					, ((t_adjlist*)LIST_DATA(element))->vertex) == 0)
+			return (1);
 		element = LIST_NEXT(element);
 	}
 	if ((adjlist = (t_adjlist*)malloc(sizeof(*adjlist))) == NULL)
-		return -1;
+		return (-1);
 	adjlist->vertex = (void*)data;
 	ft_set_init(&adjlist->adjacent, graph->ft_match, NULL);
 	if ((retval = ft_list_ins_next(&graph->adjlists
-			, LIST_TAIL(&graph->adjlists), adjlist)) != 0)
-		return retval;
+					, LIST_TAIL(&graph->adjlists), adjlist)) != 0)
+		return (retval);
 	GRAPH_VCOUNT(graph)++;
-	return 0;
+	return (0);
 }
 
 int			ft_graph_ins_edge(t_graph *graph, void *data1, void *data2)
@@ -56,7 +56,7 @@ int			ft_graph_ins_edge(t_graph *graph, void *data1, void *data2)
 	tmp = LIST_HEAD(&graph->adjlists);
 	while (tmp != NULL)
 	{
-		if (graph->ft_match(data1, ((t_adjlist*)LIST_DATA(tmp))->vertex) ==  0)
+		if (graph->ft_match(data1, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 0)
 			break ;
 		tmp = LIST_NEXT(tmp);
 	}
@@ -116,7 +116,7 @@ int			ft_graph_rem_edge(t_graph *graph, void *data1, void **data2)
 	if (tmp == NULL)
 		return (-1);
 	if ((val = ft_set_remove(&((t_adjlist*)LIST_DATA(tmp))->adjacent
-					,data2)) != 0)
+			, data2)) != 0)
 		return (val);
 	GRAPH_ECOUNT(graph)--;
 	return (0);

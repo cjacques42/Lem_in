@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 10:31:46 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/17 08:10:48 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/21 09:06:32 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	ft_set_init(t_set *set, int (*ft_match)(void *k1, void *k2)
 int		ft_set_insert(t_set *set, void *data)
 {
 	if (ft_set_ismember(set, data) == 1)
-		return 1;
-	return ft_list_ins_next(set, LIST_TAIL(set), data);
+		return (1);
+	return (ft_list_ins_next(set, LIST_TAIL(set), data));
 }
 
 int		ft_set_remove(t_set *set, void **data)
@@ -43,7 +43,6 @@ int		ft_set_remove(t_set *set, void **data)
 		return (-1);
 	return (ft_list_rem_next(set, ptr, data));
 }
-
 
 int		ft_set_ismember(t_set *set, void *data)
 {

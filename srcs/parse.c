@@ -6,13 +6,13 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/17 15:50:12 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/21 09:13:39 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int				ft_comment(char *line)
+int			ft_comment(char *line)
 {
 	if (ft_strcmp(line, "##end") == 0)
 		return (0);
@@ -26,7 +26,7 @@ int				ft_comment(char *line)
 		return (3);
 }
 
-int		ft_line_ant(t_list *list, t_listelem **elem)
+int			ft_line_ant(t_list *list, t_listelem **elem)
 {
 	char	*line;
 	int		nb_ants;
@@ -69,7 +69,7 @@ int			ft_line_rooms(t_list *list, t_listelem **elem, t_graph *graph)
 	return (0);
 }
 
-int				ft_line_tunnels(t_listelem **elem,t_graph *graph)
+int			ft_line_tunnels(t_listelem **elem, t_graph *graph)
 {
 	char		*line;
 	t_listelem	*tmp;
@@ -85,19 +85,16 @@ int				ft_line_tunnels(t_listelem **elem,t_graph *graph)
 		{
 			len = ft_strlen(((t_adjlist*)LIST_DATA(tmp))->vertex);
 			if (ft_strncmp(line, ((t_adjlist*)LIST_DATA(tmp))->vertex
-					, len) == 0)
+						, len) == 0)
 			{
 				if (line[len] == '-')
 				{
 					data1 = ft_strsub(line, 0, len);
-					data2 = ft_strsub(line, len + 1, ft_strlen(line) - (len + 1));
+					data2 = ft_strsub(line, len + 1
+							, ft_strlen(line) - (len + 1));
 					if (ft_graph_ins_edge(graph, data1, data2) == 0
 							&& ft_graph_ins_edge(graph, data2, data1) == 0)
-					{
-//						ft_putstr(line);
-//						ft_putstr("\n");
-						break;
-					}
+						break ;
 				}
 			}
 			tmp = LIST_NEXT(tmp);
@@ -109,15 +106,14 @@ int				ft_line_tunnels(t_listelem **elem,t_graph *graph)
 	return (0);
 }
 
-int				ft_parse_file(t_list *list, t_graph *graph)
+int			ft_parse_file(t_list *list, t_graph *graph)
 {
-	char		*line;
-	int			ant;
-	t_listelem	*tmp;
-	int		fd;
+	char			*line;
+	int				ant;
+	t_listelem		*tmp;
+	int				fd;
 
 	fd = open("Test", O_RDONLY);
-	(void)graph;
 	ft_list_init(list, free);
 	while (get_next_line(fd, &line) > 0)
 		ft_list_ins_next(list, list->tail, line);

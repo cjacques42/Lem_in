@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 10:57:01 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/17 14:43:29 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/21 09:09:29 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ void		ft_list_init(t_list *list, void (*ft_destroy)(void *data))
 void		ft_list_destroy(t_list *list)
 {
 	void	*data;
+
 	if (LIST_SIZE(list) == 0)
 	{
 		ft_memset(list, 0, sizeof(list));
 		return ;
 	}
 	if (ft_list_rem_next(list, NULL, &data) == 0 && list->ft_destroy != NULL)
-			list->ft_destroy(data);
+		list->ft_destroy(data);
 	ft_list_destroy(list);
 }
 
@@ -38,17 +39,15 @@ int			ft_list_ins_next(t_list *list, t_listelem *elem, void *data)
 {
 	t_listelem *new_element;
 
-	(void)elem;
-	(void)data;
-	(void)list;
 	new_element = (t_listelem*)malloc(sizeof(t_listelem));
 	if (new_element == NULL)
 		return (-1);
 	new_element->data = (void *)data;
 	if (elem == NULL)
 	{
-		if (LIST_SIZE(list) == 0) list->tail = new_element;
-			new_element->next = list->head;
+		if (LIST_SIZE(list) == 0)
+			list->tail = new_element;
+		new_element->next = list->head;
 		list->head = new_element;
 	}
 	else
