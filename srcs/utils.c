@@ -6,41 +6,46 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 09:09:37 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/21 11:36:03 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/21 17:46:58 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int		check_nbr(char c, int total)
+static int		check_nbr(char c, int total, int sign)
 {
 	int		tmp;
 
 	tmp = total * 10;
-	if (c - '0' > INT_MAX - tmp)
-		return (0);
-	return (1);
+	if (sign == 1 && c - '0' > INT_MAX - tmp)
+		ft_error(NULL, NULL);
+	if (sign == -1 && -(c - '0') < INT_MIN + tmp)
+		ft_error(NULL, NULL);
+	return (0);
 }
 
 int				ft_check_int(char *str)
 {
-	size_t	i;
-	int		neg;
-	int		total;
+	size_t		i;
+	int			neg;
+	int			total;
 
 	total = 0;
 	neg = 1;
 	i = 0;
+	if (str[i] == '-')
+		neg = -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (check_nbr(str[i], total) == 0)
-			return (-1);
+		check_nbr(str[i], total, neg);
 		total = total * 10 + (str[i] - '0');
 		i++;
 	}
 	if (str[i] != 0)
-		return (-1);
-	return (total);
+		ft_error(NULL, NULL);
+	return (total * neg);
 }
 
 int				ft_count_char(char *str, char c)
@@ -61,35 +66,28 @@ int				ft_count_char(char *str, char c)
 	return (nbr);
 }
 
-int				ft_check(t_list *list, t_listelem *start, t_listelem *end)
+int				ft_check(t_list *list, char **line)
 {
-	int		nbs;
-	int		nbe;
-	int		value;
+	static int		nbs = 0;
+	static int		nbe = 0;
+	static int		value = 0;
 
-	nbs = 0;
-	nbe = 0;
-	value = 0;
-	while (start != end)
+	if (ft_strcmp(*line, "##start") == 0)
 	{
-		if (ft_strcmp(LIST_DATA(start), "##start") == 0)
-		{
-			(value == 1) ? ft_error(NULL, list) : 1;
-			nbs++;
-			value = 1;
-		}
-		else if (ft_strcmp(LIST_DATA(start), "##end") == 0)
-		{
-			(value == 1) ? ft_error(NULL, list) : 1;
-			nbe++;
-			value = 1;
-		}
-		else if (ft_comment(LIST_DATA(start)) == 3
-				&& ft_count_char(LIST_DATA(start), ' ') == 2)
-			value = 0;
-		start = LIST_NEXT(start);
+		(value == 1) ? ft_error(NULL, list) : 1;
+		nbs++;
+		value = 1;
 	}
-	if (nbs > 1 || nbe > 1 || value == 1 || nbe == 0 || nbs == 0)
+	else if (ft_strcmp(*line, "##end") == 0)
+	{
+		(value == 1) ? ft_error(NULL, list) : 1;
+		nbe++;
+		value = 1;
+	}
+	else if (ft_comment(*line) == 3
+			&& ft_count_char(*line, ' ') == 2)
+		value = 0;
+	if (nbs > 1 || nbe > 1)
 		ft_error(NULL, list);
 	return (0);
 }
