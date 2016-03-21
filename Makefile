@@ -6,7 +6,7 @@
 #    By: cjacques <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/27 10:02:34 by cjacques          #+#    #+#              #
-#    Updated: 2016/03/16 16:09:32 by cjacques         ###   ########.fr        #
+#    Updated: 2016/03/21 10:40:06 by cjacques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,9 @@ SRC_NAME =	basic_graph.c		\
 			list.c				\
 			utils.c				\
 			check_error.c		\
-			free.c
+			free.c				\
+			vertex.c			\
+			dijkstra.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))

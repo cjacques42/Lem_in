@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 09:09:37 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/21 09:17:33 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/21 11:36:03 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,31 @@ int				ft_check(t_list *list, t_listelem *start, t_listelem *end)
 	return (0);
 }
 
-char			*ft_search_start(t_list *list)
+static int		ft_cmp(t_graph *graph, void *data, t_path **ptr)
+{
+	t_listelem	*tmp;
+
+	tmp = LIST_HEAD(&graph->adjlists);
+	while (tmp != NULL)
+	{
+		if (ft_strcmp(data
+				, ((t_path*)((t_adjlist*)LIST_DATA(tmp))->vertex)->data) == 0)
+		{
+			*ptr = (t_path*)((t_adjlist*)LIST_DATA(tmp))->vertex;
+			return (0);
+		}
+		tmp = LIST_NEXT(tmp);
+	}
+	if (tmp == NULL)
+		return (-1);
+	return (0);
+}
+
+t_path			*ft_search_start(t_graph *graph, t_list *list)
 {
 	t_listelem		*tmp;
 	char			*str;
+	t_path		*ptr;
 
 	tmp = LIST_HEAD(list);
 	while (tmp != NULL)
@@ -108,7 +129,12 @@ char			*ft_search_start(t_list *list)
 			{
 				str = LIST_DATA(tmp);
 				if (str[0] != '#')
-					return (ft_strsub(str, 0, ft_strchr(str, ' ') - str));
+				{
+					str = ft_strsub(str, 0, ft_strchr(str, ' ') - str);
+					ft_cmp(graph, str, &ptr);
+					free(str);
+					return (ptr);
+				}
 				tmp = LIST_NEXT(tmp);
 			}
 		}

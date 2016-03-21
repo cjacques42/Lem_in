@@ -1,12 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/21 09:19:27 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/21 12:00:30 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +16,15 @@ int		main(void)
 	t_list			list;
 	t_graph			graph;
 	int				nb_ants;
-//	char			*start;
-//	char			*end;
+	t_path			*start;
 
-	ft_graph_init(&graph, (int (*)(void*, void*))ft_strcmp, free);
+	ft_graph_init(&graph, (int (*)(void*, void*))ft_vertexcmp, free);
 	nb_ants = ft_parse_file(&list, &graph);
-//	start = ft_search_start(&list);
-//	ft_putstr(start);
-	ft_graph_destroy(&graph);
-	ft_list_destroy(&list);
+	start = ft_search_start(&graph, &list);
+	ft_dijkstra(&graph, start);
+	ft_putnbr(GRAPH_VCOUNT(&graph));
+	ft_putnbr(GRAPH_ECOUNT(&graph));
+//	ft_graph_destroy(&graph);
+//	ft_list_destroy(&list);
 	return (0);
 }

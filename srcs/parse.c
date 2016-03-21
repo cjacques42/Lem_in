@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/21 09:47:16 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/21 12:36:09 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int			ft_line_tunnels(t_listelem **elem, t_graph *graph)
 {
 	char		*line;
 	t_listelem	*tmp;
-	char		*data1;
-	char		*data2;
+	t_path		*data1;
+	t_path		*data2;
 	int			len;
 
 	while (*elem != NULL)
@@ -83,15 +83,17 @@ int			ft_line_tunnels(t_listelem **elem, t_graph *graph)
 		line = LIST_DATA(*elem);
 		while (tmp != NULL)
 		{
-			len = ft_strlen(((t_adjlist*)LIST_DATA(tmp))->vertex);
-			if (ft_strncmp(line, ((t_adjlist*)LIST_DATA(tmp))->vertex
-						, len) == 0)
+			len = ft_strlen(((t_path*)
+					((t_adjlist*)LIST_DATA(tmp))->vertex)->data);
+			if (ft_strncmp(line,
+					((t_path*)((t_adjlist*)LIST_DATA(tmp))->vertex)->data,
+					len) == 0)
 			{
 				if (line[len] == '-')
 				{
-					data1 = ft_strsub(line, 0, len);
-					data2 = ft_strsub(line, len + 1
-							, ft_strlen(line) - (len + 1));
+					data1 = ft_newpath(ft_strsub(line, 0, len));
+					data2 = ft_newpath(ft_strsub(line, len + 1
+							, ft_strlen(line) - (len + 1)));
 					if (ft_graph_ins_edge(graph, data1, data2) == 0
 							&& ft_graph_ins_edge(graph, data2, data1) == 0)
 						break ;
@@ -112,8 +114,9 @@ int			ft_parse_file(t_list *list, t_graph *graph)
 	int				ant;
 	t_listelem		*tmp;
 
+	int fd = open("Test", O_RDONLY);
 	ft_list_init(list, free);
-	while (get_next_line(0, &line) > 0)
+	while (get_next_line(fd, &line) > 0)
 	{
 		if (line[0] < 33 || line[0] > 126)
 			ft_error(graph, list);

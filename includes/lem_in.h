@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/16 13:37:37 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/21 12:10:03 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 typedef struct	s_path
 {
 	void			*data;
-	int				weigth;
+	int				weight;
+	int				mark;
 	struct s_path	*parent;
 }				t_path;
 
@@ -47,6 +48,9 @@ int				ft_comment(char *line);
 int				ft_check_and_add(t_listelem **start, t_listelem **end
 		, t_graph *graph, t_list *list);
 void			ft_free_dcharcom(char **data);
-char			*ft_search_start(t_list *list);
+t_path			*ft_search_start(t_graph *graph, t_list *list);
+int				ft_vertexcmp(t_path *s1, t_path *s2);
+t_path			*ft_newpath(char *str);
+int				ft_dijkstra(t_graph *graph, t_path *start);
 
 #endif
