@@ -48,7 +48,7 @@ int				ft_check(t_list *list, char **line);
 int				ft_comment(char *line);
 int				ft_check_and_add(t_graph *graph, t_list *list, char **line);
 void			ft_free_dcharcom(char **data);
-t_path			*ft_search_start(t_graph *graph, t_list *list);
+t_path			*ft_search_room(t_graph *graph, t_list *list, char *s);
 int				ft_vertexcmp(t_path *s1, t_path *s2);
 t_path			*ft_newpath(char *str);
 int				ft_dijkstra(t_graph *graph, t_path *start);

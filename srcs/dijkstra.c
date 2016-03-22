@@ -56,8 +56,6 @@ int		ft_dijkstra(t_graph *graph, t_path *start)
 	while (LIST_SIZE(&file) > 0)
 	{
 		ft_list_rem_next(&file, NULL, (void**)&path);
-		ft_putstr(path->data);
-		ft_putstr("\n");
 		ft_graph_adjlist(graph, path, &adjlist);
 		tmp = LIST_HEAD(&adjlist->adjacent);
 		while (tmp != NULL)
@@ -66,7 +64,8 @@ int		ft_dijkstra(t_graph *graph, t_path *start)
 			if (other->mark == 0)
 			{
 				ft_list_ins_next(&file, LIST_TAIL(&file), other);
-//				other->weight = ;
+				other->weight = path->weight + 1;
+				other->parent = path;
 				other->mark = 1;
 			}
 			tmp = LIST_NEXT(tmp);

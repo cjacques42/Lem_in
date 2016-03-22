@@ -65,7 +65,7 @@ int			ft_graph_ins_edge(t_graph *graph, void *data1, void *data2)
 	if (tmp == NULL)
 		return (-1);
 	if ((val = ft_set_insert(&((t_adjlist*)LIST_DATA(tmp))->adjacent
-					, ptr->vertex)) != 0)
+					, ptr->vertex)) == -1)
 		return (val);
 	GRAPH_ECOUNT(graph)++;
 	return (0);
