@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/21 17:19:41 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/22 12:13:54 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ t_path			*ft_search_start(t_graph *graph, t_list *list);
 int				ft_vertexcmp(t_path *s1, t_path *s2);
 t_path			*ft_newpath(char *str);
 int				ft_dijkstra(t_graph *graph, t_path *start);
+void			ft_free_path(t_path *data);
 
 #endif

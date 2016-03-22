@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 10:31:42 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/21 17:13:22 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/22 11:58:47 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,14 @@ int			ft_graph_ins_edge(t_graph *graph, void *data1, void *data2)
 {
 	t_listelem		*tmp;
 	int				val;
+	t_adjlist		*ptr;
 
 	val = 0;
 	tmp = LIST_HEAD(&graph->adjlists);
 	while (tmp != NULL)
 	{
-		if (graph->ft_match(data2, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 0)
+		ptr = LIST_DATA(tmp);
+		if (graph->ft_match(data2, ptr->vertex) == 0)
 			break ;
 		tmp = LIST_NEXT(tmp);
 	}
@@ -63,7 +65,7 @@ int			ft_graph_ins_edge(t_graph *graph, void *data1, void *data2)
 	if (tmp == NULL)
 		return (-1);
 	if ((val = ft_set_insert(&((t_adjlist*)LIST_DATA(tmp))->adjacent
-					, data2)) != 0)
+					, ptr->vertex)) != 0)
 		return (val);
 	GRAPH_ECOUNT(graph)++;
 	return (0);

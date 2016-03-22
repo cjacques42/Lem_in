@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/22 11:05:56 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/22 12:12:33 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,11 @@ int			ft_line_tunnels(char **line, t_graph *graph)
 							, ft_strlen(*line) - (len + 1)));
 				if (ft_graph_ins_edge(graph, data1, data2) == 0
 						&& ft_graph_ins_edge(graph, data2, data1) == 0)
+				{
+					ft_free_path(data1);
+					ft_free_path(data2);
 					break ;
+				}
 			}
 		}
 		tmp = LIST_NEXT(tmp);

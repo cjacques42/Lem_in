@@ -19,7 +19,7 @@ int		main(void)
 	int				nb_ants;
 //	t_path			*start;
 
-	ft_graph_init(&graph, (int (*)(void*, void*))ft_vertexcmp, free);
+	ft_graph_init(&graph, (int (*)(void*, void*))ft_vertexcmp, ft_free_path);
 	nb_ants = ft_parse_file(&list, &graph);
 //	start = ft_search_start(&graph, &list);
 //	ft_dijkstra(&graph, start);
@@ -36,7 +36,7 @@ int		main(void)
 		ft_putstr("\n");
 		tmp = LIST_NEXT(tmp);
 	}
-//	ft_graph_destroy(&graph);
-//	ft_list_destroy(&list);
+	ft_graph_destroy(&graph);
+	ft_list_destroy(&list);
 	return (0);
 }
