@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/22 12:12:33 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/22 17:31:02 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int			ft_line_ant(t_list *list, char **line, int fd, int *nb_ants)
 		return (0);
 	else if ((*nb_ants = ft_check_int(*line)) >= 0)
 	{
-		get_next_line(fd, line);
+		if (get_next_line(fd, line) < 1)
+			ft_error(NULL, list);
 		return (1);
 	}
 	ft_error(NULL, list);
@@ -99,13 +100,16 @@ int			ft_parse_file(t_list *list, t_graph *graph)
 	int				nb_ants;
 	int				val;
 
+	int		fd = open("Test", O_RDONLY);
 	val = 0;
 	ft_list_init(list, free);
-	get_next_line(0, &line);
-	while (ft_line_ant(list, &line, 0, &nb_ants) == 0)
+	if (get_next_line(fd, &line) < 1)
+		ft_error(NULL, NULL);
+	while (ft_line_ant(list, &line, fd, &nb_ants) == 0)
 	{
 		ft_list_ins_next(list, list->tail, line);
-		get_next_line(0, &line);
+		if (get_next_line(fd, &line) < 1)
+			ft_error(NULL, list);
 	}
 	while (ft_line_rooms(&line, graph))
 	{
@@ -113,14 +117,16 @@ int			ft_parse_file(t_list *list, t_graph *graph)
 		if (ft_check_and_add(graph, list, &line) == 1)
 			break ;
 		ft_list_ins_next(list, list->tail, line);
-		get_next_line(0, &line);
+		if (get_next_line(fd, &line) < 1)
+			ft_error(graph, list);
 	}
 	if (val == 0)
 		ft_error(graph, list);
 	while (ft_line_tunnels(&line, graph))
 	{
 		ft_list_ins_next(list, list->tail, line);
-		get_next_line(0, &line);
+		if (get_next_line(fd, &line) < 1)
+			break ;
 	}
 	return (nb_ants);
 }

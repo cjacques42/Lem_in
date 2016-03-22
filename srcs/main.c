@@ -37,6 +37,6 @@ int		main(void)
 //		tmp = LIST_NEXT(tmp);
 //	}
 //	ft_graph_destroy(&graph);
-	ft_list_destroy(&list);
+//	ft_list_destroy(&list);
 	return (0);
 }
