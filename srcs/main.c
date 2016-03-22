@@ -11,6 +11,18 @@
 #include "lem_in.h"
 #include <stdio.h>
 
+void	ft_print_list(t_list *list)
+{
+	t_listelem	*tmp;
+
+	tmp = LIST_HEAD(list);
+	while (tmp != NULL)
+	{
+		ft_putendl(LIST_DATA(tmp));
+		tmp = LIST_NEXT(tmp);
+	}
+}
+
 int		ft_print(t_path *end)
 {
 	if (end->parent == NULL)
@@ -27,7 +39,6 @@ int		main(void)
 {
 	t_list			list;
 	t_graph			graph;
-//	t_listelem		*tmp;
 	int				nb_ants;
 	t_path			*start;
 	t_path			*end;
@@ -40,13 +51,9 @@ int		main(void)
 	end = ft_search_room(&graph, &list, "##end");
 	if (ft_print(end) == -1)
 		ft_error(&graph, &list);
-	ft_putstr("\n");
-/*	tmp = LIST_HEAD(&list);
-	while (tmp != NULL)
-	{
-		ft_putendl(tmp->data);
-		tmp = LIST_NEXT(tmp);
-	}*/
+	ft_print_list(&list);
+
+
 	ft_graph_destroy(&graph);
 	ft_list_destroy(&list);
 	return (0);
