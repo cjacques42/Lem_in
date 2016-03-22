@@ -6,13 +6,13 @@
 #    By: cjacques <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/27 10:02:34 by cjacques          #+#    #+#              #
-#    Updated: 2016/03/21 10:40:06 by cjacques         ###   ########.fr        #
+#    Updated: 2016/03/22 18:25:36 by cjacques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 CC = gcc
-CFLAGS = -pg -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 OBJ_PATH = obj/
 SRC_PATH = srcs/
 SHELL = /bin/bash
