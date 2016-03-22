@@ -49,11 +49,10 @@ int		main(void)
 	start = ft_search_room(&graph, &list, "##start");
 	ft_dijkstra(&graph, start);
 	end = ft_search_room(&graph, &list, "##end");
-	if (ft_print(end) == -1)
+	if (end->parent == NULL)
 		ft_error(&graph, &list);
 	ft_print_list(&list);
-
-
+//	ft_ant(end,);
 	ft_graph_destroy(&graph);
 	ft_list_destroy(&list);
 	return (0);
