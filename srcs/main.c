@@ -15,7 +15,7 @@ int		main(void)
 {
 	t_list			list;
 	t_graph			graph;
-//	t_listelem		*tmp;
+	t_listelem		*tmp;
 	int				nb_ants;
 	t_path			*start;
 
@@ -27,16 +27,15 @@ int		main(void)
 /*	ft_putstr("\n");
 	ft_putnbr(GRAPH_VCOUNT(&graph));
 	ft_putstr(" ");
-	ft_putnbr(GRAPH_ECOUNT(&graph));
-	ft_putstr("\n");*/
-//	tmp = LIST_HEAD(&list);
-//	while (tmp != NULL)
-//	{
-//		ft_putstr(tmp->data);
-//		ft_putstr("\n");
-//		tmp = LIST_NEXT(tmp);
-//	}
-//	ft_graph_destroy(&graph);
-//	ft_list_destroy(&list);
+	ft_putnbr(GRAPH_ECOUNT(&graph));*/
+	ft_putstr("\n");
+	tmp = LIST_HEAD(&list);
+	while (tmp != NULL)
+	{
+		ft_putendl(tmp->data);
+		tmp = LIST_NEXT(tmp);
+	}
+	ft_graph_destroy(&graph);
+	ft_list_destroy(&list);
 	return (0);
 }

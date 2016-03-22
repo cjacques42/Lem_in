@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:36:00 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/22 16:23:51 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/22 18:24:41 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		ft_dijkstra(t_graph *graph, t_path *start)
 	t_list			file;
 	t_listelem		*tmp;
 	t_path			*path;
+	t_path			*other;
 	t_adjlist		*adjlist;
 
 	ft_start(graph, start);
@@ -61,11 +62,12 @@ int		ft_dijkstra(t_graph *graph, t_path *start)
 		tmp = LIST_HEAD(&adjlist->adjacent);
 		while (tmp != NULL)
 		{
-			path = LIST_DATA(tmp);
-			if (path->mark == 0)
+			other = LIST_DATA(tmp);
+			if (other->mark == 0)
 			{
-				ft_list_ins_next(&file, LIST_TAIL(&file), path);
-				path->mark = 1;
+				ft_list_ins_next(&file, LIST_TAIL(&file), other);
+//				other->weight = ;
+				other->mark = 1;
 			}
 			tmp = LIST_NEXT(tmp);
 		}
