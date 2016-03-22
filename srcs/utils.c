@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 09:09:37 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/21 17:46:58 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/22 11:05:59 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ int				ft_check(t_list *list, char **line)
 		value = 0;
 	if (nbs > 1 || nbe > 1)
 		ft_error(NULL, list);
-	return (0);
+	if (value == 1 || nbs == 0 || nbe == 0)
+		return (0);
+	return (1);
 }
 
 static int		ft_cmp(t_graph *graph, void *data, t_path **ptr)

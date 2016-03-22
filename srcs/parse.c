@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/22 10:47:34 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/22 11:05:56 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,9 @@ int			ft_parse_file(t_list *list, t_graph *graph)
 {
 	char			*line;
 	int				nb_ants;
+	int				val;
 
+	val = 0;
 	ft_list_init(list, free);
 	get_next_line(0, &line);
 	while (ft_line_ant(list, &line, 0, &nb_ants) == 0)
@@ -103,12 +105,14 @@ int			ft_parse_file(t_list *list, t_graph *graph)
 	}
 	while (ft_line_rooms(&line, graph))
 	{
-		ft_check(list, &line);
+		val = ft_check(list, &line);
 		if (ft_check_and_add(graph, list, &line) == 1)
 			break ;
 		ft_list_ins_next(list, list->tail, line);
 		get_next_line(0, &line);
 	}
+	if (val == 0)
+		ft_error(graph, list);
 	while (ft_line_tunnels(&line, graph))
 	{
 		ft_list_ins_next(list, list->tail, line);
