@@ -17,12 +17,12 @@ int		main(void)
 	t_graph			graph;
 	t_listelem		*tmp;
 	int				nb_ants;
-	t_path			*start;
+//	t_path			*start;
 
 	ft_graph_init(&graph, (int (*)(void*, void*))ft_vertexcmp, free);
 	nb_ants = ft_parse_file(&list, &graph);
-	start = ft_search_start(&graph, &list);
-	ft_dijkstra(&graph, start);
+//	start = ft_search_start(&graph, &list);
+//	ft_dijkstra(&graph, start);
 	ft_putnbr(nb_ants);
 	ft_putstr("\n");
 	ft_putnbr(GRAPH_VCOUNT(&graph));
