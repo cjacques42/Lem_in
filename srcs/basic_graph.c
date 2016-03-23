@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 10:31:42 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/23 11:47:51 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/23 19:55:31 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	ft_search(t_graph *graph, t_listelem **tmp, t_adjlist **ptr
 		, void *data)
 {
 	*tmp = LIST_HEAD(&graph->adjlists);
-	while (tmp != NULL)
+	while (*tmp != NULL)
 	{
 		*ptr = LIST_DATA(*tmp);
 		if (graph->ft_match(data, (*ptr)->vertex) == 0)
