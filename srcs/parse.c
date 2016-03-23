@@ -6,40 +6,27 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/22 18:24:43 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/23 11:05:08 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-int			ft_comment(char *line)
-{
-	if (ft_strcmp(line, "##end") == 0)
-		return (0);
-	else if (ft_strcmp(line, "##start") == 0)
-		return (1);
-	else if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
-		return (2);
-	else if (line[0] == '#')
-		return (2);
-	else
-		return (3);
-}
 
 int			ft_line_ant(t_list *list, char **line, int fd, int *nb_ants)
 {
 	int		val;
 
 	(void)list;
-	if ((val = ft_comment(*line)) < 2)
-		ft_error(NULL, list);
-	else if (val == 2)
-		return (0);
-	else if ((*nb_ants = ft_check_int(*line)) >= 0)
+	while (get_next_line(fd, line) > 0)
 	{
-		if (get_next_line(fd, line) < 1)
+		if ((val = ft_comment(*line)) < 2)
 			ft_error(NULL, list);
-		return (1);
+		else if (val == 3 && (*nb_ants = ft_check_int(*line)) >= 0)
+		{
+			if (get_next_line(fd, line) < 1)
+				ft_error(NULL, list);
+			return (1);
+		}
 	}
 	ft_error(NULL, list);
 	return (-1);
@@ -53,26 +40,18 @@ int			ft_line_rooms(char **line, t_graph *graph)
 	return (1);
 }
 
-int			ft_line_tunnels(char **line, t_graph *graph)
+void		ft_tunnels(t_listelem **tmp, char **line, t_graph *graph)
 {
-	int				len;
-	t_listelem		*tmp;
-	t_path			*data1;
-	t_path			*data2;
+	int		len;
+	t_path	*data1;
+	t_path	*data2;
+	t_path	*path;
 
-	tmp = LIST_HEAD(&graph->adjlists);
-	if ((len = ft_comment(*line)) < 2)
-		return (0);
-	else if (len == 2)
-		return (1);
-	while (tmp != NULL)
+	while (*tmp != NULL)
 	{
-		len = ft_strlen(((t_path*)
-					((t_adjlist*)LIST_DATA(tmp))->vertex)->data);
-		if (ft_strncmp(*line,
-					((t_path*)((t_adjlist*)LIST_DATA(tmp))->vertex)->data,
-					len) == 0)
-		{
+		path = (t_path*)((t_adjlist*)LIST_DATA(*tmp))->vertex;
+		len = ft_strlen(LIST_DATA(path));
+		if (ft_strncmp(*line, LIST_DATA(path), len) == 0)
 			if (line[0][len] == '-')
 			{
 				data1 = ft_newpath(ft_strsub(*line, 0, len));
@@ -86,9 +65,21 @@ int			ft_line_tunnels(char **line, t_graph *graph)
 					break ;
 				}
 			}
-		}
-		tmp = LIST_NEXT(tmp);
+		*tmp = LIST_NEXT(*tmp);
 	}
+}
+
+int			ft_line_tunnels(char **line, t_graph *graph)
+{
+	int				len;
+	t_listelem		*tmp;
+
+	tmp = LIST_HEAD(&graph->adjlists);
+	if ((len = ft_comment(*line)) < 2)
+		return (0);
+	else if (len == 2)
+		return (1);
+	ft_tunnels(&tmp, line, graph);
 	if (tmp == NULL)
 		return (0);
 	return (1);
@@ -100,32 +91,22 @@ int			ft_parse_file(t_list *list, t_graph *graph)
 	int				nb_ants;
 	int				val;
 
-	int		fd = open("Test", O_RDONLY);
 	val = 0;
 	ft_list_init(list, free);
-	if (get_next_line(fd, &line) < 1)
-		ft_error(NULL, NULL);
-	while (ft_line_ant(list, &line, fd, &nb_ants) == 0)
-	{
-		ft_list_ins_next(list, list->tail, line);
-		if (get_next_line(fd, &line) < 1)
-			ft_error(NULL, list);
-	}
+	ft_line_ant(list, &line, 0, &nb_ants);
 	while (ft_line_rooms(&line, graph))
 	{
 		val = ft_check(list, &line);
 		if (ft_check_and_add(graph, list, &line) == 1)
 			break ;
 		ft_list_ins_next(list, list->tail, line);
-		if (get_next_line(fd, &line) < 1)
-			ft_error(graph, list);
+		(get_next_line(0, &line) < 1) ? ft_error(graph, list) : 0;
 	}
-	if (val == 0)
-		ft_error(graph, list);
+	(val == 0) ? ft_error(graph, list) : 0;
 	while (ft_line_tunnels(&line, graph))
 	{
 		ft_list_ins_next(list, list->tail, line);
-		if (get_next_line(fd, &line) < 1)
+		if (get_next_line(0, &line) < 1)
 			break ;
 	}
 	return (nb_ants);

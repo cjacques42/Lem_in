@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 09:49:33 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/22 13:27:37 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/23 09:20:50 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 static int		ft_cmp(t_graph *graph, void *data, t_path **ptr)
 {
-	t_listelem	*tmp;
+	t_listelem		*tmp;
+	t_path			*path;
 
 	tmp = LIST_HEAD(&graph->adjlists);
 	while (tmp != NULL)
 	{
-		if (ft_strcmp(data
-				, ((t_path*)((t_adjlist*)LIST_DATA(tmp))->vertex)->data) == 0)
+		path = ((t_adjlist*)LIST_DATA(tmp))->vertex;
+		if (ft_strcmp(data, path->data) == 0)
 		{
-			*ptr = (t_path*)((t_adjlist*)LIST_DATA(tmp))->vertex;
+			*ptr = path;
 			return (0);
 		}
 		tmp = LIST_NEXT(tmp);
@@ -36,7 +37,7 @@ t_path			*ft_search_room(t_graph *graph, t_list *list, char *s)
 {
 	t_listelem		*tmp;
 	char			*str;
-	t_path		*ptr;
+	t_path			*ptr;
 
 	tmp = LIST_HEAD(list);
 	while (tmp != NULL)
@@ -61,11 +62,11 @@ t_path			*ft_search_room(t_graph *graph, t_list *list, char *s)
 	return (NULL);
 }
 
-int			ft_vertexcmp(t_path *s1, t_path *s2)
+int				ft_vertexcmp(t_path *s1, t_path *s2)
 {
-	int		i;
-	char	*p1;
-	char	*p2;
+	int				i;
+	char			*p1;
+	char			*p2;
 
 	p1 = s1->data;
 	p2 = s2->data;
@@ -75,7 +76,7 @@ int			ft_vertexcmp(t_path *s1, t_path *s2)
 	return ((unsigned char)p1[i] - (unsigned char)p2[i]);
 }
 
-t_path		*ft_newpath(char *str)
+t_path			*ft_newpath(char *str)
 {
 	t_path		*path;
 

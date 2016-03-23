@@ -1,17 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/23 13:33:20 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/21 12:00:30 by cjacques         ###   ########.fr       */
+/*   Created: 2016/03/23 09:14:32 by cjacques          #+#    #+#             */
+/*   Updated: 2016/03/23 09:37:46 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include <stdio.h>
 
-void	ft_print_list(t_list *list)
+void		ft_print_list(t_list *list)
 {
 	t_listelem	*tmp;
 
@@ -21,9 +23,10 @@ void	ft_print_list(t_list *list)
 		ft_putendl(LIST_DATA(tmp));
 		tmp = LIST_NEXT(tmp);
 	}
+	ft_putchar('\n');
 }
 
-int		ft_print(t_path *end)
+int			ft_print(t_path *end)
 {
 	if (end->parent == NULL)
 		return (-1);
@@ -35,7 +38,17 @@ int		ft_print(t_path *end)
 	return (0);
 }
 
-int		main(void)
+int			ft_ant(t_path *path, int nb_ants)
+{
+	if (path->parent == NULL)
+		return (0);
+	ft_ant(path->parent, nb_ants);
+	ft_putstr("L1-");
+	ft_putendl(path->data);
+	return (1);
+}
+
+int			main(void)
 {
 	t_list			list;
 	t_graph			graph;
@@ -51,8 +64,9 @@ int		main(void)
 	end = ft_search_room(&graph, &list, "##end");
 	if (end->parent == NULL)
 		ft_error(&graph, &list);
-	ft_print_list(&list);
-//	ft_ant(end,);
+//	ft_print_list(&list);
+	ft_print(end);
+	ft_ant(end, nb_ants);
 	ft_graph_destroy(&graph);
 	ft_list_destroy(&list);
 	return (0);

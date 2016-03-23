@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 09:09:37 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/22 14:34:06 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/23 10:46:24 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,18 @@ int				ft_check(t_list *list, char **line)
 	if (value == 1 || nbs == 0 || nbe == 0)
 		return (0);
 	return (1);
+}
+
+int				ft_comment(char *line)
+{
+	if (ft_strcmp(line, "##end") == 0)
+		return (0);
+	else if (ft_strcmp(line, "##start") == 0)
+		return (1);
+	else if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
+		return (2);
+	else if (line[0] == '#')
+		return (2);
+	else
+		return (3);
 }
