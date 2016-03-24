@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/24 09:25:54 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/24 11:53:38 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			ft_line_ant(t_list *list, char **line, int fd, int *nb_ants)
 				ft_error(NULL, list);
 			return (1);
 		}
-		else
+		else if (nb_ants <= 0)
 			ft_error(NULL, list);
 	}
 	ft_error(NULL, list);

@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 09:14:32 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/24 11:06:08 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/24 11:45:06 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static void		ft_print_list(t_list *list)
 	}
 	ft_putchar('\n');
 }
-
-//static void		ft_rem_v(t_path *end, t_start *start)
 
 int				main(void)
 {
