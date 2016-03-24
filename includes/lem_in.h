@@ -6,81 +6,50 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/11 12:30:36 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/23 16:07:49 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-# include <errno.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <fcntl.h>
 # include "libft.h"
 # include "get_next_line.h"
-# include "ft_list.h"
+# include "ft_graph.h"
 
 # define INT_MAX		0x7FFFFFFF
+# define INT_MIN		(int)0x80000000
 
-typedef enum	e_command
+typedef struct	s_path
 {
-	ROOM, START, END
-}				t_command;
-
-typedef struct	s_node
-{
-	int				index;
+	void			*data;
 	int				weight;
-	int				walkable;
-	char			*name;
-	int				x;
-	int				y;
-	struct s_link	*edges;
-	struct s_node	*back;
-	struct s_node	*next;
-}				t_node;
+	int				mark;
+	struct s_path	*parent;
+}				t_path;
 
 typedef	struct	s_spec
 {
-	int				ants;
-	struct s_data	*rooms;
-	struct s_data	*tunnels;
+	int					ants;
+	struct s_list		*rooms;
+	struct s_list		*tunnels;
 }				t_spec;
 
-typedef struct	s_link
-{
-	int				id;
-	struct s_link	*next;
-}				t_link;
-
-typedef struct	s_data
-{
-	char			*str;
-	struct s_data	*next;
-}				t_data;
-
-void			ft_error(void);
-int				ft_parse_file(t_spec *spec);
-int				ft_dijkstra(t_node **nodes, t_spec *spec, t_node **start
-		, t_node **end);
+void			ft_error(t_graph *graph, t_list *list);
+int				ft_parse_file(t_list *list, t_graph *graph);
 int				ft_check_int(char *str);
-t_node			*ft_new_node(char **room, int index);
-void			ft_add_node(t_node **begin, t_node *new);
-void			ft_addback_node(t_node **begin, t_node *new);
-int				ft_status(char **room, t_command *status, int *start, int *end);
-int				ft_nbrstr(char **str);
-int				ft_search(char *str, t_node **nodes);
-void			ft_dataadd(t_data **begin, t_data *new);
-void			ft_addback(t_data **begin, t_data *new);
-t_data			*ft_new_data(char *line);
-void			ft_link(char **room, t_node **nodes);
-void			ft_datadelone(t_data **begin);
-void			ft_datadel(t_data **begin);
-int				ft_checkdata(t_spec *spec);
-int				ft_stock(t_spec *spec, t_node **nodes);
-void			ft_addlink(t_link **begin, t_link *new);
-t_link			*ft_newlink(int id);
+int				ft_count_char(char *str, char c);
+int				ft_check(t_list *list, char **line);
+int				ft_comment(char *line);
+int				ft_check_and_add(t_graph *graph, t_list *list, char **line);
+void			ft_free_dcharcom(char **data);
+t_path			*ft_search_room(t_graph *graph, t_list *list, char *s);
+int				ft_vertexcmp(t_path *s1, t_path *s2);
+t_path			*ft_newpath(char *str);
+int				ft_dijkstra(t_graph *graph, t_path *start);
+void			ft_free_path(t_path *data);
+void			ft_final_print(t_path *start, t_path *end, int nb_ants);
 
 #endif

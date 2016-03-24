@@ -6,28 +6,31 @@
 #    By: cjacques <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/27 10:02:34 by cjacques          #+#    #+#              #
-#    Updated: 2016/03/11 12:05:01 by cjacques         ###   ########.fr        #
+#    Updated: 2016/03/23 19:53:38 by cjacques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = lem_in
+NAME = lem-in
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 OBJ_PATH = obj/
 SRC_PATH = srcs/
 SHELL = /bin/bash
 
-SRC_NAME =	check_error.c		\
-			link.c				\
-			dijkstra.c			\
+SRC_NAME =	basic_graph.c		\
+			basic_set.c			\
+			op_graph.c			\
+			op_set.c			\
 			error.c				\
-			lst.c				\
 			main.c				\
-			node.c				\
 			parse.c				\
-			stockage.c			\
 			list.c				\
-			utils.c
+			utils.c				\
+			check_error.c		\
+			free.c				\
+			vertex.c			\
+			dijkstra.c			\
+			final.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))

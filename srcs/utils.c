@@ -5,83 +5,105 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/26 14:30:18 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/10 11:45:07 by cjacques         ###   ########.fr       */
+/*   Created: 2016/03/21 09:09:37 by cjacques          #+#    #+#             */
+/*   Updated: 2016/03/23 10:46:24 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int		check_nbr(char c, int total)
+static int		check_nbr(char c, int total, int sign)
 {
 	int		tmp;
 
 	tmp = total * 10;
-	if (c - '0' > INT_MAX - tmp)
-		return (0);
-	return (1);
-}
-
-int				ft_search(char *str, t_node **nodes)
-{
-	if ((*nodes)->next != NULL)
-		return (0);
-	if (ft_strcmp(str, (*nodes)->name) == 0)
-		return (1);
-	(*nodes) = (*nodes)->next;
-	return (ft_search(str, nodes));
+	if (sign == 1 && c - '0' > INT_MAX - tmp)
+		ft_error(NULL, NULL);
+	if (sign == -1 && -(c - '0') < INT_MIN + tmp)
+		ft_error(NULL, NULL);
+	return (0);
 }
 
 int				ft_check_int(char *str)
 {
-	size_t	i;
-	int		neg;
-	int		total;
+	size_t		i;
+	int			neg;
+	int			total;
 
 	total = 0;
 	neg = 1;
 	i = 0;
+	if (str[i] == '-')
+		neg = -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (check_nbr(str[i], total) == 0)
-			return (-1);
+		check_nbr(str[i], total, neg);
 		total = total * 10 + (str[i] - '0');
 		i++;
 	}
 	if (str[i] != 0)
-		return (-1);
-	return (total);
+		ft_error(NULL, NULL);
+	return (total * neg);
 }
 
-int		ft_nbrstr(char **str)
+int				ft_count_char(char *str, char c)
 {
+	int		nbr;
 	int		index;
 
+	nbr = 0;
 	index = 0;
 	while (str[index])
+	{
+		if (str[index] == c)
+			nbr++;
+		if (str[0] == c)
+			return (-1);
 		index++;
-	return (index);
+	}
+	return (nbr);
 }
 
-void	ft_link(char **room, t_node **nodes)
+int				ft_check(t_list *list, char **line)
 {
-	int			index;
-	t_node		*tmp;
-	t_node		*ptr;
+	static int		nbs = 0;
+	static int		nbe = 0;
+	static int		value = 0;
 
-	tmp = *nodes;
-	ptr = *nodes;
-	while (tmp != NULL)
+	if (ft_strcmp(*line, "##start") == 0)
 	{
-		if (ft_strcmp(room[0], tmp->name) == 0)
-		{
-			index = tmp->index;
-			while (ft_strcmp(room[1], ptr->name) != 0)
-				ptr = ptr->next;
-			ft_addlink(&ptr->edges, ft_newlink(index));
-			ft_addlink(&tmp->edges, ft_newlink(ptr->index));
-			break ;
-		}
-		tmp = tmp->next;
+		(value == 1) ? ft_error(NULL, list) : 1;
+		nbs++;
+		value = 1;
 	}
+	else if (ft_strcmp(*line, "##end") == 0)
+	{
+		(value == 1) ? ft_error(NULL, list) : 1;
+		nbe++;
+		value = 1;
+	}
+	else if (ft_comment(*line) == 3
+			&& ft_count_char(*line, ' ') == 2)
+		value = 0;
+	if (nbs > 1 || nbe > 1)
+		ft_error(NULL, list);
+	if (value == 1 || nbs == 0 || nbe == 0)
+		return (0);
+	return (1);
+}
+
+int				ft_comment(char *line)
+{
+	if (ft_strcmp(line, "##end") == 0)
+		return (0);
+	else if (ft_strcmp(line, "##start") == 0)
+		return (1);
+	else if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
+		return (2);
+	else if (line[0] == '#')
+		return (2);
+	else
+		return (3);
 }

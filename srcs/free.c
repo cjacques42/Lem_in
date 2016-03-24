@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   link.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/09 14:19:17 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/09 17:10:29 by cjacques         ###   ########.fr       */
+/*   Created: 2016/03/16 13:32:19 by cjacques          #+#    #+#             */
+/*   Updated: 2016/03/22 12:13:53 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	ft_addlink(t_link **begin, t_link *new)
+void	ft_free_path(t_path *data)
 {
-	if (*begin == NULL)
-		*begin = new;
-	else
+	if (data != NULL)
 	{
-		new->next = *begin;
-		*begin = new;
+		free(data->data);
+		free(data);
 	}
 }
 
-t_link	*ft_newlink(int id)
+void	ft_free_dcharcom(char **data)
 {
-	t_link	*tmp;
+	int		index;
 
-	tmp = NULL;
-	if ((tmp = (t_link*)malloc(sizeof(*tmp))) == NULL)
-		ft_error();
-	tmp->id = id;
-	tmp->next = NULL;
-	return (tmp);
+	index = 0;
+	while (data[index] != NULL)
+		free(data[index++]);
+	free(data[index]);
+	free(data);
 }
