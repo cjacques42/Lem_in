@@ -36,14 +36,7 @@ static void		ft_rem_last_edge(t_graph *graph, t_path **data)
 	{
 		path = ((t_adjlist*)LIST_DATA(elem))->vertex;
 		set = &((t_adjlist*)LIST_DATA(elem))->adjacent;
-		ft_putnbr(ft_set_remove(set, (void**)&data));
-		elem = LIST_NEXT(elem);
-	}
-	elem = LIST_HEAD(&graph->adjlists);
-	while (elem != NULL)
-	{
-		path = ((t_adjlist*)LIST_DATA(elem))->vertex;
-		ft_putendl(LIST_DATA(path));
+		ft_set_remove(set, (void**)data);
 		elem = LIST_NEXT(elem);
 	}
 }
@@ -68,9 +61,10 @@ void			ft_rem_shortpath(t_graph *graph, t_path *start, t_path *end)
 		}
 		set = &((t_adjlist*)LIST_DATA(ptr))->adjacent;
 		val = LIST_SIZE(set);
-		ft_destroy(set);
 		ft_rem_last_edge(graph, &tmp);
-//		ft_putnbr(ft_graph_rem_vertex(graph, (void**)&tmp));
+		ft_destroy(set);
+		ft_graph_rem_vertex(graph, (void**)&tmp);
+		ft_free_path(tmp);
 		GRAPH_ECOUNT(graph) -= val;
 		tmp = tmp->parent;
 	}

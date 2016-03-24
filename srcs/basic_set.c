@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "ft_set.h"
+#include "libft.h"
+#include "lem_in.h"
 
 void	ft_set_init(t_set *set, int (*ft_match)(void *k1, void *k2)
 		, void (*ft_destroy)(void *data))
@@ -30,8 +32,9 @@ int		ft_set_remove(t_set *set, void **data)
 {
 	t_listelem		*tmp;
 	t_listelem		*ptr;
-
+	
 	tmp = LIST_HEAD(set);
+	ptr = NULL;
 	while (tmp != NULL)
 	{
 		if (set->ft_match(*data, LIST_DATA(tmp)) == 0)

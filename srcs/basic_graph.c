@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_graph.h"
-#include "libft.h"
 
 int			ft_graph_ins_vertex(t_graph *graph, void *data)
 {
@@ -77,21 +76,26 @@ int			ft_graph_rem_vertex(t_graph *graph, void **data)
 {
 	t_listelem		*tmp;
 	t_listelem		*prec;
-	int				val;
+	t_listelem		*ptr;
 	t_adjlist		*adjlist;
+	int				val;
 
 	val = 0;
 	tmp = LIST_HEAD(&graph->adjlists);
+	prec = NULL;
 	while (tmp != NULL)
 	{
 		if (ft_set_ismember(&((t_adjlist*)LIST_DATA(tmp))->adjacent, *data))
 			return (-1);
 		if (graph->ft_match(*data, ((t_adjlist*)LIST_DATA(tmp))->vertex) == 0)
+		{
+			ptr = tmp;
 			val = 1;
+		}
 		prec = (val == 0) ? tmp : prec;
 		tmp = LIST_NEXT(tmp);
 	}
-	if (val == 0 || LIST_SIZE(&((t_adjlist*)LIST_DATA(tmp))->adjacent) > 0)
+	if (val == 0 || LIST_SIZE(&((t_adjlist*)LIST_DATA(ptr))->adjacent) > 0)
 		return (-1);
 	if (ft_list_rem_next(&graph->adjlists, prec, (void**)&adjlist) != 0)
 		return (-1);

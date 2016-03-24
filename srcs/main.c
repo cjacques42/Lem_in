@@ -44,6 +44,12 @@ int				main(void)
 	ft_print_list(&list);
 	ft_final_print(start, end, nb_ants);
 	ft_rem_shortpath(&graph, start, end);
+//
+	ft_dijkstra(&graph, start);
+	if (end->parent == NULL)
+		ft_error(&graph, &list);
+	ft_final_print(start, end, nb_ants);
+//
 /*	t_listelem *tmp = LIST_HEAD(&(&graph)->adjlists);
 	while (tmp != NULL)
 	{
