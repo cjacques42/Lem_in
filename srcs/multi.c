@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 13:57:25 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/24 17:06:57 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:49:10 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,30 @@ static void		ft_destroy(t_list *list)
 	ft_list_rem_next(list, NULL, &data);
 	ft_list_destroy(list);
 }
-/*
-static void		ft_rem_last_edge(t_graph *graph, t_path *data)
+
+static void		ft_rem_last_edge(t_graph *graph, t_path **data)
 {
 	t_listelem	*elem;
 	t_set		*set;
+	t_path		*path;
 
 	elem = LIST_HEAD(&graph->adjlists);
 	while (elem != NULL)
 	{
+		path = ((t_adjlist*)LIST_DATA(elem))->vertex;
 		set = &((t_adjlist*)LIST_DATA(elem))->adjacent;
-		ft_set_remove(set, (void**)&data);
+		ft_putnbr(ft_set_remove(set, (void**)&data));
+		elem = LIST_NEXT(elem);
+	}
+	elem = LIST_HEAD(&graph->adjlists);
+	while (elem != NULL)
+	{
+		path = ((t_adjlist*)LIST_DATA(elem))->vertex;
+		ft_putendl(LIST_DATA(path));
 		elem = LIST_NEXT(elem);
 	}
 }
-*/
+
 void			ft_rem_shortpath(t_graph *graph, t_path *start, t_path *end)
 {
 	t_path			*tmp;
@@ -59,25 +68,9 @@ void			ft_rem_shortpath(t_graph *graph, t_path *start, t_path *end)
 		}
 		set = &((t_adjlist*)LIST_DATA(ptr))->adjacent;
 		val = LIST_SIZE(set);
-		t_listelem *aff = LIST_HEAD(set);
-		while (aff != NULL)
-		{
-			tmp = LIST_DATA(aff);
-			ft_putendl(LIST_DATA(tmp));
-			aff = LIST_NEXT(aff);
-		}
 		ft_destroy(set);
-
-/*		aff = LIST_HEAD(set);
-		while (aff != NULL)
-		{
-			tmp = LIST_DATA(aff);
-			ft_putendl(LIST_DATA(tmp));
-			aff = LIST_NEXT(aff);
-		}*/
-
+		ft_rem_last_edge(graph, &tmp);
 //		ft_putnbr(ft_graph_rem_vertex(graph, (void**)&tmp));
-//		ft_rem_last_edge(graph, path);
 		GRAPH_ECOUNT(graph) -= val;
 		tmp = tmp->parent;
 	}
