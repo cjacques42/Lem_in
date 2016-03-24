@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 09:14:32 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/23 15:26:03 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/24 09:25:38 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int				main(void)
 	start = ft_search_room(&graph, &list, "##start");
 	ft_dijkstra(&graph, start);
 	end = ft_search_room(&graph, &list, "##end");
-	if (end->parent == NULL || nb_ants == 0)
+	if (end->parent == NULL)
 		ft_error(&graph, &list);
 	ft_print_list(&list);
 	ft_list_destroy(&list);
