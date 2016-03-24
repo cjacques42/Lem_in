@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 09:14:32 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/24 11:45:06 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/24 12:29:48 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,18 @@ static void		ft_print_list(t_list *list)
 	ft_putchar('\n');
 }
 
+static void		ft_rem_shortpath(t_path *start, t_path *end)
+{
+	t_path	*tmp;
+
+	start->parent = NULL;
+	tmp = end->parent;
+	while (tmp != start)
+	{
+		
+	}
+}
+
 int				main(void)
 {
 	t_list			list;
@@ -37,13 +49,15 @@ int				main(void)
 			, (void (*)(void*))ft_free_path);
 	nb_ants = ft_parse_file(&list, &graph);
 	start = ft_search_room(&graph, &list, "##start");
-	ft_dijkstra(&graph, start);
 	end = ft_search_room(&graph, &list, "##end");
-	if (end->parent == NULL)
-		ft_error(&graph, &list);
+	while (end->parent != NULL)
+	{
+		ft_dijkstra(&graph, start);
+		ft_final_print(start, end, nb_ants);
+		ft_rem_shortpath(start, end);
+	}
 	ft_print_list(&list);
 	ft_list_destroy(&list);
-	ft_final_print(start, end, nb_ants);
 	ft_graph_destroy(&graph);
 	return (0);
 }
