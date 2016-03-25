@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 09:14:32 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/25 11:16:33 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/25 12:46:27 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,20 @@ static void		ft_print_list(t_list *list)
 	ft_putchar('\n');
 }
 
-static void		ft_destroy_multi(t_list *multi)
+static void		ft_destroy_multi(t_list *multi, t_path *start)
 {
-	t_listelem	*tmp;
+/*	t_listelem	*tmp;
 	t_set	*ptr;
 	t_listelem	*elem;
 	t_path		*path;
 
+	(void)start;
 	tmp = LIST_HEAD(multi);
 	while (tmp != NULL)
 	{
 		ptr = LIST_DATA(tmp);
+		ft_putnbr(LIST_SIZE(ptr));
+		ft_putstr("\n");
 		elem = LIST_HEAD(ptr);
 		while (elem != NULL)
 		{
@@ -44,6 +47,21 @@ static void		ft_destroy_multi(t_list *multi)
 			elem = LIST_NEXT(elem);
 		}
 		tmp = LIST_NEXT(tmp);
+	}*/
+//	t_listelem	*tmp;
+	t_set	*ptr;
+//	t_listelem	*elem;
+//	t_path		*path;
+	(void)start;
+	while (LIST_SIZE(multi) > 0)
+	{
+		ft_putstr("!");
+//		tmp = LIST_HEAD(multi);
+//		ptr = LIST_DATA(tmp);
+//		elem = LIST_HEAD(ptr);
+		ft_list_rem_next(multi, NULL, (void**)&ptr);
+//		if (path != start)
+//				ft_free_path(path);
 	}
 }
 
@@ -76,7 +94,7 @@ int				main(void)
 		ft_rem_shortpath(&graph, start, end);
 		ft_dijkstra(&graph, start, end, &multi);
 	}*/
-	ft_destroy_multi(&multi);
+	ft_destroy_multi(&multi, start);
 	ft_list_destroy(&list);
 	ft_graph_destroy(&graph);
 	return (0);
