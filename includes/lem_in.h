@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/25 15:16:57 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/25 18:05:24 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,18 @@ typedef struct	s_path
 	struct s_path	*parent;
 }				t_path;
 
-typedef	struct	s_spec
+typedef struct	s_spec
 {
-	int					ants;
-	struct s_list		*rooms;
-	struct s_list		*tunnels;
+	int				ants;
+	struct s_list	*rooms;
+	struct s_list	*tunnels;
 }				t_spec;
+
+typedef struct	s_info
+{
+	t_path			*start;
+	t_path			*end;
+}				t_info;
 
 void			ft_error(t_graph *graph, t_list *list);
 int				ft_parse_file(t_list *list, t_graph *graph);
