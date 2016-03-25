@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 13:57:25 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/25 10:03:23 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/25 11:17:38 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void			ft_rem_shortpath(t_graph *graph, t_path *start, t_path *end)
 		ft_rem_last_edge(graph, &tmp);
 		ft_destroy(set);
 		ft_graph_rem_vertex(graph, (void**)&tmp);
-		ft_free_path(tmp);
 		GRAPH_ECOUNT(graph) -= val;
 		tmp = tmp->parent;
 	}

@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 09:14:32 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/25 10:03:24 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/25 11:16:33 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,28 @@ static void		ft_print_list(t_list *list)
 	ft_putchar('\n');
 }
 
+static void		ft_destroy_multi(t_list *multi)
+{
+	t_listelem	*tmp;
+	t_set	*ptr;
+	t_listelem	*elem;
+	t_path		*path;
+
+	tmp = LIST_HEAD(multi);
+	while (tmp != NULL)
+	{
+		ptr = LIST_DATA(tmp);
+		elem = LIST_HEAD(ptr);
+		while (elem != NULL)
+		{
+			path = LIST_DATA(elem);
+			ft_putendl(path->data);
+			elem = LIST_NEXT(elem);
+		}
+		tmp = LIST_NEXT(tmp);
+	}
+}
+
 int				main(void)
 {
 	t_list			list;
@@ -32,22 +54,29 @@ int				main(void)
 	int				nb_ants;
 	t_path			*start;
 	t_path			*end;
+	t_list			multi;
 
 	ft_graph_init(&graph, (int (*)(void*, void*))ft_vertexcmp
 			, (void (*)(void*))ft_free_path);
 	nb_ants = ft_parse_file(&list, &graph);
 	start = ft_search_room(&graph, &list, "##start");
 	end = ft_search_room(&graph, &list, "##end");
-	ft_dijkstra(&graph, start);
-	if (end->parent == NULL)
+	ft_set_init(&multi, (int (*)(void*, void*))ft_vertexcmp
+			, (void (*)(void*))ft_free_path);
+	ft_dijkstra(&graph, start, end, &multi);
+	ft_putstr("!");
+	ft_putnbr(LIST_SIZE(&multi));
+	ft_putstr("!");
+	if (LIST_SIZE(&multi) == 0)
 		ft_error(&graph, &list);
 	ft_print_list(&list);
-	while (end->parent != NULL)
+/*	while (end->parent != NULL)
 	{
 		ft_final_print(start, end, nb_ants);
 		ft_rem_shortpath(&graph, start, end);
-		ft_dijkstra(&graph, start);
-	}
+		ft_dijkstra(&graph, start, end, &multi);
+	}*/
+	ft_destroy_multi(&multi);
 	ft_list_destroy(&list);
 	ft_graph_destroy(&graph);
 	return (0);

@@ -6,13 +6,13 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:36:00 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/23 16:44:33 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/25 11:16:34 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		ft_start(t_graph *graph, t_path *start)
+static int		ft_start(t_graph *graph, t_path *start)
 {
 	t_listelem		*tmp;
 	t_adjlist		*adjlist;
@@ -41,7 +41,7 @@ int		ft_start(t_graph *graph, t_path *start)
 	return (0);
 }
 
-void	ft_weight(t_graph *graph, t_list *file)
+static void		ft_weight(t_graph *graph, t_list *file)
 {
 	t_listelem		*tmp;
 	t_path			*other;
@@ -65,15 +65,31 @@ void	ft_weight(t_graph *graph, t_list *file)
 	}
 }
 
-int		ft_dijkstra(t_graph *graph, t_path *start)
+void			ft_dijkstra(t_graph *graph, t_path *start, t_path *end
+		, t_list *multi)
 {
 	t_list			file;
+	t_set			*path;
+	t_path			*tmp;
 
+	path = (t_list*)malloc(sizeof(*path));
 	ft_start(graph, start);
 	ft_list_init(&file, free);
 	ft_list_ins_next(&file, LIST_TAIL(&file), start);
 	start->mark = 1;
 	while (LIST_SIZE(&file) > 0)
 		ft_weight(graph, &file);
-	return (0);
+	if (end->parent == NULL)
+		return ;
+	ft_set_init(path, (int (*)(void*, void*))ft_vertexcmp
+			, (void (*)(void*))ft_free_path);
+	ft_list_ins_next(multi, LIST_TAIL(multi), path);
+	tmp = end->parent;
+	while (tmp != NULL)
+	{
+		ft_list_ins_next(path, LIST_TAIL(path), tmp);
+		tmp = tmp->parent;
+	}
+	ft_rem_shortpath(graph, start, end);
+	ft_dijkstra(graph, start, end, multi);
 }
