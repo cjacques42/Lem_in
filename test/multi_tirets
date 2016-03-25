@@ -1,0 +1,39 @@
+#fd
+#dg
+03
+##start
+###start
+#fr
+ergerg -3213 3
+##
+rf 58 52
+short 5 9
+##end
+pi 45 22
+jean-mouloud 5 6
+--fofo 8 9
+fifi-- 8 9
+fifi--- 6 9
+---fofo 8 9
+jdk 8 9
+li- 5 28
+#fr
+#fr
+#fr
+##star
+bonjour 13 1
+ergerg-bonjour
+#ergerg-short
+#short-pi
+ergerg-rf
+rf---fofo
+---fofo-pi
+jdk-li-
+#li--pi
+#bonjour
+rf-jdk
+li--bonjour
+rf-ergerg
+rf-jean-mouloud
+jean-mouloud---fofo
+jean-mouloud----fofo

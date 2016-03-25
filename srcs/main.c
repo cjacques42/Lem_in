@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 09:14:32 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/24 17:49:11 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/25 10:03:24 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,6 @@ int				main(void)
 		ft_rem_shortpath(&graph, start, end);
 		ft_dijkstra(&graph, start);
 	}
-/*	t_listelem *tmp = LIST_HEAD(&(&graph)->adjlists);
-	while (tmp != NULL)
-	{
-		ft_putendl(((t_path*)((t_adjlist*)LIST_DATA(tmp))->vertex)->data);
-		tmp = LIST_NEXT(tmp);
-	}*/
 	ft_list_destroy(&list);
 	ft_graph_destroy(&graph);
 	return (0);

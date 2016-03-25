@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 10:31:46 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/24 17:49:12 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/25 09:25:20 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		ft_set_remove(t_set *set, void **data)
 {
 	t_listelem		*tmp;
 	t_listelem		*ptr;
-	
+
 	tmp = LIST_HEAD(set);
 	ptr = NULL;
 	while (tmp != NULL)

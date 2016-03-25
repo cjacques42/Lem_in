@@ -6,21 +6,46 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 10:31:51 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/21 12:10:04 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/25 09:58:29 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_graph.h"
 #include "libft.h"
 
-void		ft_graph_init(t_graph *graph, int (*ft_match)(void *k1, void *k2)
-			, void (*ft_destroy)(void *data))
+static int	ft_search(t_graph *graph, t_listelem **tmp, t_adjlist **ptr
+		, void *data)
 {
-	graph->vcount = 0;
-	graph->ecount = 0;
-	graph->ft_match = ft_match;
-	graph->ft_destroy = ft_destroy;
-	ft_list_init(&graph->adjlists, NULL);
+	*tmp = LIST_HEAD(&graph->adjlists);
+	while (*tmp != NULL)
+	{
+		*ptr = LIST_DATA(*tmp);
+		if (graph->ft_match(data, (*ptr)->vertex) == 0)
+			break ;
+		*tmp = LIST_NEXT(*tmp);
+	}
+	if (*tmp == NULL)
+		return (-1);
+	return (0);
+}
+
+int			ft_graph_ins_edge(t_graph *graph, void *data1, void *data2)
+{
+	t_listelem		*tmp;
+	int				val;
+	t_adjlist		*ptr1;
+	t_adjlist		*ptr2;
+
+	val = 0;
+	if (ft_search(graph, &tmp, &ptr1, data2) == -1)
+		return (-1);
+	if (ft_search(graph, &tmp, &ptr2, data1) == -1)
+		return (-1);
+	if ((val = ft_set_insert(&((t_adjlist*)LIST_DATA(tmp))->adjacent
+					, ptr1->vertex)) == -1)
+		return (val);
+	GRAPH_ECOUNT(graph)++;
+	return (0);
 }
 
 void		ft_graph_destroy(t_graph *graph)
