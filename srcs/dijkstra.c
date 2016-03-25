@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:36:00 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/25 12:46:28 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/25 15:05:48 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void			ft_dijkstra(t_graph *graph, t_path *start, t_path *end
 	t_set			*path;
 	t_path			*tmp;
 
-	path = (t_list*)malloc(sizeof(*path));
 	ft_start(graph, start);
 	ft_list_init(&file, free);
 	ft_list_ins_next(&file, LIST_TAIL(&file), start);
@@ -81,6 +80,7 @@ void			ft_dijkstra(t_graph *graph, t_path *start, t_path *end
 		ft_weight(graph, &file);
 	if (end->parent == NULL)
 		return ;
+	path = (t_list*)malloc(sizeof(*path));
 	ft_set_init(path, (int (*)(void*, void*))ft_vertexcmp
 			, (void (*)(void*))ft_free_path);
 	ft_list_ins_next(multi, LIST_TAIL(multi), path);
