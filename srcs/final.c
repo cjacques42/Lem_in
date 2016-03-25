@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 14:13:41 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/25 17:43:38 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/25 17:56:04 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static void		ft_circular(t_list *multi, t_path *end, t_path *start
 		elem = LIST_NEXT(elem);
 	}
 	start->mark = nb_ants;
+	elem = LIST_TAIL(multi);
+	elem->next = LIST_HEAD(multi);
 }
 
 void			ft_final_print(t_path *start, t_path *end, int nb_ants
@@ -83,11 +85,13 @@ void			ft_final_print(t_path *start, t_path *end, int nb_ants
 	ft_circular(multi, end, start, nb_ants);
 	elem = LIST_HEAD(multi);
 	start->parent = end;
-	while (elem != NULL)
+	while (end->mark != nb_ants)
 	{
 		path = LIST_DATA(LIST_HEAD((t_set*)LIST_DATA(elem)));
 		end->parent = path;
 		ft_print(start, end, nb_ants);
 		elem = LIST_NEXT(elem);
 	}
+	elem = LIST_TAIL(multi);
+	elem->next = NULL;
 }
