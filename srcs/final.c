@@ -76,22 +76,75 @@ static void		ft_circular(t_list *multi, t_path *end, t_path *start
 	elem->next = LIST_HEAD(multi);
 }
 
+static void		ft_res_size(t_list *multi, t_listelem *elem, int val)
+{
+	t_listelem	*ptr;
+	t_set		*set;
+	int			index;
+
+	set = LIST_DATA(elem);
+	ptr = LIST_HEAD(multi);
+	index = 0;
+	if (elem == ptr)
+		LIST_SIZE(set) = val;
+	else
+	{
+		while (ptr != elem)
+		{
+			LIST_SIZE(set) += LIST_SIZE((t_set*)LIST_DATA(ptr));
+			index++;
+			ptr = LIST_NEXT(ptr);
+		}
+		LIST_SIZE(set) /= index;
+	}
+	if (LIST_NEXT(elem) != NULL)
+		ft_res_size(multi, LIST_NEXT(elem), val);
+}
+
+static int		ft_diff_between_path(t_list *multi, t_listelem *elem)
+{
+	int			retval;
+	t_listelem	*ptr;
+	t_set		*set;
+	int			value;
+
+	if (LIST_NEXT(elem) != NULL)
+		ft_diff_between_path(multi, LIST_NEXT(elem));
+	set = LIST_DATA(elem);
+	retval = LIST_SIZE(set);
+	ptr = LIST_HEAD(multi);
+	LIST_SIZE(set) = 0;
+	while (ptr != elem)
+	{
+		value = LIST_SIZE((t_set*)LIST_DATA(ptr));
+		LIST_SIZE(set) += retval - value;
+		ptr = LIST_NEXT(ptr);
+	}
+	return (retval);
+}
+
 void			ft_final_print(t_path *start, t_path *end, int nb_ants
 		, t_list *multi)
 {
 	t_listelem	*elem;
 	t_path		*path;
+	int			val;
 
-	ft_circular(multi, end, start, nb_ants);
+	(void)ft_diff_between_path;
+	(void)ft_print;
 	elem = LIST_HEAD(multi);
+	val = ft_diff_between_path(multi, elem);
+	ft_circular(multi, end, start, nb_ants);
 	start->parent = end;
 	while (end->mark != nb_ants)
 	{
 		path = LIST_DATA(LIST_HEAD((t_set*)LIST_DATA(elem)));
 		end->parent = path;
+		//		if (nb_ants - val >= 1)
 		ft_print(start, end, nb_ants);
 		elem = LIST_NEXT(elem);
 	}
 	elem = LIST_TAIL(multi);
 	elem->next = NULL;
+	ft_res_size(multi, LIST_HEAD(multi), val);
 }
