@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 09:14:32 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/27 16:25:21 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/27 17:57:26 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,13 @@ static void		ft_destroy_multi(t_list *multi, t_path *start, t_path *end)
 	}
 }
 
-int				main(void)
+static void		ft_putnbrendl(int nb)
+{
+	ft_putnbr(nb);
+	ft_putchar('\n');
+}
+
+int				main(int ac, char **av)
 {
 	t_list			list;
 	t_graph			graph;
@@ -61,10 +67,11 @@ int				main(void)
 	ft_set_init(&multi, (int (*)(void*, void*))ft_vertexcmp
 			, (void (*)(void*))ft_free_path);
 	ft_dijkstra(&graph, info.start, info.end, &multi);
-	if (LIST_SIZE(&multi) == 0)
-		ft_error(&graph, &list);
+	(LIST_SIZE(&multi) == 0) ? ft_error(&graph, &list) : 0;
 	ft_print_list(&list);
-	ft_final_print(info.start, info.end, nb_ants, &multi);
+	nb_ants = ft_final_print(info.start, info.end, nb_ants, &multi);
+	if (ft_strcmp("-l", av[ac - 1]) == 0)
+		ft_putnbrendl(nb_ants);
 	ft_destroy_multi(&multi, info.start, info.end);
 	ft_list_destroy(&list);
 	ft_graph_destroy(&graph);

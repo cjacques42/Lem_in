@@ -6,11 +6,17 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 13:57:25 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/25 16:43:01 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/27 18:10:31 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+int				ft_count_putchar(char c)
+{
+	ft_putchar(c);
+	return (1);
+}
 
 static void		ft_destroy(t_list *list)
 {

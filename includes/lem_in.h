@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/27 12:03:49 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/27 18:10:28 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ t_path			*ft_newpath(char *str);
 void			ft_dijkstra(t_graph *graph, t_path *start, t_path *end
 		, t_list *multi);
 void			ft_free_path(t_path *data);
-void			ft_final_print(t_path *start, t_path *end, int nb_ants
+int				ft_final_print(t_path *start, t_path *end, int nb_ants
 		, t_list *multi);
 void			ft_rem_shortpath(t_graph *graph, t_path *start, t_path *end);
+int				ft_count_putchar(char c);
 
 #endif
