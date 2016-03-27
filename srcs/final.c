@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 14:13:41 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/25 18:06:31 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/27 12:38:44 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ static void		ft_valueandprint(t_path **tmp, int *index)
 	ft_putstr((*tmp)->data);
 }
 
-static void		ft_print(t_path *start, t_path *end, int nb_ants)
+static void		ft_print(t_path *start, t_path *end, int nb_ants, t_set *multi)
 {
 	t_path	*tmp;
 	int		index;
 
+	(void)multi;
 	tmp = end;
 	index = 1;
 	while (end->mark != nb_ants)
@@ -48,6 +49,7 @@ static void		ft_print(t_path *start, t_path *end, int nb_ants)
 		tmp = tmp->parent;
 	}
 	ft_putchar('\n');
+	tmp = tmp->parent;
 }
 
 static void		ft_circular(t_list *multi, t_path *end, t_path *start
@@ -61,7 +63,7 @@ static void		ft_circular(t_list *multi, t_path *end, t_path *start
 	end->weight = 0;
 	while (elem != NULL)
 	{
-		path = LIST_DATA(LIST_HEAD((t_set*)LIST_DATA(elem)));
+		path = LIST_DATA(LIST_NEXT(LIST_HEAD((t_set*)LIST_DATA(elem))));
 		end->parent = path;
 		while (path->parent != NULL)
 		{
@@ -129,19 +131,21 @@ void			ft_final_print(t_path *start, t_path *end, int nb_ants
 	t_listelem	*elem;
 	t_path		*path;
 	int			val;
+	int			index;
 
-	(void)ft_diff_between_path;
 	(void)ft_print;
+	(void)ft_circular;
+	index = 1;
 	elem = LIST_HEAD(multi);
 	val = ft_diff_between_path(multi, elem);
 	ft_circular(multi, end, start, nb_ants);
 	start->parent = end;
 	while (end->mark != nb_ants)
 	{
-		path = LIST_DATA(LIST_HEAD((t_set*)LIST_DATA(elem)));
+//		path = LIST_DATA(LIST_HEAD((t_set*)LIST_DATA(elem)));
+		path = LIST_DATA(LIST_NEXT(LIST_HEAD((t_set*)LIST_DATA(elem))));
 		end->parent = path;
-		//		if (nb_ants - val >= 1)
-		ft_print(start, end, nb_ants);
+		ft_print(start, end, nb_ants, multi);
 		elem = LIST_NEXT(elem);
 	}
 	elem = LIST_TAIL(multi);

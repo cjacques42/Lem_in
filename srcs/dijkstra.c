@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:36:00 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/25 15:05:48 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/27 12:09:16 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void			ft_dijkstra(t_graph *graph, t_path *start, t_path *end
 	ft_set_init(path, (int (*)(void*, void*))ft_vertexcmp
 			, (void (*)(void*))ft_free_path);
 	ft_list_ins_next(multi, LIST_TAIL(multi), path);
-	tmp = end->parent;
+	tmp = end;
 	while (tmp != NULL)
 	{
 		ft_list_ins_next(path, LIST_TAIL(path), tmp);

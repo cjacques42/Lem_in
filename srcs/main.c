@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 09:14:32 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/25 18:06:30 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/27 12:38:43 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void		ft_print_list(t_list *list)
 	ft_putchar('\n');
 }
 
-static void		ft_destroy_multi(t_list *multi, t_path *start)
+static void		ft_destroy_multi(t_list *multi, t_path *start, t_path *end)
 {
 	t_set			*ptr;
 	t_listelem		*elem;
@@ -38,7 +38,7 @@ static void		ft_destroy_multi(t_list *multi, t_path *start)
 		while (LIST_SIZE(ptr) > 0)
 		{
 			ft_list_rem_next(ptr, NULL, (void**)&path);
-			if (path != start)
+			if (path != start && path != end)
 				ft_free_path(path);
 		}
 		free(ptr);
@@ -65,7 +65,7 @@ int				main(void)
 		ft_error(&graph, &list);
 	ft_print_list(&list);
 	ft_final_print(info.start, info.end, nb_ants, &multi);
-	ft_destroy_multi(&multi, info.start);
+	ft_destroy_multi(&multi, info.start, info.end);
 	ft_list_destroy(&list);
 	ft_graph_destroy(&graph);
 	return (0);
