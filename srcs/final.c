@@ -6,24 +6,24 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 14:13:41 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/27 15:10:25 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/27 17:14:55 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void		ft_print(t_path *start, t_path *end, int *index, t_list *head)
+static void		ft_print(t_path *start, t_list *multi, int *index, t_list *head)
 {
 	t_path		*path;
 	int			diff;
 
-	(void)start;
-	(void)end;
+	(void)multi;
 	path = LIST_DATA(LIST_HEAD(head));
 	diff = LIST_SIZE(head);
 	while (path != start)
 	{
-		if ((path->parent == start && start->mark - diff > 0) || (path->parent->mark > 0 && path->parent != start))
+		if ((path->parent == start && start->mark - diff > 0)
+				|| (path->parent->mark > 0 && path->parent != start))
 		{
 			path->mark++;
 			path->parent->mark--;
@@ -31,6 +31,9 @@ static void		ft_print(t_path *start, t_path *end, int *index, t_list *head)
 				path->weight = (*index)++;
 			else
 				path->weight = path->parent->weight;
+//			if (path != start->parent || head != LIST_DATA(LIST_HEAD(multi)))
+//				ft_putstr(" L");
+//			else
 			ft_putstr(" L");
 			ft_putnbr(path->weight);
 			ft_putchar('-');
@@ -38,7 +41,6 @@ static void		ft_print(t_path *start, t_path *end, int *index, t_list *head)
 		}
 		path = path->parent;
 	}
-	path = path->parent;
 }
 
 static void		ft_circular(t_list *multi, t_path *end, t_path *start
@@ -131,11 +133,12 @@ void			ft_final_print(t_path *start, t_path *end, int nb_ants
 	{
 		path = LIST_DATA(LIST_NEXT(LIST_HEAD((t_set*)LIST_DATA(elem))));
 		end->parent = path;
-		ft_print(start, end, &index, LIST_DATA(elem));
-		if (elem == LIST_TAIL(multi))
+		ft_print(start, multi, &index, LIST_DATA(elem));
+		if (elem == LIST_TAIL(multi) && end->mark != nb_ants)
 			ft_putchar('\n');
 		elem = LIST_NEXT(elem);
 	}
+	ft_putchar('\n');
 	elem = LIST_TAIL(multi);
 	elem->next = NULL;
 	ft_res_size(multi, LIST_HEAD(multi), val);
