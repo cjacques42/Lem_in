@@ -6,13 +6,13 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 14:13:41 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/27 12:40:51 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/27 14:24:07 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void		ft_valueandprint(t_path **tmp, int *index)
+/*static void		ft_valueandprint(t_path **tmp, int *index)
 {
 	((*tmp)->mark)++;
 	((*tmp)->weight)++;
@@ -27,29 +27,37 @@ static void		ft_valueandprint(t_path **tmp, int *index)
 	ft_putnbr((*tmp)->weight);
 	ft_putchar('-');
 	ft_putstr((*tmp)->data);
-}
+}*/
 
-static void		ft_print(t_path *start, t_path *end, int nb_ants, t_set *multi)
+static void		ft_print(t_path *start, t_path *end, int *index, t_list *head)
 {
-	t_path	*tmp;
-	int		index;
+	t_path		*path;
+	t_path		*beg;
+	int			diff;
 
-	(void)multi;
-	tmp = end;
-	index = 1;
-	while (end->mark != nb_ants)
+	(void)start;
+	(void)end;
+	path = LIST_DATA(LIST_HEAD(head));
+	beg = path;
+	diff = LIST_SIZE(head);
+	while (path != start)
 	{
-		if (tmp == start)
+		if (/*(path->parent != start || start->weight - diff >= 1) &&*/ path->parent->mark > 0)
 		{
-			ft_putchar('\n');
-			index = 1;
+			path->mark++;
+			path->parent->mark--;
+			if (path->parent == start)
+				path->weight = (*index)++;
+			else
+				path->weight = path->parent->weight;
+			ft_putstr(" L");
+			ft_putnbr(path->weight);
+			ft_putchar('-');
+			ft_putstr(path->data);
 		}
-		else if (tmp->parent->mark != 0)
-			ft_valueandprint(&tmp, &index);
-		tmp = tmp->parent;
+		path = path->parent;
 	}
-	ft_putchar('\n');
-	tmp = tmp->parent;
+	path = path->parent;
 }
 
 static void		ft_circular(t_list *multi, t_path *end, t_path *start
@@ -133,8 +141,6 @@ void			ft_final_print(t_path *start, t_path *end, int nb_ants
 	int			val;
 	int			index;
 
-	(void)ft_print;
-	(void)ft_circular;
 	index = 1;
 	elem = LIST_HEAD(multi);
 	val = ft_diff_between_path(multi, elem);
@@ -144,7 +150,9 @@ void			ft_final_print(t_path *start, t_path *end, int nb_ants
 	{
 		path = LIST_DATA(LIST_NEXT(LIST_HEAD((t_set*)LIST_DATA(elem))));
 		end->parent = path;
-		ft_print(start, end, nb_ants, multi);
+		ft_print(start, end, &index, LIST_DATA(elem));
+		if (elem == LIST_TAIL(multi))
+			ft_putchar('\n');
 		elem = LIST_NEXT(elem);
 	}
 	elem = LIST_TAIL(multi);
