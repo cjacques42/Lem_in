@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/27 18:10:28 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/27 18:33:50 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ int				ft_final_print(t_path *start, t_path *end, int nb_ants
 		, t_list *multi);
 void			ft_rem_shortpath(t_graph *graph, t_path *start, t_path *end);
 int				ft_count_putchar(char c);
+void			ft_free_several_path(t_path *data1, t_path *data2);
 
 #endif

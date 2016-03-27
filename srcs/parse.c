@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:15:49 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/27 18:26:45 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/27 18:34:42 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,10 @@ void		ft_tunnels(t_listelem **tmp, char **line, t_graph *graph)
 				if (ft_graph_ins_edge(graph, data1, data2) == 0
 						&& ft_graph_ins_edge(graph, data2, data1) == 0)
 				{
-					ft_free_path(data1);
-					ft_free_path(data2);
+					ft_free_several_path(data1, data2);
 					break ;
 				}
-				ft_free_path(data1);
-				ft_free_path(data2);
+				ft_free_several_path(data1, data2);
 			}
 		*tmp = LIST_NEXT(*tmp);
 	}
