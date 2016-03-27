@@ -6,43 +6,24 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 14:13:41 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/27 14:24:07 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/27 15:10:25 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-/*static void		ft_valueandprint(t_path **tmp, int *index)
-{
-	((*tmp)->mark)++;
-	((*tmp)->weight)++;
-	((*tmp)->parent->mark)--;
-	if (*index == 0)
-		ft_putstr(" L");
-	else
-	{
-		*index = 0;
-		ft_putstr("L");
-	}
-	ft_putnbr((*tmp)->weight);
-	ft_putchar('-');
-	ft_putstr((*tmp)->data);
-}*/
-
 static void		ft_print(t_path *start, t_path *end, int *index, t_list *head)
 {
 	t_path		*path;
-	t_path		*beg;
 	int			diff;
 
 	(void)start;
 	(void)end;
 	path = LIST_DATA(LIST_HEAD(head));
-	beg = path;
 	diff = LIST_SIZE(head);
 	while (path != start)
 	{
-		if (/*(path->parent != start || start->weight - diff >= 1) &&*/ path->parent->mark > 0)
+		if ((path->parent == start && start->mark - diff > 0) || (path->parent->mark > 0 && path->parent != start))
 		{
 			path->mark++;
 			path->parent->mark--;
