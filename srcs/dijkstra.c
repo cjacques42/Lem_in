@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:36:00 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/27 12:09:16 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/27 12:53:57 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ static int		ft_start(t_graph *graph, t_path *start)
 	t_listelem		*tmp;
 	t_adjlist		*adjlist;
 	t_path			*path;
-	int				found;
 
-	found = 0;
 	tmp = LIST_HEAD(&graph->adjlists);
 	while (tmp != NULL)
 	{
@@ -28,16 +26,13 @@ static int		ft_start(t_graph *graph, t_path *start)
 		if (path == start)
 		{
 			path->weight = 0;
-			found = 1;
+			path->mark = 1;
 		}
 		else
-			path->weight = INT_MAX;
-		path->mark = 0;
+			path->mark = 0;
 		path->parent = NULL;
 		tmp = LIST_NEXT(tmp);
 	}
-	if (found == 0)
-		return (-1);
 	return (0);
 }
 
@@ -75,7 +70,6 @@ void			ft_dijkstra(t_graph *graph, t_path *start, t_path *end
 	ft_start(graph, start);
 	ft_list_init(&file, free);
 	ft_list_ins_next(&file, LIST_TAIL(&file), start);
-	start->mark = 1;
 	while (LIST_SIZE(&file) > 0)
 		ft_weight(graph, &file);
 	if (end->parent == NULL)
@@ -90,6 +84,8 @@ void			ft_dijkstra(t_graph *graph, t_path *start, t_path *end
 		ft_list_ins_next(path, LIST_TAIL(path), tmp);
 		tmp = tmp->parent;
 	}
+	if (LIST_SIZE(path) == 2)
+		return ;
 	ft_rem_shortpath(graph, start, end);
 	ft_dijkstra(graph, start, end, multi);
 }

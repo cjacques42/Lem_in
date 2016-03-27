@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 14:13:41 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/27 12:38:44 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/03/27 12:40:51 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,6 @@ void			ft_final_print(t_path *start, t_path *end, int nb_ants
 	start->parent = end;
 	while (end->mark != nb_ants)
 	{
-//		path = LIST_DATA(LIST_HEAD((t_set*)LIST_DATA(elem)));
 		path = LIST_DATA(LIST_NEXT(LIST_HEAD((t_set*)LIST_DATA(elem))));
 		end->parent = path;
 		ft_print(start, end, nb_ants, multi);
