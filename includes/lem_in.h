@@ -6,7 +6,7 @@
 /*   By: cjacques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 10:40:31 by cjacques          #+#    #+#             */
-/*   Updated: 2016/03/27 18:33:50 by cjacques         ###   ########.fr       */
+/*   Updated: 2016/04/01 18:51:14 by cjacques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,6 @@ typedef struct	s_path
 	int				mark;
 	struct s_path	*parent;
 }				t_path;
-
-typedef struct	s_spec
-{
-	int				ants;
-	struct s_list	*rooms;
-	struct s_list	*tunnels;
-}				t_spec;
 
 typedef struct	s_info
 {
